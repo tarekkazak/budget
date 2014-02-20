@@ -1,0 +1,39 @@
+
+<div class="col-sm-6 col-md-6">
+
+    <h3>Contact</h3>
+    <h4>{{contact.addressTitle}}</h4>
+    <p>6 rue Megherbi Hamida
+        Hai el Badr Oran 31000</p>
+
+    <p>Les Iris Bd Millenium
+        Bt A, n&deg;14
+        Oran 31000</p>
+    <!--<h4>Phone:</h4><p>+1231232323</p>-->
+    <!--<h4>Fax:</h4><p>+1231232323</p>-->
+</div>
+
+<div class="col-sm-6 col-md-6">
+    <p class="required-fields-message">{{contact.requiredFieldsMessage}}</p>
+    <div class="well well-small" collapse="!showFeedback">
+        <p class="message-response">{{submitResult}}</p>
+    </div>
+    <form name="contactForm" novalidate class="css-form">
+    <div class="form-group" >
+        <input name="name" required type="text" ng-model="name" class="form-control contact-input" placeholder="{{contact.namePlaceHolder}}" >
+        <p ng-show="contactForm.name.$invalid && !contactForm.name.$pristine" class="form-error">{{contact.nameFieldErrorMsg}}</p>
+        <input type="email" required name="email" ng-model="email"  class="form-control contact-input" placeholder="{{contact.emailPlaceHolder}}" >
+        <p ng-show="contactForm.email.$invalid && !contactForm.email.$pristine" class="form-error">{{contact.emailFieldErrorMsg}}</p>
+        <input type="text" required name="subject" ng-model="subject"  class="form-control contact-input" placeholder="{{contact.subjectPlaceHolder}}" >
+        <p ng-show="contactForm.subject.$invalid && !contactForm.subject.$pristine" class="form-error">{{contact.subjectFieldErrorMsg}}</p>
+        <textarea ng-model="message" required name="message" class="form-control" placeholder="{{contact.messagePlaceHolder}}" rows="8" cols="5" ></textarea>
+        <p ng-show="contactForm.message.$invalid && !contactForm.message.$pristine" class="form-error">{{contact.messageFieldErrorMsg}}</p>
+        <button ng-disabled="contactForm.$invalid" ng-click="sendMail()" type="submit" class="btn btn-primary form-submit">{{contact.submitBtnText}}</button>
+
+    </div>
+
+</form>
+
+
+
+</div>
