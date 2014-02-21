@@ -103,7 +103,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             });
 
             if(isNew) {
-                siteData.content.history.push({"year": $scope.selectedYear,"month" : $scope.selectedMonth, "expenses" : $scope.expenses});
+                siteData.content.history.push({"year": $scope.selectedYear,"month" : $scope.selectedMonth, "expenses" : $scope.expenses, "totalFunds" : $scope.totalFunds});
             }
 
             $http.post('/php/persistence.php',siteData).
@@ -124,6 +124,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
                 if(currentExpenses[0]) {
                     $scope.expenses = currentExpenses[0].expenses;
+                    $scope.totalFunds = currentExpenses[0].totalFunds;
                 } else {
                     $scope.expenses = siteData.content.expenses;
                     isNew = true;

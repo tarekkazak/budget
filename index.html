@@ -48,9 +48,12 @@
                         <tbody ng-repeat="expense in expenses">
                         <tr  >
                             <td>{{expense.label}}</td>
-                            <td ng-if="!expense.hasOwnProperty('children')" ng-class="{'bold-red' : expense.amt < 0}">{{expense.amt}}</td>
-
-                            <tr ng-repeat="sub in expense.children"  ng-if="expense.hasOwnProperty('children')">
+                            <td >
+                                <div class="controls">
+                                  <input ng-if="!expense.hasOwnProperty('children')" ng-change="updateExpenseAmount(expense, expense.amt)" ng-model="expense.amt"  ng-class="{'bold-red' : expense.amt < 0}" type="text"  >
+                                </div>
+                            </td>
+                        <tr ng-repeat="sub in expense.children"  ng-if="expense.hasOwnProperty('children')">
                                 <td><span style="padding-left: 30px">{{sub.label}}</span></td>
                                 <td >
                                     <div class="controls">

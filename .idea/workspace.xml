@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="" />
+    <list default="true" id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.js" afterPath="$PROJECT_DIR$/app/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="budget.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -64,10 +69,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="57" selection-start="2077" selection-end="2077" vertical-scroll-proportion="-17.125" vertical-offset="279" max-vertical-offset="1995">
+            <state line="52" column="49" selection-start="2443" selection-end="2443" vertical-scroll-proportion="0.71014494" vertical-offset="339" max-vertical-offset="2040">
               <folding>
                 <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -79,7 +84,10 @@
         <entry file="file://$PROJECT_DIR$/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
             <state line="10" column="19" selection-start="113" selection-end="113" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-              <folding />
+              <folding>
+                <marker date="1392921968000" expanded="true" signature="62:84" placeholder="{...}" />
+                <marker date="1392921968000" expanded="true" signature="92:115" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -102,10 +110,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="40" selection-start="3432" selection-end="3443" vertical-scroll-proportion="0.5116279" vertical-offset="1290" max-vertical-offset="2985">
+            <state line="61" column="5" selection-start="1901" selection-end="1901" vertical-scroll-proportion="0.0" vertical-offset="645" max-vertical-offset="3000">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="web.config" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web.config">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="73" selection-start="175" selection-end="175" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
               <folding />
             </state>
           </provider>
@@ -127,6 +144,9 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
@@ -136,9 +156,10 @@
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/server/server.js" />
         <option value="$PROJECT_DIR$/css/main.css" />
+        <option value="$PROJECT_DIR$/php/persistence.php" />
+        <option value="$PROJECT_DIR$/web.config" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/app/app.js" />
-        <option value="$PROJECT_DIR$/php/persistence.php" />
       </list>
     </option>
   </component>
@@ -433,12 +454,12 @@
       <changelist id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="" />
       <created>1392820955391</created>
       <updated>1392820955391</updated>
-      <workItem from="1392820960871" duration="23170000" />
+      <workItem from="1392820960871" duration="25183000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23170000" />
+    <option name="totallyTimeSpent" value="25183000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="22" width="1276" height="778" extended-state="6" />
@@ -519,15 +540,9 @@
     <entry file="file://$PROJECT_DIR$/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="19" selection-start="113" selection-end="113" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="57" selection-start="2077" selection-end="2077" vertical-scroll-proportion="-17.125" vertical-offset="279" max-vertical-offset="1995">
           <folding>
-            <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1392921968000" expanded="true" signature="62:84" placeholder="{...}" />
+            <marker date="1392921968000" expanded="true" signature="92:115" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -546,10 +561,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web.config">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="73" selection-start="175" selection-end="175" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="40" selection-start="3432" selection-end="3443" vertical-scroll-proportion="0.5116279" vertical-offset="1290" max-vertical-offset="2985">
+        <state line="61" column="5" selection-start="1901" selection-end="1901" vertical-scroll-proportion="0.0" vertical-offset="645" max-vertical-offset="3000">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="49" selection-start="2443" selection-end="2443" vertical-scroll-proportion="0.71014494" vertical-offset="339" max-vertical-offset="2040">
+          <folding>
+            <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
