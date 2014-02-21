@@ -123,7 +123,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
                 });
 
                 if(currentExpenses[0]) {
-                    $scope.expenses = currentExpenses[0];
+                    $scope.expenses = currentExpenses[0].expenses;
                 } else {
                     $scope.expenses = siteData.content.expenses;
                     isNew = true;
