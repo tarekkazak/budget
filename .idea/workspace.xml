@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/content.json" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.js" afterPath="$PROJECT_DIR$/app/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="budget.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -130,7 +128,7 @@
       <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="55" selection-start="684" selection-end="684" vertical-scroll-proportion="0.50643086" vertical-offset="0" max-vertical-offset="3090">
+            <state line="14" column="29" selection-start="492" selection-end="492" vertical-scroll-proportion="0.3376206" vertical-offset="0" max-vertical-offset="3090">
               <folding />
             </state>
           </provider>
@@ -444,7 +442,7 @@
       <changelist id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="" />
       <created>1392820955391</created>
       <updated>1392820955391</updated>
-      <workItem from="1392820960871" duration="27350000" />
+      <workItem from="1392820960871" duration="27582000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <created>1392997984181</created>
@@ -454,7 +452,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27350000" />
+    <option name="totallyTimeSpent" value="27582000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="22" width="1276" height="778" extended-state="6" />
@@ -620,7 +618,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="55" selection-start="684" selection-end="684" vertical-scroll-proportion="0.50643086" vertical-offset="0" max-vertical-offset="3090">
+        <state line="14" column="29" selection-start="492" selection-end="492" vertical-scroll-proportion="0.3376206" vertical-offset="0" max-vertical-offset="3090">
           <folding />
         </state>
       </provider>

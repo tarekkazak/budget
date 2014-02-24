@@ -12,7 +12,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
         var loadedExpenseReport;
 
         $scope.selectedMonth;
-        $scope.selectedYear;
+        $scope.selectedYear; 
         $scope.expenses = [];
 
         $scope.$watch("selectedMonth", function(value) {
