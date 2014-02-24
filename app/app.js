@@ -9,6 +9,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
         var siteData = data;
         var modalInstance;
         var isNew = false;
+        var loadedExpenseReport;
 
         $scope.selectedMonth;
         $scope.selectedYear;
@@ -104,6 +105,9 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
             if(isNew) {
                 siteData.content.history.push({"year": $scope.selectedYear,"month" : $scope.selectedMonth, "expenses" : $scope.expenses, "totalFunds" : $scope.totalFunds});
+                isNew = false;
+            } else {
+                loadedExpenseReport.totalFunds = $scope.totalFunds;
             }
 
             $http.post('/php/persistence.php',siteData).
@@ -118,13 +122,15 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
         function getBudgetFromHistory() {
             if($scope.selectedMonth && $scope.selectedYear && $scope.selectedMonth !== undefined && $scope.selectedYear !== undefined) {
-                var currentExpenses = siteData.content.history.filter(function(el, index, arr) {
+                var savedExpensReports = siteData.content.history.filter(function(el, index, arr) {
                     return el.year == $scope.selectedYear && el.month == $scope.selectedMonth
                 });
 
-                if(currentExpenses[0]) {
-                    $scope.expenses = currentExpenses[0].expenses;
-                    $scope.totalFunds = currentExpenses[0].totalFunds;
+                loadedExpenseReport = savedExpensReports[0];
+
+                if(loadedExpenseReport) {
+                    $scope.expenses = loadedExpenseReport.expenses;
+                    $scope.totalFunds = loadedExpenseReport.totalFunds;
                 } else {
                     $scope.expenses = siteData.content.expenses;
                     isNew = true;
