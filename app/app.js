@@ -83,7 +83,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             $scope.selectedExpense.paid += Number(amount);
             $scope.selectedExpense.payments.push(Number(amount));
             $scope.totalFunds -= amount;
-            $scope.selectedExpense = null;
+            //$scope.selectedExpense = null;
         }
 
         $scope.updateExpenseAmount = function (expense, amt) {
