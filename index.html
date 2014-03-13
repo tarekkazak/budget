@@ -14,6 +14,7 @@
     <script type="text/javascript" src="js/angular-spinner.min.js"></script>
     <script type="text/javascript" src="js/angular-route.min.js" ></script>
     <script type="text/javascript" src="js/ui-bootstrap-tpls-0.10.0.min.js" ></script>
+    <script type="text/javascript" src="js/underscore-min.js" ></script>
     <script type="application/javascript" src="app/app.js" ></script>
 
 
@@ -44,6 +45,37 @@
                         </ul>
                     </div>
 
+                    <div>
+                        <button class="btn btn-primary" ng-show="!inEditMode && expenses.length > 0" ng-model="inEditMode" ng-click="startEditMode()">Edit</button>
+                        <div ng-show="inEditMode">
+                            <input type="text" ng-model="newCategoryName" placeholder="enter new category name">
+                            <button class="btn btn-default" ng-click="addCategory()">Add category</button>
+
+                            <div class="dropdown" >
+                                <button class="btn dropdown-toggle" >
+                                    {{selectedExpense.label || "Select category"}}
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li ng-repeat="expense in expenses" ng-if="expense.hasOwnProperty('children')">
+                                        <a ng-click="selectExpense(expense)" >{{expense.label}}</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            <input type="text" ng-model="newFieldName" placeholder="enter new field name">
+                            <input type="text" ng-model="newFieldAmt" placeholder="enter new field amount">
+                            <button class="btn btn-primary" ng-click="addField()">Add field</button>
+                            <button class="btn btn-primary" ng-click="save(); inEditMode = false">Save</button>
+                            <div>
+                                <label for="update-template">Save to template</label>
+                                <input id="update-template" type="checkbox" class="checkbox" ng-model="updateTemplate" >
+                            </div>
+
+                            <button class="btn btn-default" ng-click="cancelEditMode()">Cancel</button>
+                        </div>
+                    </div>
+
                     <table ng-class="{'hidden' : expenses.length == 0, 'visible' : expenses.length > 0}" class="table table-bordered">
                         <tbody ng-repeat="expense in expenses">
                         <tr  >
@@ -51,17 +83,26 @@
                             <td >
                                 <div class="controls">
                                   <input ng-if="!expense.hasOwnProperty('children')" ng-change="updateExpenseAmount(expense, expense.amt)" ng-model="expense.amt"  ng-class="{'bold-red' : expense.amt < 0}" type="text"  >
+                                    <button ng-if="!expense.hasOwnProperty('children')" class="btn btn-danger" ng-show="inEditMode" ng-click="removeExpense(expense, null)">
+                                        remove
+                                    </button>
                                 </div>
                             </td>
+                            <td>{{expense.remainder || expense.amt}}</td>
                         <tr ng-repeat="sub in expense.children"  ng-if="expense.hasOwnProperty('children')">
-                                <td><span style="padding-left: 30px">{{sub.label}}</span></td>
+                                <td>
+                                    <span style="padding-left: 30px">{{sub.label}}</span>
+                                </td>
                                 <td >
                                     <div class="controls">
                                         <input ng-change="updateExpenseAmount(sub, sub.amt)" ng-model="sub.amt"  ng-class="{'bold-red' : sub.amt < 0}" type="text"  >
-
+                                        <button class="btn btn-danger" ng-show="inEditMode" ng-click="removeExpense(sub, expense)">
+                                            remove
+                                        </button>
                                     </div>
 
                                 </td>
+                                <td>{{sub.remainder || sub.amt}}</td>
                             </tr>
                         </tr>
 
@@ -116,9 +157,9 @@
                     <div class="control-group">
                         <div class="controls">
 
-                            <button ng-click="applyPaymentToExpense(amount)" type="submit" class="btn">Apply</button>
-                            <button ng-click="zeroOutExpense()" class="btn">Empty</button>
-                            <button ng-click="save()" class="btn">Save</button>
+                            <button class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit" class="btn">Apply</button>
+                            <button class="btn btn-default" ng-click="zeroOutExpense()" class="btn">Empty</button>
+                            <button class="btn btn-primary" ng-click="save()" class="btn">Save</button>
                         </div>
                     </div>
                 </form>

@@ -10,9 +10,10 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
         var modalInstance;
         var isNew = false;
         var loadedExpenseReport;
+        var expensesBackup = [];
 
         $scope.selectedMonth;
-        $scope.selectedYear; 
+        $scope.selectedYear;
         $scope.expenses = [];
 
         $scope.$watch("selectedMonth", function(value) {
@@ -45,6 +46,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
         $scope.updateSelectedMonth = function(month) {
             $scope.selectedMonth = month;
         }
+
         $scope.updateSelectedYear = function(year) {
             $scope.selectedYear = year;
         }
@@ -53,19 +55,67 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             $scope.selectedExpense = expense;
         }
 
+        $scope.startEditMode = function() {
+            $scope.inEditMode = true;
+            expensesBackup = $scope.expenses.concat();
+        }
+
+        $scope.cancelEditMode = function() {
+            $scope.inEditMode = false;
+            $scope.expenses = expensesBackup;
+        }
+
+        $scope.removeExpense = function(expense, parent) {
+            if(parent) {
+                parent.children = _.without(parent.children, expense);
+            } else {
+                $scope.expenses = _.without($scope.expenses, expense);
+            }
+
+        }
+
         $scope.applyPaymentToExpense = function(amount) {
-            $scope.selectedExpense.amt -= amount;
+            if(!$scope.selectedExpense.hasOwnProperty("remainder")) {
+                $scope.selectedExpense.remainder = $scope.selectedExpense.amt;
+            }
+            $scope.selectedExpense.remainder -= amount;
+
+            $scope.selectedExpense.paid += Number(amount);
+            $scope.selectedExpense.payments.push(Number(amount));
             $scope.totalFunds -= amount;
+            $scope.selectedExpense = null;
         }
 
         $scope.updateExpenseAmount = function (expense, amt) {
+            var delta = expense.amt - amt;
+            if(expense.hasOwnProperty("remainder")) {
+                expense.remainder += delta;
+            }
             expense.amt = Number(amt);
         }
 
         $scope.zeroOutExpense = function () {
             $scope.totalFunds -= $scope.selectedExpense.amt;
-            $scope.selectedExpense.amt = 0
+            $scope.selectedExpense.paid = $scope.selectedExpense.amt;
+            $scope.selectedExpense.push($scope.selectedExpense.amt);
+            $scope.selectedExpense.amt = 0;
+            $scope.selectedExpense = null;
+
         }
+
+        $scope.addField = function() {
+            if($scope.selectedExpense) {
+                $scope.selectedExpense.children.push({"label" : $scope.newFieldName, "amt" : Number($scope.newFieldAmt), "paid" : 0, "payments" : []});
+            } else {
+                $scope.expenses.push({"label" : $scope.newFieldName, "amt" : Number($scope.newFieldAmt), "paid" : 0, "payments" : []});
+            }
+            $scope.selectedExpense = null;
+        }
+
+        $scope.addCategory = function() {
+            $scope.expenses.push({"label" : $scope.newCategoryName, "children" : []});
+        }
+
 
         //Send contact form to server for email
         $scope.showFeedback = false;
@@ -80,7 +130,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
                 });
 
-                $http.post('/php/contact.php',{"lang" : $scope.lang ,"name": $scope.name, "email": $scope.email, "subject": $scope.subject, "message": $scope.message}).
+                $http.post('php/contact.php',{"lang" : $scope.lang ,"name": $scope.name, "email": $scope.email, "subject": $scope.subject, "message": $scope.message}).
                     success(function(data) {
                         $scope.submitResult = data;
                         cleanForm();
@@ -110,7 +160,11 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
                 loadedExpenseReport.totalFunds = $scope.totalFunds;
             }
 
-            $http.post('/php/persistence.php',siteData).
+            if($scope.updateTemplate) {
+                siteData.content.expenses = $scope.expenses;
+            }
+
+            $http.post('php/persistence.php',siteData).
                 success(function(data) {
                     closeModal();
                 }).
@@ -143,6 +197,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             $timeout(function() {
                     //close loading spinner after send email complete and show server feedback
                     modalInstance.close();
+                    $scope.inEditMode = false;
                     $scope.showFeedback = true;
                     $timeout(function() {
                         //hide feedback message after delay
@@ -162,13 +217,6 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             $scope.contactForm.$setPristine();
             closeModal();
         }
-
-
-
-
-
-
-
 
     });
 
