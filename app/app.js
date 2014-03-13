@@ -31,8 +31,9 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
                     if(expense.hasOwnProperty("children")) {
                         t += addAmounts(expense.children);
                     } else {
-                        if(expense.remainder >= 0) {
-                            t += expense.remainder;
+                        var amt = expense.hasOwnProperty("remainder") ? expense.remainder : expense.amt;
+                        if(amt >= 0) {
+                            t += amt;
                         }
                     }
 

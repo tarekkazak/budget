@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.js" afterPath="$PROJECT_DIR$/app/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
     <ignored path="budget.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,10 +66,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="114" column="63" selection-start="6337" selection-end="6337" vertical-scroll-proportion="0.50174826" vertical-offset="1423" max-vertical-offset="2655">
+            <state line="114" column="63" selection-start="6337" selection-end="6337" vertical-scroll-proportion="-5.74" vertical-offset="1423" max-vertical-offset="2655">
               <folding>
                 <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -126,10 +125,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="50" selection-start="1200" selection-end="1200" vertical-scroll-proportion="-11.961538" vertical-offset="199" max-vertical-offset="3810">
+            <state line="35" column="36" selection-start="1277" selection-end="1277" vertical-scroll-proportion="0.54697984" vertical-offset="199" max-vertical-offset="3825">
               <folding />
             </state>
           </provider>
@@ -176,8 +175,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/content.json" />
         <option value="$PROJECT_DIR$/data/content.json" />
-        <option value="$PROJECT_DIR$/app/app.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/app/app.js" />
       </list>
     </option>
   </component>
@@ -462,7 +461,7 @@
       <updated>1392820955391</updated>
       <workItem from="1392820960871" duration="27922000" />
       <workItem from="1394013444204" duration="1833000" />
-      <workItem from="1394382727769" duration="7139000" />
+      <workItem from="1394382727769" duration="7337000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <created>1392997984181</created>
@@ -472,7 +471,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36894000" />
+    <option name="totallyTimeSpent" value="37092000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="22" width="1276" height="778" extended-state="6" />
@@ -693,19 +692,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="50" selection-start="1200" selection-end="1200" vertical-scroll-proportion="-11.961538" vertical-offset="199" max-vertical-offset="3810">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="63" selection-start="6337" selection-end="6337" vertical-scroll-proportion="0.50174826" vertical-offset="1423" max-vertical-offset="2655">
+        <state line="114" column="63" selection-start="6337" selection-end="6337" vertical-scroll-proportion="-5.74" vertical-offset="1423" max-vertical-offset="2655">
           <folding>
             <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="36" selection-start="1277" selection-end="1277" vertical-scroll-proportion="0.54697984" vertical-offset="199" max-vertical-offset="3825">
+          <folding />
         </state>
       </provider>
     </entry>
