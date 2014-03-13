@@ -24,15 +24,15 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             getBudgetFromHistory();
         });
 
-        $scope.getTotalExpenses = function() {
+        $scope.getTotalRemainingExpenses = function() {
             function addAmounts(expenses) {
                 var t = 0;
                 expenses.forEach(function (expense) {
                     if(expense.hasOwnProperty("children")) {
                         t += addAmounts(expense.children);
                     } else {
-                        if(expense.amt >= 0) {
-                            t += expense.amt;
+                        if(expense.remainder >= 0) {
+                            t += expense.remainder;
                         }
                     }
 
