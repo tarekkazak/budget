@@ -88,21 +88,21 @@
                                     </button>
                                 </div>
                             </td>
-                            <td>{{expense.hasOwnProperty("remainder") ? expense.remainder  : expense.amt}}</td>
+                            <td  ng-class="{'bold-red' : sub.amt < 0}">{{expense.hasOwnProperty("remainder") ? expense.remainder  : expense.amt}}</td>
                         <tr ng-repeat="sub in expense.children"  ng-if="expense.hasOwnProperty('children')">
                                 <td>
                                     <span style="padding-left: 30px">{{sub.label}}</span>
                                 </td>
                                 <td >
                                     <div class="controls">
-                                        <input ng-change="updateExpenseAmount(sub, sub.amt)" ng-model="sub.amt"  ng-class="{'bold-red' : sub.amt < 0}" type="text"  >
+                                        <input ng-change="updateExpenseAmount(sub, sub.amt)" ng-model="sub.amt"  type="text"  >
                                         <button class="btn btn-danger" ng-show="inEditMode" ng-click="removeExpense(sub, expense)">
                                             remove
                                         </button>
                                     </div>
 
                                 </td>
-                                <td>{{sub.hasOwnProperty("remainder") ? sub.remainder : sub.amt}}</td>
+                                <td  ng-class="{'bold-red' : sub.amt < 0}">{{sub.hasOwnProperty("remainder") ? sub.remainder : sub.amt}}</td>
                             </tr>
                         </tr>
 
@@ -150,7 +150,7 @@
                         </div>
 
                         <div class="controls">
-                            {{totalFunds - getTotalRemainingExpenses()}}
+                            {{totalFunds - getTotalPaid()}}
                         </div>
                     </div>
 

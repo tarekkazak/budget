@@ -28,10 +28,10 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             function addAmounts(expenses) {
                 var t = 0;
                 expenses.forEach(function (expense) {
-                    if(expense.hasOwnProperty("children")) {
+                    if(_.has(expense, "children")) {
                         t += addAmounts(expense.children);
                     } else {
-                        var amt = expense.hasOwnProperty("remainder") ? expense.remainder : expense.amt;
+                        var amt = _.has(expense, "remainder") ? expense.remainder : expense.amt;
                         if(amt >= 0) {
                             t += amt;
                         }
@@ -42,7 +42,17 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             }
             var total = addAmounts($scope.expenses);
             return total;
-        };
+        }
+
+        $scope.getTotalPaid = function() {
+            var totalPaid = 0, paidValues = _.without(_.pluck($scope.expenses, "paid"), undefined),
+                childrenPaidValues = _.pluck(_.flatten(_.without(_.pluck($scope.expenses, "children"), undefined)), "paid");
+            _.each(paidValues.concat(childrenPaidValues), function(el, index, arr) {
+                totalPaid += Number(el);
+            }, this);
+            return totalPaid;
+
+        }
 
         $scope.updateSelectedMonth = function(month) {
             $scope.selectedMonth = month;
@@ -162,7 +172,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             }
 
             if($scope.updateTemplate) {
-                siteData.content.expenses = $scope.expenses;
+                siteData.content.expenses = stripRemainder($scope.expenses.concat());
             }
 
             $http.post('php/persistence.php',siteData).
@@ -175,19 +185,32 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
         }
 
-        function getBudgetFromHistory() {
-            if($scope.selectedMonth && $scope.selectedYear && $scope.selectedMonth !== undefined && $scope.selectedYear !== undefined) {
-                var savedExpensReports = siteData.content.history.filter(function(el, index, arr) {
-                    return el.year == $scope.selectedYear && el.month == $scope.selectedMonth
-                });
+        function stripRemainder(expenses) {
+            _.each(expenses, function(el, index, arr) {
+                if(_.has(el, "children")) {
+                    stripRemainder(el.children)
+                } else {
+                    el = _.omit(el, "remainder");
+                }
+            });
 
-                loadedExpenseReport = savedExpensReports[0];
+            return expenses;
+        }
+
+        function getBudgetFromHistory() {
+            if(!_.isUndefined($scope.selectedMonth) && !_.isUndefined($scope.selectedYear)) {
+//                var savedExpensReports = siteData.content.history.filter(function(el, index, arr) {
+//                    return el.year == $scope.selectedYear && el.month == $scope.selectedMonth
+//                });
+
+                loadedExpenseReport = _.findWhere(siteData.content.history, {"month" : $scope.selectedMonth, "year" : $scope.selectedYear});
+                //savedExpensReports[0];
 
                 if(loadedExpenseReport) {
                     $scope.expenses = loadedExpenseReport.expenses;
                     $scope.totalFunds = loadedExpenseReport.totalFunds;
                 } else {
-                    $scope.expenses = siteData.content.expenses;
+                    $scope.expenses = siteData.content.expenses.concat();
                     isNew = true;
                 }
             }
