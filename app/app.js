@@ -25,33 +25,39 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
         });
 
         $scope.getTotalRemainingExpenses = function() {
-            function addAmounts(expenses) {
-                var t = 0;
-                expenses.forEach(function (expense) {
-                    if(_.has(expense, "children")) {
-                        t += addAmounts(expense.children);
-                    } else {
-                        var amt = _.has(expense, "remainder") ? expense.remainder : expense.amt;
-                        if(amt >= 0) {
-                            t += amt;
-                        }
-                    }
+//            function addAmounts(expenses) {
+//                var t = 0;
+//                expenses.forEach(function (expense) {
+//                    if(_.has(expense, "children")) {
+//                        t += addAmounts(expense.children);
+//                    } else {
+//                        var amt = _.has(expense, "remainder") ? expense.remainder : expense.amt;
+//                        if(amt >= 0) {
+//                            t += amt;
+//                        }
+//                    }
+//
+//                });
+//                return t;
+//            }
+//            var total = addAmounts($scope.expenses);
+//            return total;
 
-                });
-                return t;
-            }
-            var total = addAmounts($scope.expenses);
-            return total;
+            return sumValuesForProperty("remainder");
         }
 
         $scope.getTotalPaid = function() {
-            var totalPaid = 0, paidValues = _.without(_.pluck($scope.expenses, "paid"), undefined),
-                childrenPaidValues = _.pluck(_.flatten(_.without(_.pluck($scope.expenses, "children"), undefined)), "paid");
-            _.each(paidValues.concat(childrenPaidValues), function(el, index, arr) {
-                totalPaid += Number(el);
-            }, this);
-            return totalPaid;
+            return sumValuesForProperty("paid");
 
+        }
+
+        function sumValuesForProperty(property) {
+            var total = 0, values = _.without(_.pluck($scope.expenses, property), undefined),
+                childrenValues = _.pluck(_.flatten(_.without(_.pluck($scope.expenses, "children"), undefined)), property);
+            _.each(values.concat(childrenValues), function(el, index, arr) {
+                total += Number(el);
+            }, this);
+            return total;
         }
 
         $scope.updateSelectedMonth = function(month) {
