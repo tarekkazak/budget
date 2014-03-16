@@ -53,7 +53,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
         function sumValuesForProperty(property) {
             var total = 0, values = _.without(_.pluck($scope.expenses, property), undefined),
-                childrenValues = _.pluck(_.flatten(_.without(_.pluck($scope.expenses, "children"), undefined)), property);
+                childrenValues = _.without(_.pluck(_.flatten(_.without(_.pluck($scope.expenses, "children"), undefined)), property), undefined);
             _.each(values.concat(childrenValues), function(el, index, arr) {
                 total += Number(el);
             }, this);
