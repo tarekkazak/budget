@@ -82,27 +82,27 @@
                             <td>{{expense.label}}</td>
                             <td >
                                 <div class="controls">
-                                  <input ng-if="!expense.hasOwnProperty('children')" ng-change="updateExpenseAmount(expense, expense.amt)" ng-model="expense.amt"  ng-class="{'bold-red' : expense.amt < 0}" type="text"  >
+                                  <input ng-if="!expense.hasOwnProperty('children')" ng-change="updateExpenseAmount(expense)" ng-model="expense.amt"  ng-class="{'bold-red' : expense.amt < 0}" type="text"  >
                                     <button ng-if="!expense.hasOwnProperty('children')" class="btn btn-danger" ng-show="inEditMode" ng-click="removeExpense(expense, null)">
                                         remove
                                     </button>
                                 </div>
                             </td>
-                            <td  ng-class="{'bold-red' : expense.remainder < 0}">{{expense.hasOwnProperty("remainder") ? expense.remainder  : expense.amt}}</td>
+                            <td  ng-class="{'bold-red' : expense.remainder < 0}">{{expense.remainder}}</td>
                         <tr ng-repeat="sub in expense.children"  ng-if="expense.hasOwnProperty('children')">
                                 <td>
                                     <span style="padding-left: 30px">{{sub.label}}</span>
                                 </td>
                                 <td >
                                     <div class="controls">
-                                        <input ng-change="updateExpenseAmount(sub, sub.amt)" ng-model="sub.amt"  type="text"  >
+                                        <input ng-change="updateExpenseAmount(sub)" ng-model="sub.amt"  type="text"  >
                                         <button class="btn btn-danger" ng-show="inEditMode" ng-click="removeExpense(sub, expense)">
                                             remove
                                         </button>
                                     </div>
 
                                 </td>
-                                <td  ng-class="{'bold-red' : sub.remainder < 0}">{{sub.hasOwnProperty("remainder") ? sub.remainder : sub.amt}}</td>
+                                <td  ng-class="{'bold-red' : sub.remainder < 0}">{{sub.remainder}}</td>
                             </tr>
                         </tr>
 
