@@ -6,11 +6,11 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
     //fetch content data
     $http.get('data/content.json').success(function(data) {
-        var siteData = data;
-        var modalInstance;
-        var isNew = false;
-        var loadedExpenseReport;
-        var expensesBackup = [];
+        var siteData = data,
+        modalInstance,
+        isNew = false,
+        loadedExpenseReport,
+        expensesBackup = [];
 
         $scope.selectedMonth;
         $scope.selectedYear;
@@ -77,18 +77,15 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
         $scope.applyPaymentToExpense = function(amount) {
            $scope.selectedExpense.remainder -= amount;
-
-            $scope.selectedExpense.paid += Number(amount);
-            $scope.selectedExpense.payments.push(Number(amount));
-            $scope.totalFunds -= amount;
-            //$scope.selectedExpense = null;
+           $scope.selectedExpense.paid += Number(amount);
+           $scope.selectedExpense.payments.push(Number(amount));
+           $scope.totalFunds -= amount;
+           $scope.selectedExpense = null;
         }
 
         $scope.updateExpenseAmount = function (expense, amt) {
             var delta = expense.amt - amt;
-            if(expense.hasOwnProperty("remainder")) {
-                expense.remainder += delta;
-            }
+            expense.remainder += delta;
             expense.amt = Number(amt);
         }
 
@@ -103,9 +100,9 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
         $scope.addField = function() {
             if($scope.selectedExpense) {
-                $scope.selectedExpense.children.push({"label" : $scope.newFieldName, "amt" : Number($scope.newFieldAmt), "paid" : 0, "payments" : []});
+                $scope.selectedExpense.children.push({"label" : $scope.newFieldName, "amt" : Number($scope.newFieldAmt), "paid" : 0, "payments" : [], "remainder" : Number($scope.newFieldAmt)});
             } else {
-                $scope.expenses.push({"label" : $scope.newFieldName, "amt" : Number($scope.newFieldAmt), "paid" : 0, "payments" : []});
+                $scope.expenses.push({"label" : $scope.newFieldName, "amt" : Number($scope.newFieldAmt), "paid" : 0, "payments" : [], "remainder" : Number($scope.newFieldAmt)});
             }
             $scope.selectedExpense = null;
         }
