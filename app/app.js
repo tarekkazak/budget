@@ -25,24 +25,6 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
         });
 
         $scope.getTotalRemainingExpenses = function() {
-//            function addAmounts(expenses) {
-//                var t = 0;
-//                expenses.forEach(function (expense) {
-//                    if(_.has(expense, "children")) {
-//                        t += addAmounts(expense.children);
-//                    } else {
-//                        var amt = _.has(expense, "remainder") ? expense.remainder : expense.amt;
-//                        if(amt >= 0) {
-//                            t += amt;
-//                        }
-//                    }
-//
-//                });
-//                return t;
-//            }
-//            var total = addAmounts($scope.expenses);
-//            return total;
-
             return sumValuesForProperty("remainder");
         }
 
@@ -52,8 +34,8 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
         }
 
         function sumValuesForProperty(property) {
-            var total = 0, values = _.without(_.pluck($scope.expenses, property), undefined),
-                childrenValues = _.without(_.pluck(_.flatten(_.without(_.pluck($scope.expenses, "children"), undefined)), property), undefined);
+            var total = 0, parts = _.partition($scope.expenses, function(expense) {return !_.has(expense, "children");}), values = _.pluck(parts[0], property),
+                childrenValues = _.pluck(_.flatten(_.pluck(parts[1], "children")), property);
             _.each(values.concat(childrenValues), function(el, index, arr) {
                 total += Number(el);
             }, this);
@@ -92,10 +74,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
         }
 
         $scope.applyPaymentToExpense = function(amount) {
-            if(!$scope.selectedExpense.hasOwnProperty("remainder")) {
-                $scope.selectedExpense.remainder = $scope.selectedExpense.amt;
-            }
-            $scope.selectedExpense.remainder -= amount;
+           $scope.selectedExpense.remainder -= amount;
 
             $scope.selectedExpense.paid += Number(amount);
             $scope.selectedExpense.payments.push(Number(amount));
@@ -205,18 +184,29 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
         function getBudgetFromHistory() {
             if(!_.isUndefined($scope.selectedMonth) && !_.isUndefined($scope.selectedYear)) {
-//                var savedExpensReports = siteData.content.history.filter(function(el, index, arr) {
-//                    return el.year == $scope.selectedYear && el.month == $scope.selectedMonth
-//                });
-
+                var parts, newExpenses, children,
+                    addRemainder = function(arr) {
+                        _.each(arr, function(el) {
+                            el.remainder = el.amt;
+                        });
+                    };
                 loadedExpenseReport = _.findWhere(siteData.content.history, {"month" : $scope.selectedMonth, "year" : $scope.selectedYear});
-                //savedExpensReports[0];
 
                 if(loadedExpenseReport) {
                     $scope.expenses = loadedExpenseReport.expenses;
                     $scope.totalFunds = loadedExpenseReport.totalFunds;
                 } else {
-                    $scope.expenses = siteData.content.expenses.concat();
+                    newExpenses = siteData.content.expenses.concat();
+                    parts =_.partition(newExpenses, function(expense) {
+                        return !_.has(expense, "children");
+                    });
+                    addRemainder(parts[0]);
+
+                    children =_.pluck(parts[1], "children");
+                    children =_.flatten(children);
+
+                    addRemainder(children);
+                    $scope.expenses = newExpenses;
                     isNew = true;
                 }
             }
