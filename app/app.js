@@ -37,7 +37,9 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             var total = 0, parts = _.partition($scope.expenses, function(expense) {return !_.has(expense, "children");}), values = _.pluck(parts[0], property),
                 childrenValues = _.pluck(_.flatten(_.pluck(parts[1], "children")), property);
             _.each(values.concat(childrenValues), function(el, index, arr) {
-                total += Number(el);
+                if(Number(el) > 0) {
+                    total += Number(el);
+                }
             }, this);
             return total;
         }

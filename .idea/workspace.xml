@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.js" afterPath="$PROJECT_DIR$/app/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
     <ignored path="budget.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -117,19 +116,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="content.json" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="content.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="491" column="44" selection-start="14275" selection-end="14275" vertical-scroll-proportion="0.6873977" vertical-offset="6945" max-vertical-offset="7575">
+            <state line="301" column="42" selection-start="7880" selection-end="7880" vertical-scroll-proportion="-47.5" vertical-offset="3375" max-vertical-offset="7605">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="40" selection-start="782" selection-end="807" vertical-scroll-proportion="-4.4615383" vertical-offset="274" max-vertical-offset="4110">
+            <state line="39" column="31" selection-start="1404" selection-end="1404" vertical-scroll-proportion="0.54697984" vertical-offset="259" max-vertical-offset="4140">
               <folding />
             </state>
           </provider>
@@ -175,9 +174,9 @@
         <option value="$PROJECT_DIR$/web.config" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/data/content.json" />
-        <option value="$PROJECT_DIR$/app/app.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/content.json" />
+        <option value="$PROJECT_DIR$/app/app.js" />
       </list>
     </option>
   </component>
@@ -462,7 +461,7 @@
       <updated>1392820955391</updated>
       <workItem from="1392820960871" duration="27922000" />
       <workItem from="1394013444204" duration="1833000" />
-      <workItem from="1394382727769" duration="18568000" />
+      <workItem from="1394382727769" duration="18784000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <created>1392997984181</created>
@@ -472,7 +471,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48323000" />
+    <option name="totallyTimeSpent" value="48539000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="22" width="1276" height="778" extended-state="6" />
@@ -496,7 +495,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24959481" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24959481" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -686,13 +685,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="40" selection-start="782" selection-end="807" vertical-scroll-proportion="-4.4615383" vertical-offset="274" max-vertical-offset="4110">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="152" column="68" selection-start="8389" selection-end="8389" vertical-scroll-proportion="-9.2" vertical-offset="1820" max-vertical-offset="2655">
@@ -704,7 +696,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/content.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="491" column="44" selection-start="14275" selection-end="14275" vertical-scroll-proportion="0.6873977" vertical-offset="6945" max-vertical-offset="7575">
+        <state line="301" column="42" selection-start="7880" selection-end="7880" vertical-scroll-proportion="-47.5" vertical-offset="3375" max-vertical-offset="7605">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="31" selection-start="1404" selection-end="1404" vertical-scroll-proportion="0.54697984" vertical-offset="259" max-vertical-offset="4140">
           <folding />
         </state>
       </provider>
