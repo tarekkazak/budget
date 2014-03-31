@@ -14,7 +14,9 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
         $scope.selectedMonth;
         $scope.selectedYear;
+        $scope.wishlist = data.content.wishlist;
         $scope.expenses = [];
+        $scope.addToWishList = false;
 
         $scope.$watch("selectedMonth", function(value) {
             getBudgetFromHistory();
@@ -34,8 +36,8 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
         }
 
         function sumValuesForProperty(property) {
-            var total = 0, parts = _.partition($scope.expenses, function(expense) {return !_.has(expense, "children");}), values = _.pluck(parts[0], property),
-                childrenValues = _.pluck(_.flatten(_.pluck(parts[1], "children")), property);
+            var total = 0, parts = _.groupBy($scope.expenses, function(expense) {return !_.has(expense, "children");}), values = _.pluck(parts["true"], property),
+                childrenValues = _.pluck(_.flatten(_.pluck(parts["false"], "children")), property);
             _.each(values.concat(childrenValues), function(el, index, arr) {
                 if(Number(el) > 0) {
                     total += Number(el);
@@ -54,6 +56,10 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
         $scope.selectExpense = function(expense) {
             $scope.selectedExpense = expense;
+        }
+
+        $scope.selectWishlistItem = function(item){
+            $scope.selectedWishlistItem = item;
         }
 
         $scope.startEditMode = function() {
@@ -87,22 +93,33 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             expense.remainder = expense.amt - expense.paid;
         }
 
-        $scope.zeroOutExpense = function () {
-            $scope.totalFunds -= $scope.selectedExpense.amt;
-            $scope.selectedExpense.paid = $scope.selectedExpense.amt;
-            $scope.selectedExpense.push($scope.selectedExpense.amt);
-            $scope.selectedExpense.amt = 0;
+        $scope.zeroOutRemainder = function () {
+            $scope.selectedExpense.remainder = 0;
             $scope.selectedExpense = null;
+       }
+
+        $scope.addField = function() {
+            var expense = {"label" : $scope.newFieldName, "amt" : Number($scope.newFieldAmt), "paid" : 0, "payments" : [], "remainder" : Number($scope.newFieldAmt)};
+            if($scope.addToWishList) {
+                $scope.wishlist.push(expense);
+            } else {
+                if($scope.selectedExpense) {
+                    $scope.selectedExpense.children.push(expense);
+                } else {
+                    $scope.expenses.push(expense);
+                }
+                $scope.selectedExpense = null;
+            }
 
         }
 
-        $scope.addField = function() {
-            if($scope.selectedExpense) {
-                $scope.selectedExpense.children.push({"label" : $scope.newFieldName, "amt" : Number($scope.newFieldAmt), "paid" : 0, "payments" : [], "remainder" : Number($scope.newFieldAmt)});
-            } else {
-                $scope.expenses.push({"label" : $scope.newFieldName, "amt" : Number($scope.newFieldAmt), "paid" : 0, "payments" : [], "remainder" : Number($scope.newFieldAmt)});
+        $scope.addToExpenses = function() {
+
+            if ($scope.selectedWishlistItem) {
+                $scope.expenses.push($scope.selectedWishlistItem);
+                _.remove($scope.wishlist, $scope.selectedWishlistItem);
+                $scope.selectedWishlistItem = null;
             }
-            $scope.selectedExpense = null;
         }
 
         $scope.addCategory = function() {
@@ -194,12 +211,12 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
                     $scope.totalFunds = loadedExpenseReport.totalFunds;
                 } else {
                     newExpenses = siteData.content.expenses.concat();
-                    parts =_.partition(newExpenses, function(expense) {
+                    parts =_.groupBy(newExpenses, function(expense) {
                         return !_.has(expense, "children");
                     });
-                    addRemainder(parts[0]);
+                    addRemainder(parts["true"]);
 
-                    children =_.pluck(parts[1], "children");
+                    children =_.pluck(parts["false"], "children");
                     children =_.flatten(children);
 
                     addRemainder(children);

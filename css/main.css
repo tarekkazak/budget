@@ -3,12 +3,8 @@
     color: red;
 }
 
-.hidden {
-    display: none;
-}
-
-.show {
-    display: block;
+.control-padding {
+    margin-bottom: 20px;
 }
 
 @media handheld and (orientation:landscape) and (min-device-height:1025px),

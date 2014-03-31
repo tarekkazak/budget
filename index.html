@@ -14,7 +14,7 @@
     <script type="text/javascript" src="js/angular-spinner.min.js"></script>
     <script type="text/javascript" src="js/angular-route.min.js" ></script>
     <script type="text/javascript" src="js/ui-bootstrap-tpls-0.10.0.min.js" ></script>
-    <script type="text/javascript" src="js/underscore-min.js" ></script>
+    <script type="text/javascript" src="js/lodash-min.js" ></script>
     <script type="application/javascript" src="app/app.js" ></script>
 
 
@@ -65,11 +65,15 @@
 
                             <input type="text" ng-model="newFieldName" placeholder="enter new field name">
                             <input type="text" ng-model="newFieldAmt" placeholder="enter new field amount">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" ng-model="addToWishList" btn-radio="false">expense</button>
+                                <button type="button" class="btn btn-primary" ng-model="addToWishList" btn-radio="true">wish list</button>
+                            </div>
                             <button class="btn btn-primary" ng-click="addField()">Add field</button>
                             <button class="btn btn-primary" ng-click="save(); inEditMode = false">Save</button>
                             <div>
-                                <label for="update-template">Save to template</label>
-                                <input id="update-template" type="checkbox" class="checkbox" ng-model="updateTemplate" >
+                               <input ng-disabled="addToWishList" id="update-template" type="checkbox" class="checkbox-inline" ng-model="updateTemplate" >Save to template
+
                             </div>
 
                             <button class="btn btn-default" ng-click="cancelEditMode()">Cancel</button>
@@ -154,12 +158,26 @@
                         </div>
                     </div>
 
-                    <div class="control-group">
-                        <div class="controls">
+                    <div class="dropdown" >
+                        <button class="btn dropdown-toggle" >
+                            {{selectedWishlistItem.label || "Select a wishlist item"}}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="item in wishlist">
+                                <a ng-click="selectWishlistItem(item)">
+                                    <span>{{item.label}}  </span><span>  {{item.amt}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                        <button class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
 
-                            <button class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit" class="btn">Apply</button>
-                            <button class="btn btn-default" ng-click="zeroOutExpense()" class="btn">Empty</button>
-                            <button class="btn btn-primary" ng-click="save()" class="btn">Save</button>
+                    <div class="control-group">
+                        <div class="controls control-padding">
+
+                            <button class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit">Apply</button>
+                            <button class="btn btn-default" ng-click="zeroOutRemainder()" >Zero out</button>
+                            <button class="btn btn-primary" ng-click="save()" >Save</button>
                         </div>
                     </div>
                 </form>
