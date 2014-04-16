@@ -82,10 +82,14 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
         }
 
         $scope.applyPaymentToExpense = function(amount) {
-           $scope.selectedExpense.remainder -= amount;
-           $scope.selectedExpense.paid += Number(amount);
+           var totalPaid;
            $scope.selectedExpense.payments.push(Number(amount));
-           $scope.totalFunds -= amount;
+           totalPaid = _.reduce($scope.selectedExpense.payments, function(totalPaid, amt) {
+                return totalPaid + amt
+            });
+           $scope.selectedExpense.remainder = $scope.selectedExpense.amt - totalPaid;
+           $scope.selectedExpense.paid = totalPaid;
+           $scope.totalFunds -= Number(amount);
            $scope.selectedExpense = null;
         }
 
@@ -171,7 +175,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             }
 
             if($scope.updateTemplate) {
-                siteData.content.expenses = stripRemainder($scope.expenses.concat());
+                siteData.content.expenses = stripNonTemplateProps($scope.expenses.concat());
             }
 
             $http.post('php/persistence.php',siteData).
@@ -184,26 +188,28 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
         }
 
-        function stripRemainder(expenses) {
-            _.each(expenses, function(el, index, arr) {
+        function stripNonTemplateProps(expenses) {
+            return _.map(expenses, function(el, index, arr) {
                 if(_.has(el, "children")) {
-                    stripRemainder(el.children)
-                } else {
-                    el = _.omit(el, "remainder");
+                    el.children = stripNonTemplateProps(el.children)
                 }
+                return _.pick(el, ["label", 'amt', 'children']);
+
             });
 
-            return expenses;
+        }
+
+        function addNonTemplateProps(arr) {
+            _.each(arr, function(el) {
+                el.remainder = el.amt;
+                el.payments = [];
+                el.paid = 0;
+            });
         }
 
         function getBudgetFromHistory() {
             if(!_.isUndefined($scope.selectedMonth) && !_.isUndefined($scope.selectedYear)) {
-                var parts, newExpenses, children,
-                    addRemainder = function(arr) {
-                        _.each(arr, function(el) {
-                            el.remainder = el.amt;
-                        });
-                    };
+                var parts, newExpenses, children;
                 loadedExpenseReport = _.findWhere(siteData.content.history, {"month" : $scope.selectedMonth, "year" : $scope.selectedYear});
 
                 if(loadedExpenseReport) {
@@ -214,12 +220,12 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
                     parts =_.groupBy(newExpenses, function(expense) {
                         return !_.has(expense, "children");
                     });
-                    addRemainder(parts["true"]);
+                    addNonTemplateProps(parts["true"]);
 
                     children =_.pluck(parts["false"], "children");
                     children =_.flatten(children);
 
-                    addRemainder(children);
+                    addNonTemplateProps(children);
                     $scope.expenses = newExpenses;
                     isNew = true;
                 }
