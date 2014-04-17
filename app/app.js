@@ -82,13 +82,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
         }
 
         $scope.applyPaymentToExpense = function(amount) {
-           var totalPaid;
-           $scope.selectedExpense.payments.push(Number(amount));
-           totalPaid = _.reduce($scope.selectedExpense.payments, function(totalPaid, amt) {
-                return totalPaid + amt
-            });
-           $scope.selectedExpense.remainder = $scope.selectedExpense.amt - totalPaid;
-           $scope.selectedExpense.paid = totalPaid;
+           updateRemainderAndTotalPaid([$scope.selectedExpense]);
            $scope.totalFunds -= Number(amount);
            $scope.selectedExpense = null;
         }
@@ -207,12 +201,27 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             });
         }
 
+        function updateRemainderAndTotalPaid(expenses) {
+            _.each(expenses, function(el, index, arr) {
+                if(_.has(el, 'children')) {
+                  updateRemainderAndTotalPaid(el.children);
+                } else {
+                    var totalPaid = _.reduce(el.payments, function (totalPaid, amt) {
+                        return totalPaid + amt
+                    }) || 0;
+                    el.remainder = el.amt - totalPaid;
+                    el.paid = totalPaid;
+                }
+            });
+        }
+
         function getBudgetFromHistory() {
             if(!_.isUndefined($scope.selectedMonth) && !_.isUndefined($scope.selectedYear)) {
                 var parts, newExpenses, children;
                 loadedExpenseReport = _.findWhere(siteData.content.history, {"month" : $scope.selectedMonth, "year" : $scope.selectedYear});
 
                 if(loadedExpenseReport) {
+                    updateRemainderAndTotalPaid(loadedExpenseReport.expenses);
                     $scope.expenses = loadedExpenseReport.expenses;
                     $scope.totalFunds = loadedExpenseReport.totalFunds;
                 } else {
