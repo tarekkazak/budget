@@ -82,13 +82,14 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
         }
 
         $scope.applyPaymentToExpense = function(amount) {
+            $scope.selectedExpense.payments.push(amount);
            updateRemainderAndTotalPaid([$scope.selectedExpense]);
            $scope.totalFunds -= Number(amount);
            $scope.selectedExpense = null;
         }
 
         $scope.updateExpenseAmount = function (expense) {
-            expense.remainder = expense.amt - expense.paid;
+            updateRemainderAndTotalPaid([expense]);
         }
 
         $scope.zeroOutRemainder = function () {
@@ -195,7 +196,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
         function addNonTemplateProps(arr) {
             _.each(arr, function(el) {
-                el.remainder = el.amt;
+                el.remainder = Number(el.amt);
                 el.payments = [];
                 el.paid = 0;
             });
@@ -209,7 +210,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
                     var totalPaid = _.reduce(el.payments, function (totalPaid, amt) {
                         return totalPaid + amt
                     }) || 0;
-                    el.remainder = el.amt - totalPaid;
+                    el.remainder = Number(el.amt) - totalPaid;
                     el.paid = totalPaid;
                 }
             });
