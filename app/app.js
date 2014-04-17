@@ -225,6 +225,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
                     updateRemainderAndTotalPaid(loadedExpenseReport.expenses);
                     $scope.expenses = loadedExpenseReport.expenses;
                     $scope.totalFunds = loadedExpenseReport.totalFunds;
+                    isNew = false;
                 } else {
                     newExpenses = siteData.content.expenses.concat();
                     parts =_.groupBy(newExpenses, function(expense) {
