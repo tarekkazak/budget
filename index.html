@@ -49,14 +49,14 @@
                         <button class="btn btn-primary" ng-show="!inEditMode && expenses.length > 0" ng-model="inEditMode" ng-click="startEditMode()">Edit</button>
                         <div ng-show="inEditMode">
                             <input type="text" ng-model="newCategoryName" placeholder="enter new category name">
-                            <button class="btn btn-default" ng-click="addCategory()">Add category</button>
+                            <button ng-disabled="isNullOrUndefined(newCategoryName)" class="btn btn-default" ng-click="addCategory()">Add category</button>
 
                             <div class="dropdown" >
                                 <button class="btn dropdown-toggle" >
                                     {{selectedExpense.label || "Select category"}}
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li ng-repeat="expense in expenses" ng-if="expense.hasOwnProperty('children')">
+                                    <li ng-repeat="expense in expenses" ng-if="_.has(expense, 'children')">
                                         <a ng-click="selectExpense(expense)" >{{expense.label}}</a>
                                     </li>
 
@@ -69,7 +69,7 @@
                                 <button type="button" class="btn btn-primary" ng-model="addToWishList" btn-radio="false">expense</button>
                                 <button type="button" class="btn btn-primary" ng-model="addToWishList" btn-radio="true">wish list</button>
                             </div>
-                            <button class="btn btn-primary" ng-click="addField()">Add field</button>
+                            <button ng-disabled="isNullOrUndefined(newFieldName) || isNullOrUndefined(newFieldAmt)" class="btn btn-primary" ng-click="addField()">Add field</button>
                             <button class="btn btn-primary" ng-click="save(); inEditMode = false">Save</button>
                             <div>
                                <input ng-disabled="addToWishList" id="update-template" type="checkbox" class="checkbox-inline" ng-model="updateTemplate" >Save to template
@@ -80,7 +80,7 @@
                         </div>
                     </div>
 
-                    <table ng-class="{'hidden' : expenses.length == 0, 'visible' : expenses.length > 0}" class="table table-bordered">
+                    <table ng-class="{'hidden' : expenses.length === 0, 'visible' : expenses.length > 0}" class="table table-bordered">
                         <tbody ng-repeat="expense in expenses">
                         <tr  >
                             <td>{{expense.label}}</td>
@@ -88,13 +88,13 @@
                                 <div class="controls">
                                   <input ng-if="!expense.hasOwnProperty('children')" ng-change="updateExpenseAmount(expense)" ng-model="expense.amt"  ng-class="{'bold-red' : expense.amt < 0}" type="text"  >
                                     <div ng-show="inEditMode" >{{expense.payments.toString()}}</div>
-                                    <button ng-if="!expense.hasOwnProperty('children')" class="btn btn-danger" ng-show="inEditMode" ng-click="removeExpense(expense, null)">
+                                    <button ng-if="!_.has(expense, 'children')" class="btn btn-danger" ng-show="inEditMode" ng-click="removeExpense(expense, null)">
                                         remove
                                     </button>
                                 </div>
                             </td>
                             <td  ng-class="{'bold-red' : expense.remainder < 0}">{{expense.remainder}}</td>
-                        <tr ng-repeat="sub in expense.children"  ng-if="expense.hasOwnProperty('children')">
+                        <tr ng-repeat="sub in expense.children"  ng-if="_.has(expense, 'children')">
                                 <td>
                                     <span style="padding-left: 30px">{{sub.label}}</span>
                                 </td>
@@ -135,14 +135,14 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li ng-repeat-start="expense in expenses" ng-if="expense.hasOwnProperty('children') && !expenses[$index - 1].hasOwnProperty('children')" class="divider"></li>
-                                <li   ng-class="{'dropdown-header' : expense.hasOwnProperty('children')}">
+                                <li   ng-class="{'dropdown-header' : _.has(expense, 'children')}">
                                     {{expense.hasOwnProperty('children') ? expense.label : ""}}
-                                    <a ng-click="selectExpense(expense)" ng-if="!expense.hasOwnProperty('children')">{{expense.label}}</a>
+                                    <a ng-click="selectExpense(expense)" ng-if="!_.has(expense, 'children')">{{expense.label}}</a>
                                   </li>
                                 <li ng-repeat="item in expense.children">
                                     <a ng-click="selectExpense(item)">{{item.label}}</a>
                                 </li>
-                                <li ng-if="expense.hasOwnProperty('children')" ng-repeat-end class="divider"></li>
+                                <li ng-if="_.has(expense, 'children')" ng-repeat-end class="divider"></li>
                             </ul>
                         </div>
 
@@ -172,14 +172,14 @@
                             </li>
                         </ul>
                     </div>
-                        <button class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
+                        <button ng-disabled="isNullOrUndefined(selectedWishlistItem)" class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
 
                     <div class="control-group">
                         <div class="controls control-padding">
 
-                            <button class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit">Apply</button>
-                            <button class="btn btn-default" ng-click="zeroOutRemainder()" >Zero out</button>
-                            <button class="btn btn-primary" ng-click="save()" >Save</button>
+                            <button ng-disabled="isNullOrUndefined(selectedExpense)" class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit">Apply</button>
+                            <button ng-disabled="isNullOrUndefined(selectedExpense)" class="btn btn-default" ng-click="zeroOutRemainder()" >Zero out</button>
+                            <button ng-disabled="isNullOrUndefined(selectedExpense)" class="btn btn-primary" ng-click="save()" >Save</button>
                         </div>
                     </div>
                 </form>
