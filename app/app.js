@@ -49,6 +49,11 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             $scope.selectedYear = year;
         }
 
+        $scope.updatePayments = function(expense) {
+            expense.payments = expense.payments.split(',');
+            updateRemainderAndTotalPaid([expense]);
+        }
+
         $scope.selectExpense = function(expense) {
             $scope.selectedExpense = expense;
         }
@@ -208,8 +213,8 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
                   updateRemainderAndTotalPaid(el.children);
                 } else {
                     var totalPaid = 0;
-                    totalPaid =_.reduce(el.payments, function (totalPaid, amt) {
-                        return totalPaid + Number(amt);
+                    totalPaid =_.reduce(el.payments, function (total, amt) {
+                        return Number(total) + Number(amt);
                     }) || 0;
                     el.remainder = Number(el.amt) - totalPaid;
                     el.paid = totalPaid;

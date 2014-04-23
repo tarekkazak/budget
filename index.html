@@ -87,7 +87,7 @@
                             <td >
                                 <div class="controls">
                                   <input ng-if="!expense.hasOwnProperty('children')" ng-change="updateExpenseAmount(expense)" ng-model="expense.amt"  ng-class="{'bold-red' : expense.amt < 0}" type="text"  >
-                                    <div ng-show="inEditMode" >{{expense.payments.toString()}}</div>
+                                    <input ng-show="inEditMode" ng-model="expense.payments" ng-change="updatePayments(expense)" >
                                     <button ng-if="!_.has(expense, 'children')" class="btn btn-danger" ng-show="inEditMode" ng-click="removeExpense(expense, null)">
                                         remove
                                     </button>
@@ -101,7 +101,7 @@
                                 <td >
                                     <div class="controls">
                                         <input ng-change="updateExpenseAmount(sub)" ng-model="sub.amt"  type="text"  >
-                                        <div ng-show="inEditMode">{{sub.payments.toString()}}</div>
+                                        <input ng-show="inEditMode" ng-model="sub.payments" ng-change="updatePayments(sub)" >
                                         <button class="btn btn-danger" ng-show="inEditMode" ng-click="removeExpense(sub, expense)">
                                             remove
                                         </button>
