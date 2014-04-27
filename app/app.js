@@ -83,10 +83,20 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
 
         $scope.applyPaymentToExpense = function(amount) {
             if($scope.selectedExpense) {
-                $scope.selectedExpense.payments.push(amount);
-                updateRemainderAndTotalPaid([$scope.selectedExpense]);
-                $scope.totalFunds -= Number(amount);
+                applyToExpense($scope.selectedExpense, amount);
                 $scope.selectedExpense = null;
+            }
+        }
+
+        function applyToExpense(expense, amount) {
+            if(_.contains(amount, ',')) {
+                _.each(amount.split(','), function(el) {
+                    applyToExpense(expense, el.trim());
+                });
+            } else {
+                expense.payments.push(amount);
+                updateRemainderAndTotalPaid([expense]);
+                $scope.totalFunds -= Number(amount);
             }
         }
 
