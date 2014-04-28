@@ -76,7 +76,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             if(parent) {
                 parent.children = _.without(parent.children, expense);
             } else {
-                $scope.expenses = _.without($scope.expenses, expense);
+                $scope.expenses = loadedExpenseReport.expenses = _.without($scope.expenses, expense);
             }
 
         }
@@ -85,6 +85,7 @@ budgetApp.controller('controller', ['$scope', '$http', '$modal', '$timeout', fun
             if($scope.selectedExpense) {
                 applyToExpense($scope.selectedExpense, amount);
                 $scope.selectedExpense = null;
+
             }
         }
 
