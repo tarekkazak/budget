@@ -1,11 +1,17 @@
 <?php
 require_once('../PHPMailer/class.phpmailer.php');
 $data = json_decode(file_get_contents("php://input"));
-$email = "";
+$email = "budgetapp@gmail.com";
 $body = $data->report;
 
 $mail = new PHPMailer(); // defaults to using php "mail()"
-
+$mail->IsSMTP();
+$mail->SMTPAuth();
+$mail->SMTPsecure();
+$mail->Host = "smtp.gmail.com";
+$mail->Port = 465;
+$mail->Username = "tarek.kazak@gmail.com";
+$mail->Password = "0510trickitty1005";
 $mail->SetFrom($email, "Budget App");
 $mail->IsHTML(true);
 $mail->AddAddress("ikram.oulmi@gmail.com", "Budget Report");
