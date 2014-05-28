@@ -173,6 +173,7 @@
 <html lang="en">
 <head></head>
     <div>
+        <h1><%= selectedMonth %> / <%= selectedYear %></h1>
         <table>
             <thead>
             <tr>
@@ -262,7 +263,7 @@
             if(!sub.skip && sub.remainder < 0) {
             if(index === 0) {
             %>
-            <tr> valign="top"
+            <tr valign="top">
                 <td><%= expense.label %></td>
 
             </tr>

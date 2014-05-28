@@ -5,12 +5,15 @@ $email = "budgetapp@gmail.com";
 $body = $data->report;
 
 $mail = new PHPMailer(); // defaults to using php "mail()"
-$mail->IsSMTP();
-$mail->SMTPDebug = 1;
-$mail->SMTPAuth = true;
-$mail->SMTPsecure = 'ssl';
-$mail->Host = "smtp.gmail.com";
-$mail->Port = 465;
+$mail->IsSMTP(); // telling the class to use SMTP
+$mail->Host       = "mail.yourdomain.com"; // SMTP server
+$mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+                                           // 1 = errors and messages
+                                           // 2 = messages only
+$mail->SMTPAuth   = true;                  // enable SMTP authentication
+$mail->SMTPSecure = "tls";                 // sets the prefix to the servier
+$mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+$mail->Port       = 587;
 $mail->Username = "tarek.kazak@gmail.com";
 $mail->Password = "0510trickitty1005";
 $mail->SetFrom($email, "Budget App");

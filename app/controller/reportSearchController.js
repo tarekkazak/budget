@@ -30,6 +30,14 @@ define([
             $scope.expenses = value;
         });
 
+        budgetAppModel.registerForUpdate('selectedMonth', function(value) {
+            $scope.selectedMonth = value;
+        });
+
+        budgetAppModel.registerForUpdate('selectedYear', function(value) {
+            $scope.selectedYear = value;
+        });
+
         $scope._ = _;
 
         $scope.$watch("selectedMonth", function(value) {
@@ -42,19 +50,19 @@ define([
 
 
         $scope.updateSelectedMonth = function(month) {
-            $scope.selectedMonth = month;
+            budgetAppModel.setSelectedMonth(month);
         };
 
         $scope.updateSelectedYear = function(year) {
-            $scope.selectedYear = year;
+            budgetAppModel.setSelectedYear(year);
         };
 
 
         $scope.loadTemplate = function() {
             budgetAppModel.setTemplateMode(true);
             budgetAppModel.setExpenses(budgetAppModel.siteData.content.expenses);
-            $scope.selectedMonth = undefined;
-            $scope.selectedYear = undefined;
+            budgetAppModel.setSelectedMonth(undefined);
+            budgetAppModel.setSelectedYear(undefined);
             budgetAppModel.selectedExpense = null;
         };
 

@@ -11,6 +11,8 @@ define(['lodash'], function(_) {
             totalFunds = 0,
             expenses,
             wishlist,
+            selectedMonth,
+            selectedYear,
             templateMode = false,
             inEditMode = false;
         me.siteData = undefined;
@@ -58,6 +60,14 @@ define(['lodash'], function(_) {
         me.setTotalFunds = function(value) {
             me.loadedExpenseReport.totalFunds = value;
             updateRegisteredObjects('totalFunds', value);
+        };
+
+        me.setSelectedMonth = function(value) {
+            updateRegisteredObjects('selectedMonth', value);
+        };
+
+        me.setSelectedYear = function(value) {
+            updateRegisteredObjects('selectedYear', value);
         };
 
         me.updateRemainderAndTotalPaid = function(expenses) {

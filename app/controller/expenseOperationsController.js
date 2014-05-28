@@ -17,6 +17,18 @@ define(['lodash',
 
             reportTemplateFunc = _.template($templateCache.get("reportTemplate"));
 
+            budgetAppModel.registerForUpdate('selectedMonth', function (value) {
+                $scope.selectedMonth = value;
+            });
+
+            budgetAppModel.registerForUpdate('selectedYear', function (value) {
+                $scope.selectedYear = value;
+            });
+
+            budgetAppModel.registerForUpdate('expenses', function (value) {
+                $scope.expenses = value;
+            });
+
             budgetAppModel.registerForUpdate('expenses', function (value) {
                 $scope.expenses = value;
             });
