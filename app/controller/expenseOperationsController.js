@@ -114,6 +114,10 @@ define(['lodash',
 
             };
 
+            $scope.getTotalRemainingExpenses = function() {
+                return budgetAppModel.sumValuesForProperty("remainder");
+            };
+
             $scope.addToExpenses = function () {
 
                 if ($scope.selectedWishlistItem) {

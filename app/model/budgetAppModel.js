@@ -85,7 +85,24 @@ define(['lodash'], function(_) {
             });
         };
 
+        me.sumValuesForProperty = function (property) {
+            var total = 0, parts, values, childrenValues, filterFunc;
+            filterFunc = function(item) {
+                return !_.has(item, 'skip') || item.skip === false;
+            };
+            parts = _.groupBy(expenses, function (expense) {
+                return !_.has(expense, "children");
+            });
+            values = _(parts['true']).filter(filterFunc).pluck(property).value();
+            childrenValues =  _(parts['false']).pluck('children').flatten().filter(filterFunc).pluck(property).value();
 
+            _.each(values.concat(childrenValues), function (el, index, arr) {
+                if (Number(el) > 0) {
+                    total += Number(el);
+                }
+            });
+            return total;
+        };
 
 
     }
