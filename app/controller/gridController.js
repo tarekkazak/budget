@@ -25,9 +25,9 @@ define([
 
 
         $scope._ = _;
-        
+
         $scope.getTotalRemainingExpenses = function () {
-            return budgetAppModel.sumValuesForProperty("remainder");
+            return budgetAppModel.sumValuesForProperty("remainder", 'skip');
         };
 
         $scope.updatePayments = function (expense) {

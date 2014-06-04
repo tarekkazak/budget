@@ -12,161 +12,14 @@
 
 </head>
 <body >
-<!--<script type="text/ng-template" id="reportTemplate">-->
-    <!--<div ng-controller="expenseOperationsController">-->
-        <!--<table class="table table-bordered">-->
-            <!--<thead>-->
-            <!--<tr>-->
-                <!--<th>Paid expenses</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody ng-repeat="expense in expenses | filter : {skip : false, remainder : 0}">-->
-            <!--<tr>-->
-                <!--<td>{{expense.label}}</td>-->
-                <!--<td ng-if="!_.has(expense, 'children')">-->
-                    <!--<div class="controls" >-->
-                        <!--<p>expense.amt</p>-->
-                        <!--<p>expense.payments</p>-->
+<script type="text/ng-template" id="typeaheadTemplate.html">
 
-                    <!--</div>-->
-                <!--</td>-->
+        <div>
+                <span> {{match.model.label}} </span>
+                <span ng-if="match.model.hasOwnProperty('parent')"><b> {{match.model.parent.label}} </b></span>
+        </div>
 
-            <!--<tr ng-repeat="sub in expense.children" ng-if="_.has(expense, 'children')">-->
-                <!--<td>-->
-                    <!--<span style="padding-left: 30px">{{sub.label}}</span>-->
-                <!--</td>-->
-                <!--<td>-->
-                    <!--<div class="controls">-->
-                        <!--<p>sub.sub</p>-->
-                        <!--<p>sub.payments</p>-->
-                    <!--</div>-->
-
-                <!--</td>-->
-
-            <!--</tr>-->
-            <!--</tr>-->
-
-
-            <!--</tbody>-->
-        <!--</table>-->
-
-        <!--<table class="table table-bordered">-->
-            <!--<thead>-->
-            <!--<tr>-->
-                <!--<th>Overpaid expenses</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody ng-repeat="expense in expenses | filter : overpayFilter">-->
-            <!--<tr>-->
-                <!--<td>{{expense.label}}</td>-->
-                <!--<td ng-if="!_.has(expense, 'children')">-->
-                    <!--<div class="controls" >-->
-                        <!--<p>expense.amt</p>-->
-                        <!--<p>expense.payments</p>-->
-
-                    <!--</div>-->
-                <!--</td>-->
-                <!--<td style="color:red; "><b>>expense.remainder</b></td>-->
-
-            <!--<tr ng-repeat="sub in expense.children" ng-if="_.has(expense, 'children')">-->
-                <!--<td>-->
-                    <!--<span style="padding-left: 30px">{{sub.label}}</span>-->
-                <!--</td>-->
-                <!--<td>-->
-                    <!--<div class="controls">-->
-                        <!--<p>sub.sub</p>-->
-                        <!--<p>sub.payments</p>-->
-                    <!--</div>-->
-
-                <!--</td>-->
-                <!--<td style="color:red;"><b>>sub.remainder</b></td>-->
-
-            <!--</tr>-->
-            <!--</tr>-->
-
-
-            <!--</tbody>-->
-        <!--</table>-->
-
-        <!--<table class="table table-bordered">-->
-            <!--<thead>-->
-            <!--<tr>-->
-                <!--<th>Remaining expenses</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody ng-repeat="expense in expenses | filter : overpayFilter">-->
-            <!--<tr>-->
-                <!--<td>{{expense.label}}</td>-->
-                <!--<td ng-if="!_.has(expense, 'children')">-->
-                    <!--<div class="controls" >-->
-                        <!--<p>expense.amt</p>-->
-                        <!--<p>expense.payments</p>-->
-
-                    <!--</div>-->
-                <!--</td>-->
-                <!--<td style="color:red; "><b>>expense.remainder</b></td>-->
-
-            <!--<tr ng-repeat="sub in expense.children" ng-if="_.has(expense, 'children')">-->
-                <!--<td>-->
-                    <!--<span style="padding-left: 30px">{{sub.label}}</span>-->
-                <!--</td>-->
-                <!--<td>-->
-                    <!--<div class="controls">-->
-                        <!--<p>sub.sub</p>-->
-                        <!--<p>sub.payments</p>-->
-                    <!--</div>-->
-
-                <!--</td>-->
-                <!--<td style="color:red;"><b>>sub.remainder</b></td>-->
-
-            <!--</tr>-->
-            <!--</tr>-->
-
-
-            <!--</tbody>-->
-        <!--</table>-->
-
-        <!--<table class="table table-bordered">-->
-            <!--<thead>-->
-            <!--<tr>-->
-                <!--<th>Skipped expenses</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody ng-repeat="expense in expenses | filter :{skip : true}">-->
-            <!--<tr>-->
-                <!--<td>{{expense.label}}</td>-->
-                <!--<td ng-if="!_.has(expense, 'children')">-->
-                    <!--<div class="controls" >-->
-                        <!--<p>expense.amt</p>-->
-                        <!--<p>expense.payments</p>-->
-
-                    <!--</div>-->
-                <!--</td>-->
-                <!--<td style="color:red; "><b>>expense.remainder</b></td>-->
-
-            <!--<tr ng-repeat="sub in expense.children" ng-if="_.has(expense, 'children')">-->
-                <!--<td>-->
-                    <!--<span style="padding-left: 30px">{{sub.label}}</span>-->
-                <!--</td>-->
-                <!--<td>-->
-                    <!--<div class="controls">-->
-                        <!--<p>sub.sub</p>-->
-                        <!--<p>sub.payments</p>-->
-                    <!--</div>-->
-
-                <!--</td>-->
-                <!--<td style="color:red;"><b>>sub.remainder</b></td>-->
-
-            <!--</tr>-->
-            <!--</tr>-->
-
-
-            <!--</tbody>-->
-        <!--</table>-->
-        <!--<p><b>Total funds: {{totalFunds}}</b></p>-->
-    <!--</div>-->
-
-<!--</script>-->
+</script>
 
 <script type="text/ng-template" id="reportTemplate">
 <!DOCTYPE html>
@@ -548,37 +401,40 @@
                 </div>
 
                 <div ng-controller="expenseOperationsController" class="col-sm-6 col-md-6">
-                    <div class="control-group" ng-hide="templateMode">
+                    <form name="form" class="control-group" ng-hide="templateMode">
 
 
                         <div class="dropdown" >
-                            <button class="btn dropdown-toggle" >
-                                {{selectedExpense.label || "Select"}}
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li ng-repeat-start="expense in expenses" ng-if="expense.hasOwnProperty('children') && !expenses[$index - 1].hasOwnProperty('children')" class="divider"></li>
-                                <li   ng-class="{'dropdown-header' : _.has(expense, 'children')}">
-                                    {{expense.hasOwnProperty('children') ? expense.label : ""}}
-                                    <a ng-click="selectExpense(expense)" ng-if="!_.has(expense, 'children')">{{expense.label}}</a>
-                                  </li>
-                                <li ng-repeat="item in expense.children">
-                                    <a ng-click="selectExpense(item)">{{item.label}}</a>
-                                </li>
-                                <li ng-if="_.has(expense, 'children')" ng-repeat-end class="divider"></li>
-                            </ul>
+
+                            <input name="expenseTA" type="text" ng-model="selectedExpense" placeholder="select expense" class="form-control"
+                                   typeahead="expense as expense.label for expense in allExpenses() | filter:filterExpense"
+                                   typeahead-template-url="typeaheadTemplate.html" >
                         </div>
 
 
-                        <div class="controls">
-                            <input type="text" ng-model="amount"  name="amount" placeholder="Amount">
+                        <div class="form-group">
+                            <label for="amount-to-apply">Amount to apply</label>
+                            <input id="amount-to-apply" type="text" ng-model="amount"  name="amount" class="form-control">
+                            <div style="border-bottom: 1px dashed #808080; margin: 5px 0px"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Initial funds</label>
+                            <input type="text" ng-model="initialFunds" class="form-control">
                         </div>
 
-                        <div class="controls">
-                            <input type="text" ng-model="totalFunds" placeholder="Total funds">
+                        <div class="form-group">
+                            <label>Total Spent</label>
+                            <span>{{getTotalPaid()}}</span>
                         </div>
 
-                        <div class="controls">
-                            {{totalFunds - getTotalRemainingExpenses()}}
+                        <div class="form-group">
+                            <label>Total funds</label>
+                            <input type="text" ng-model="totalFunds" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Total Remaining</label>
+                            <span>{{totalFunds - getTotalRemainingExpenses()}}</span>
                         </div>
 
                         <div class="dropdown" >
@@ -597,7 +453,7 @@
                         <button ng-disabled="isNullOrUndefined(selectedExpense)" class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit">Apply</button>
                         <button class="btn btn-default" ng-click="sendReport()">Send Report</button>
 
-                    </div>
+                    </form>
 
 
                     <div class="control-group">

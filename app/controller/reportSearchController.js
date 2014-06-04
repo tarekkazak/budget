@@ -86,6 +86,7 @@ define([
                     budgetAppModel.updateRemainderAndTotalPaid(loadedExpenseReport.expenses);
                     budgetAppModel.setExpenses(loadedExpenseReport.expenses);
                     budgetAppModel.setTotalFunds(loadedExpenseReport.totalFunds);
+                    budgetAppModel.setIntialFunds(loadedExpenseReport.initialFunds);
                     budgetAppModel.isNew = false;
                 } else {
                     newExpenses = budgetAppModel.siteData.content.expenses.concat();

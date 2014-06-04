@@ -38,7 +38,7 @@ requirejs.config({
     deps: [
         "jquery"
 
-   ]
+    ]
 });
 
 //http://code.angularjs.org/1.2.1/docs/guide/bootstrap#overview_deferred-bootstrap

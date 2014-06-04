@@ -49,6 +49,10 @@ define(['lodash',
                 $scope.totalFunds = value;
             });
 
+            budgetAppModel.registerForUpdate('initialFunds', function (value) {
+                $scope.initialFunds = value;
+            });
+
             $scope.selectExpense = function (expense) {
                 $scope.selectedExpense = expense;
             };
@@ -56,6 +60,8 @@ define(['lodash',
             $scope.selectWishlistItem = function (item) {
                 $scope.selectedWishlistItem = item;
             };
+
+            $scope.allExpenses = budgetAppModel.allExpenses;
 
 
             function applyToExpense(expense, amount) {
@@ -89,6 +95,9 @@ define(['lodash',
                 }
             };
 
+            $scope.filterExpense = function(expense) {
+                return expense.label.toLowerCase().indexOf($scope.form.expenseTA.$viewValue) !== -1 && (_.isUndefined(expense.skip) || !expense.skip);
+            };
 
 
             $scope.sendReport = function () {
@@ -115,7 +124,11 @@ define(['lodash',
             };
 
             $scope.getTotalRemainingExpenses = function() {
-                return budgetAppModel.sumValuesForProperty("remainder");
+                return budgetAppModel.sumValuesForProperty("remainder", 'skip');
+            };
+
+            $scope.getTotalPaid = function() {
+                return budgetAppModel.sumValuesForProperty("payments");
             };
 
             $scope.addToExpenses = function () {
@@ -154,10 +167,19 @@ define(['lodash',
 
                 if (!$scope.templateMode) {
                     if (budgetAppModel.isNew) {
-                        budgetAppModel.siteData.content.history.push({"year": $scope.selectedYear, "month": $scope.selectedMonth, "expenses": $scope.expenses, "totalFunds": $scope.totalFunds});
+                        budgetAppModel.siteData.content.history.push(
+                            {
+                                "year": $scope.selectedYear,
+                                "month": $scope.selectedMonth,
+                                "expenses": $scope.expenses,
+                                "totalFunds": $scope.totalFunds,
+                                "initialFunds": $scope.initialFunds
+                            }
+                        );
                         budgetAppModel.isNew = false;
                     } else {
                         budgetAppModel.loadedExpenseReport.totalFunds = $scope.totalFunds;
+                        budgetAppModel.loadedExpenseReport.initialFunds = $scope.initialFunds;
                     }
                 } else {
                     budgetAppModel.siteData.content.expenses = $scope.expenses = stripNonTemplateProps($scope.expenses);

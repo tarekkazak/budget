@@ -15,7 +15,7 @@ $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
 $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
 $mail->Port       = 587;
 $mail->Username = "tarek.kazak@gmail.com";
-$mail->Password = "0510trickitty1005";
+$mail->Password = "05101005trickitty";
 $mail->SetFrom($email, "Budget App");
 $mail->IsHTML(true);
 $mail->AddAddress("ikram.oulmi@gmail.com", "Budget Report");

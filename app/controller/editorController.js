@@ -22,10 +22,14 @@ define([
             $scope.expenses = value;
         });
 
+        budgetAppModel.registerForUpdate('wishlist', function (value) {
+            $scope.wishlist = value;
+        });
+
 
         $scope._ = _;
         $scope.isNullOrUndefined = budgetAppModel.isNullOrUndefined;
-
+        $scope.addToWishList = false;
         $scope.selectExpense = function(expense) {
             $scope.selectedExpense = expense;
         };
@@ -44,7 +48,7 @@ define([
         $scope.addField = function() {
             var expense = {"label" : $scope.newFieldName, "amt" : Number($scope.newFieldAmt), "payments" : []};
             if ($scope.addToWishList) {
-                budgetAppModel.wishlist.push(expense);
+                $scope.wishlist.push(expense);
             } else {
                 if ($scope.selectedExpense) {
                     $scope.selectedExpense.children.push(expense);

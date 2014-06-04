@@ -62,6 +62,11 @@ define(['lodash'], function(_) {
             updateRegisteredObjects('totalFunds', value);
         };
 
+        me.setIntialFunds = function(value) {
+            me.loadedExpenseReport.initialFunds = value;
+            updateRegisteredObjects('initialFunds', value);
+        };
+
         me.setSelectedMonth = function(value) {
             updateRegisteredObjects('selectedMonth', value);
         };
@@ -85,23 +90,52 @@ define(['lodash'], function(_) {
             });
         };
 
-        me.sumValuesForProperty = function (property) {
-            var total = 0, parts, values, childrenValues, filterFunc;
+        me.sumValuesForProperty = function (property, filterProp) {
+            var total = 0, parts, values, childrenValues, filterFunc, allValues;
             filterFunc = function(item) {
-                return !_.has(item, 'skip') || item.skip === false;
+                return !_.has(item, filterProp) || item[filterProp] === false;
             };
             parts = _.groupBy(expenses, function (expense) {
                 return !_.has(expense, "children");
             });
-            values = _(parts['true']).filter(filterFunc).pluck(property).value();
-            childrenValues =  _(parts['false']).pluck('children').flatten().filter(filterFunc).pluck(property).value();
+            values = me.isNullOrUndefined(filterProp) ? _(parts['true']).pluck(property).value() : _(parts['true']).filter(filterFunc).pluck(property).value();
+            childrenValues =  me.isNullOrUndefined(filterProp) ? _(parts['false']).pluck('children').flatten().pluck(property).value() : _(parts['false']).pluck('children').flatten().filter(filterFunc).pluck(property).value();
 
-            _.each(values.concat(childrenValues), function (el, index, arr) {
-                if (Number(el) > 0) {
-                    total += Number(el);
+            allValues = values.concat(childrenValues);
+            total = _.reduce(allValues, function (acc, amt) {
+                if (_.isArray(acc)) {
+                    acc = _.reduce(acc, function (a, b) {
+                        return Number(a) + Number(b);
+                    });
                 }
+
+                if (_.isArray(amt)) {
+                    if (amt.length === 0) {
+                        amt.push(0);
+                    }
+                    amt = _.reduce(amt, function (a, b) {
+                        return Number(a) + Number(b);
+                    });
+                }
+                return Number(acc) + Number(amt);
             });
             return total;
+        };
+
+        me.allExpenses = function() {
+            var expensesCopy = expenses.concat(),
+                splitExpenses,
+                flattened;
+            splitExpenses = _.groupBy(expensesCopy, function(expense) {
+                return !_.has(expense, "children");
+            });
+            flattened = _.flatten(splitExpenses[false], function(item) {
+                _.each(item.children, function(subItem) {
+                    subItem.parent = item;
+                });
+                return item.children;
+            });
+            return splitExpenses[true].concat(flattened);
         };
 
 
