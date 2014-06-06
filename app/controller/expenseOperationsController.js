@@ -97,7 +97,7 @@ define(['lodash',
             };
 
             $scope.filterExpense = function(expense) {
-                return expense.label.toLowerCase().indexOf($scope.form.expenseTA.$viewValue) !== -1 && (_.isUndefined(expense.skip) || !expense.skip);
+                return expense.label.toLowerCase().indexOf($scope.form.expenseTA.$viewValue.toLowerCase()) !== -1 && (_.isUndefined(expense.skip) || !expense.skip);
             };
 
 
