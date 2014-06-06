@@ -3,15 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/model/budgetAppModel.js" afterPath="$PROJECT_DIR$/app/model/budgetAppModel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/contact.php" afterPath="$PROJECT_DIR$/php/contact.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/editorController.js" afterPath="$PROJECT_DIR$/app/controller/editorController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/expenseOperationsController.js" afterPath="$PROJECT_DIR$/app/controller/expenseOperationsController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/gridController.js" afterPath="$PROJECT_DIR$/app/controller/gridController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main.js" afterPath="$PROJECT_DIR$/app/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/reportSearchController.js" afterPath="$PROJECT_DIR$/app/controller/reportSearchController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="budget.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -83,8 +76,8 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.25" vertical-offset="2520" max-vertical-offset="3240">
-              <caret line="455" column="26" selection-start-line="455" selection-start-column="26" selection-end-line="455" selection-end-column="26" />
+            <state vertical-scroll-proportion="-29.916666" vertical-offset="1967" max-vertical-offset="3240">
+              <caret line="440" column="58" selection-start-line="440" selection-start-column="58" selection-end-line="440" selection-end-column="58" />
               <folding>
                 <element signature="tag#script#1;tag#body#0;tag#html#0" expanded="false" />
                 <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -97,8 +90,8 @@
       <file leaf-file-name="reportSearchController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controller/reportSearchController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-50.76923" vertical-offset="0" max-vertical-offset="1800">
-              <caret line="88" column="82" selection-start-line="88" selection-start-column="82" selection-end-line="88" selection-end-column="82" />
+            <state vertical-scroll-proportion="-8.961538" vertical-offset="1057" max-vertical-offset="1800">
+              <caret line="86" column="43" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -124,12 +117,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="budgetAppModel.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="budgetAppModel.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/model/budgetAppModel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.49356914" vertical-offset="1373" max-vertical-offset="2265">
-              <caret line="112" column="23" selection-start-line="112" selection-start-column="23" selection-end-line="112" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="318" max-vertical-offset="2250">
+              <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="content.json" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/content.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="2.5" vertical-offset="60" max-vertical-offset="90">
+              <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+              <folding>
+                <element signature="e#1395#2278#0" expanded="false" />
+                <element signature="e#2303#5253#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -147,7 +153,7 @@
       <file leaf-file-name="gridController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controller/gridController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="265" max-vertical-offset="900">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="900">
               <caret line="29" column="73" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="73" />
               <folding />
             </state>
@@ -157,18 +163,18 @@
       <file leaf-file-name="editorController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controller/editorController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.8076925" vertical-offset="547" max-vertical-offset="1185">
+            <state vertical-scroll-proportion="-17.615385" vertical-offset="292" max-vertical-offset="1185">
               <caret line="50" column="31" selection-start-line="50" selection-start-column="23" selection-end-line="50" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="expenseOperationsController.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="expenseOperationsController.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controller/expenseOperationsController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1165" max-vertical-offset="3045">
-              <caret line="98" column="50" selection-start-line="98" selection-start-column="50" selection-end-line="98" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.71653545" vertical-offset="1945" max-vertical-offset="3165">
+              <caret line="160" column="17" selection-start-line="160" selection-start-column="17" selection-end-line="160" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -203,7 +209,6 @@
         <option value="$PROJECT_DIR$/bower.json" />
         <option value="$PROJECT_DIR$/app/controller/controller.js" />
         <option value="$PROJECT_DIR$/app/service/dataService.js" />
-        <option value="$PROJECT_DIR$/data/content.json" />
         <option value="$PROJECT_DIR$/partials/report.html" />
         <option value="$PROJECT_DIR$/app/app.js" />
         <option value="$PROJECT_DIR$/php/contact.php" />
@@ -211,9 +216,10 @@
         <option value="$PROJECT_DIR$/app/controller/reportSearchController.js" />
         <option value="$PROJECT_DIR$/app/controller/gridController.js" />
         <option value="$PROJECT_DIR$/app/main.js" />
+        <option value="$PROJECT_DIR$/data/content.json" />
+        <option value="$PROJECT_DIR$/app/model/budgetAppModel.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/app/controller/expenseOperationsController.js" />
-        <option value="$PROJECT_DIR$/app/model/budgetAppModel.js" />
       </list>
     </option>
   </component>
@@ -715,7 +721,7 @@
       <workItem from="1399857374847" duration="195000" />
       <workItem from="1399857590135" duration="144000" />
       <workItem from="1399857771961" duration="17317000" />
-      <workItem from="1400291076941" duration="64442000" />
+      <workItem from="1400291076941" duration="69047000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <created>1392997984181</created>
@@ -725,7 +731,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="171352000" />
+    <option name="totallyTimeSpent" value="175957000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="22" width="1276" height="778" extended-state="6" />
@@ -1096,14 +1102,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/content.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="165.625" vertical-offset="3975" max-vertical-offset="19545">
-          <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bower.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.0" vertical-offset="0" max-vertical-offset="315">
@@ -1124,22 +1122,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="90">
           <caret line="0" column="8327" selection-start-line="0" selection-start-column="8327" selection-end-line="0" selection-end-column="8327" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controller/editorController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.8076925" vertical-offset="547" max-vertical-offset="1185">
-          <caret line="50" column="31" selection-start-line="50" selection-start-column="23" selection-end-line="50" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controller/gridController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="265" max-vertical-offset="900">
-          <caret line="29" column="73" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="73" />
           <folding />
         </state>
       </provider>
@@ -1176,14 +1158,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controller/reportSearchController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-50.76923" vertical-offset="0" max-vertical-offset="1800">
-          <caret line="88" column="82" selection-start-line="88" selection-start-column="82" selection-end-line="88" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/service/dataService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
@@ -1192,10 +1166,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data/content.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.5" vertical-offset="60" max-vertical-offset="11235">
+          <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+          <folding>
+            <element signature="e#1395#2278#0" expanded="false" />
+            <element signature="e#2303#5253#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controller/gridController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="265" max-vertical-offset="900">
+          <caret line="29" column="73" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controller/editorController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.615385" vertical-offset="292" max-vertical-offset="1185">
+          <caret line="50" column="31" selection-start-line="50" selection-start-column="23" selection-end-line="50" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controller/reportSearchController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.961538" vertical-offset="1057" max-vertical-offset="1800">
+          <caret line="86" column="43" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/budgetAppModel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="318" max-vertical-offset="2250">
+          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.25" vertical-offset="2520" max-vertical-offset="3240">
-          <caret line="455" column="26" selection-start-line="455" selection-start-column="26" selection-end-line="455" selection-end-column="26" />
+        <state vertical-scroll-proportion="-29.916666" vertical-offset="1967" max-vertical-offset="3240">
+          <caret line="440" column="58" selection-start-line="440" selection-start-column="58" selection-end-line="440" selection-end-column="58" />
           <folding>
             <element signature="tag#script#1;tag#body#0;tag#html#0" expanded="false" />
             <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1206,16 +1223,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controller/expenseOperationsController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1165" max-vertical-offset="3045">
-          <caret line="98" column="50" selection-start-line="98" selection-start-column="50" selection-end-line="98" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/model/budgetAppModel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49356914" vertical-offset="1373" max-vertical-offset="2265">
-          <caret line="112" column="23" selection-start-line="112" selection-start-column="23" selection-end-line="112" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.71653545" vertical-offset="1945" max-vertical-offset="3165">
+          <caret line="160" column="17" selection-start-line="160" selection-start-column="17" selection-end-line="160" selection-end-column="17" />
           <folding />
         </state>
       </provider>

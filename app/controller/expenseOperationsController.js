@@ -6,7 +6,6 @@ define(['lodash',
         'spin',
         'model/budgetAppModel'],
     function (_, Spinner, budgetAppModel) {
-
         'use strict';
 
         return function ($scope, $modal, $timeout, $window, $http, $interpolate, $templateCache) {
@@ -61,7 +60,9 @@ define(['lodash',
                 $scope.selectedWishlistItem = item;
             };
 
-            $scope.allExpenses = budgetAppModel.allExpenses;
+            $scope.allExpenses = function() {
+                return budgetAppModel.allExpenses();
+            };
 
 
             function applyToExpense(expense, amount) {
@@ -128,7 +129,7 @@ define(['lodash',
             };
 
             $scope.getTotalPaid = function() {
-                return budgetAppModel.sumValuesForProperty("payments");
+                return budgetAppModel.sumValuesForProperty("paid");
             };
 
             $scope.addToExpenses = function () {
@@ -153,6 +154,12 @@ define(['lodash',
                 }, 3000);
             }
 
+            function clean(expenses) {
+                var expensesWithParent =_(expenses).pluck('children').flatten().compact().value();
+                _.each(expensesWithParent, function(item) {
+                    delete item.parent;
+                });
+            }
 
 
             $scope.save = function () {
@@ -181,6 +188,7 @@ define(['lodash',
                         budgetAppModel.loadedExpenseReport.totalFunds = $scope.totalFunds;
                         budgetAppModel.loadedExpenseReport.initialFunds = $scope.initialFunds;
                     }
+                    clean(budgetAppModel.loadedExpenseReport.expenses);
                 } else {
                     budgetAppModel.siteData.content.expenses = $scope.expenses = stripNonTemplateProps($scope.expenses);
                 }

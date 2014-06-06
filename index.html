@@ -291,9 +291,9 @@
             <div class="row">
                 <div class="col-sm-6 col-md-6">
                     <div  ng-controller="reportSearchController">
-                        <div class="dropdown" >
-                            <button class="btn dropdown-toggle">
-                                {{selectedMonth || "Select a month"}}
+                        <div class="btn-group" >
+                            <button class="btn btn-primary dropdown-toggle">
+                                {{selectedMonth || "Select a month"}}<span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
                                 <li ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]"><a ng-click="updateSelectedMonth(n)">{{n}}</a>
@@ -301,9 +301,9 @@
                             </ul>
                         </div>
 
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle">
-                                {{selectedYear || "Select a year"}}
+                        <div class="btn-group">
+                            <button class="btn btn-primary dropdown-toggle">
+                                {{selectedYear || "Select a year"}} <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
                                 <li ng-repeat="n in [2014,2015,2016,2017]"><a ng-click="updateSelectedYear(n)">{{n}}</a>
@@ -437,9 +437,9 @@
                             <span>{{totalFunds - getTotalRemainingExpenses()}}</span>
                         </div>
 
-                        <div class="dropdown" >
-                            <button class="btn dropdown-toggle" >
-                                {{selectedWishlistItem.label || "Select a wishlist item"}}
+                        <div class="btn-group" >
+                            <button class="btn btn-primary dropdown-toggle" >
+                                {{selectedWishlistItem.label || "Select a wishlist item"}}<span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
                                 <li ng-repeat="item in wishlist">

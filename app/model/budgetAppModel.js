@@ -91,7 +91,7 @@ define(['lodash'], function(_) {
         };
 
         me.sumValuesForProperty = function (property, filterProp) {
-            var total = 0, parts, values, childrenValues, filterFunc, allValues;
+            var total, parts, values, childrenValues, filterFunc, allValues;
             filterFunc = function(item) {
                 return !_.has(item, filterProp) || item[filterProp] === false;
             };
@@ -123,10 +123,9 @@ define(['lodash'], function(_) {
         };
 
         me.allExpenses = function() {
-            var expensesCopy = expenses.concat(),
-                splitExpenses,
+            var splitExpenses,
                 flattened;
-            splitExpenses = _.groupBy(expensesCopy, function(expense) {
+            splitExpenses = _.groupBy(expenses, function(expense) {
                 return !_.has(expense, "children");
             });
             flattened = _.flatten(splitExpenses[false], function(item) {
