@@ -7,7 +7,7 @@ define(['angular'], function(angular) {
     appService.factory('DataService', ['$http', function($http) {
         return {
             get : function (callback) {
-                    $http.get('data/content.json', {cache : true}).success(callback);
+                    $http.get('data/content.json', {cache : false}).success(callback);
             }
         };
     }]);
