@@ -348,7 +348,7 @@
                            class="table table-bordered">
                         <tbody ng-repeat="expense in expenses">
                         <tr>
-                            <td popover="{{expense.payments.toString()}}">{{expense.label}}</td>
+                            <td popover="{{expense.payments.toString()}}" popover-placement="right" popover-append-to-body="true">{{expense.label}}</td>
                             <td>
                                 <div class="controls" >
                                     <input ng-disabled="expense.skip" class="form-control" ng-if="!_.has(expense, 'children')"
@@ -367,7 +367,7 @@
                             </td>
                             <td ><input ng-show="!templateMode && !_.has(expense, 'children')"  type="checkbox" class="checkbox" ng-model="expense.skip"></td>
                         <tr ng-disabled="sub.skip" ng-repeat="sub in expense.children" ng-if="_.has(expense, 'children')">
-                            <td popover="{{sub.payments.toString()}}">
+                            <td popover="{{sub.payments.toString()}}" popover-placement="right" popover-append-to-body="true">
                                 <span style="padding-left: 30px">{{sub.label}}</span>
                             </td>
                             <td>

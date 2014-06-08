@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/service/dataService.js" afterPath="$PROJECT_DIR$/app/service/dataService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/expenseOperationsController.js" afterPath="$PROJECT_DIR$/app/controller/expenseOperationsController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
     <ignored path="budget.iws" />
@@ -76,8 +75,8 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29765886" vertical-offset="1442" max-vertical-offset="3240">
-              <caret line="369" column="46" selection-start-line="369" selection-start-column="46" selection-end-line="369" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.22240803" vertical-offset="1202" max-vertical-offset="3240">
+              <caret line="350" column="129" selection-start-line="350" selection-start-column="129" selection-end-line="350" selection-end-column="129" />
               <folding>
                 <element signature="tag#script#1;tag#body#0;tag#html#0" expanded="false" />
                 <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -101,7 +100,7 @@
         <entry file="file://$PROJECT_DIR$/app/service/dataService.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
-              <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
+              <caret line="9" column="75" selection-start-line="9" selection-start-column="75" selection-end-line="9" selection-end-column="75" />
               <folding />
             </state>
           </provider>
@@ -130,12 +129,9 @@
       <file leaf-file-name="content.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/content.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.5" vertical-offset="60" max-vertical-offset="90">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="90">
               <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
-              <folding>
-                <element signature="e#1395#2278#0" expanded="false" />
-                <element signature="e#2303#5253#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -217,8 +213,8 @@
         <option value="$PROJECT_DIR$/app/main.js" />
         <option value="$PROJECT_DIR$/data/content.json" />
         <option value="$PROJECT_DIR$/app/model/budgetAppModel.js" />
-        <option value="$PROJECT_DIR$/app/service/dataService.js" />
         <option value="$PROJECT_DIR$/app/controller/expenseOperationsController.js" />
+        <option value="$PROJECT_DIR$/app/service/dataService.js" />
         <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
@@ -721,7 +717,7 @@
       <workItem from="1399857374847" duration="195000" />
       <workItem from="1399857590135" duration="144000" />
       <workItem from="1399857771961" duration="17317000" />
-      <workItem from="1400291076941" duration="70197000" />
+      <workItem from="1400291076941" duration="71504000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <created>1392997984181</created>
@@ -731,7 +727,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177107000" />
+    <option name="totallyTimeSpent" value="178414000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="22" width="1276" height="778" extended-state="6" />
@@ -1158,17 +1154,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/content.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.5" vertical-offset="60" max-vertical-offset="11235">
-          <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
-          <folding>
-            <element signature="e#1395#2278#0" expanded="false" />
-            <element signature="e#2303#5253#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controller/gridController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="265" max-vertical-offset="900">
@@ -1201,14 +1186,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/service/dataService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
-          <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controller/expenseOperationsController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1360" max-vertical-offset="3165">
@@ -1217,10 +1194,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data/content.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="90">
+          <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/service/dataService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+          <caret line="9" column="75" selection-start-line="9" selection-start-column="75" selection-end-line="9" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29765886" vertical-offset="1442" max-vertical-offset="3240">
-          <caret line="369" column="46" selection-start-line="369" selection-start-column="46" selection-end-line="369" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.22240803" vertical-offset="1202" max-vertical-offset="3240">
+          <caret line="350" column="129" selection-start-line="350" selection-start-column="129" selection-end-line="350" selection-end-column="129" />
           <folding>
             <element signature="tag#script#1;tag#body#0;tag#html#0" expanded="false" />
             <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
