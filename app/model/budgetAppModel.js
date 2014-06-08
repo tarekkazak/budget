@@ -103,21 +103,27 @@ define(['lodash'], function(_) {
 
             allValues = values.concat(childrenValues);
             total = _.reduce(allValues, function (acc, amt) {
+
+                function addValues(a, b) {
+                    a = Number(a);
+                    b = Number(b);
+                    a = a < 0 ? 0 : a;
+                    b = b < 0 ? 0 : b;
+                    return a + b;
+                }
+
                 if (_.isArray(acc)) {
-                    acc = _.reduce(acc, function (a, b) {
-                        return Number(a) + Number(b);
-                    });
+                    acc = _.reduce(acc, addValues);
+
                 }
 
                 if (_.isArray(amt)) {
                     if (amt.length === 0) {
                         amt.push(0);
                     }
-                    amt = _.reduce(amt, function (a, b) {
-                        return Number(a) + Number(b);
-                    });
+                    amt = _.reduce(acc, addValues);
                 }
-                return Number(acc) + Number(amt);
+                return addValues(acc, amt);
             });
             return total;
         };
