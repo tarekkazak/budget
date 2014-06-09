@@ -11,6 +11,7 @@ requirejs.config({
         bootstrap : '../bower_components/bootstrap/dist/js/bootstrap.min',
         jquery : '../bower_components/jquery/jquery.min'
     },
+    urlArgs : 'd=' + (new Date()).getTime(),
     shim: {
         'bootstrap' : {
             exports : 'bootstrap'
@@ -30,7 +31,7 @@ requirejs.config({
         'boostrap' : {
             deps : ['jquery']
         },
-        'lodash':{
+        'lodash': {
             exports : '_'
         }
 
