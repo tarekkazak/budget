@@ -137,6 +137,7 @@ define(['lodash',
                 if ($scope.selectedWishlistItem) {
                     $scope.expenses.push($scope.selectedWishlistItem);
                     _.remove($scope.wishlist, $scope.selectedWishlistItem);
+                    budgetAppModel.updateRemainderAndTotalPaid([$scope.selectedWishlistItem]);
                     $scope.selectedWishlistItem = null;
                 }
             };
@@ -161,6 +162,9 @@ define(['lodash',
                 });
             }
 
+            $scope.isNullOrUndefined = function(obj) {
+                return budgetAppModel.isNullOrUndefined(obj);
+            };
 
             $scope.save = function () {
 

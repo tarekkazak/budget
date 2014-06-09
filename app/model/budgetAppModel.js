@@ -75,6 +75,10 @@ define(['lodash'], function(_) {
             updateRegisteredObjects('selectedYear', value);
         };
 
+        me.setUpcoming = function(value) {
+            updateRegisteredObjects('upcoming', value);
+        };
+
         me.updateRemainderAndTotalPaid = function(expenses) {
             _.each(expenses, function (el) {
                 var totalPaid;

@@ -16,6 +16,8 @@ define([
         $scope.dataLoaded = budgetAppModel.dataLoaded;
         DataService.get(function(data) {
             budgetAppModel.siteData = data;
+            budgetAppModel.setWishlist(budgetAppModel.siteData.content.wishlist);
+            budgetAppModel.setUpcoming(budgetAppModel.siteData.content.upcoming);
         });
 
         budgetAppModel.registerForUpdate('templateMode', function(value) {
@@ -36,6 +38,10 @@ define([
 
         budgetAppModel.registerForUpdate('selectedYear', function(value) {
             $scope.selectedYear = value;
+        });
+
+        budgetAppModel.registerForUpdate('upcoming', function(value) {
+            $scope.upcoming = value;
         });
 
         $scope._ = _;
@@ -104,7 +110,7 @@ define([
                 }
                 budgetAppModel.setTemplateMode(false);
                 budgetAppModel.setInEditMode(false);
-                budgetAppModel.setWishlist(budgetAppModel.siteData.content.wishlist);
+
             }
         }
 

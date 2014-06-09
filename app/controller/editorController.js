@@ -26,10 +26,17 @@ define([
             $scope.wishlist = value;
         });
 
+        budgetAppModel.registerForUpdate('upcoming', function (value) {
+            $scope.upcoming = value;
+        });
+
 
         $scope._ = _;
-        $scope.isNullOrUndefined = budgetAppModel.isNullOrUndefined;
-        $scope.addToWishList = false;
+        $scope.upcomingExpenseDate = new Date();
+        $scope.isNullOrUndefined = function(obj) {
+            return budgetAppModel.isNullOrUndefined(obj);
+        }
+        $scope.expenseType = 'normal';
         $scope.selectExpense = function(expense) {
             $scope.selectedExpense = expense;
         };
@@ -44,18 +51,31 @@ define([
             $scope.expenses = expensesBackup;
         };
 
+        $scope.openCal = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.opened = true;
+        };
+
 
         $scope.addField = function() {
-            var expense = {"label" : $scope.newFieldName, "amt" : Number($scope.newFieldAmt), "payments" : []};
-            if ($scope.addToWishList) {
+            var expense = {"label": $scope.newFieldName, "amt": Number($scope.newFieldAmt), "payments": []};
+            switch ($scope.expenseType) {
+            case 'wishlist':
                 $scope.wishlist.push(expense);
-            } else {
+                break;
+            case 'upcoming':
+                expense.date = $scope.upcomingExpenseDate.toDateString();
+                $scope.upcoming.push(expense);
+                break;
+            case 'normal':
                 if ($scope.selectedExpense) {
                     $scope.selectedExpense.children.push(expense);
                 } else {
                     $scope.expenses.push(expense);
                 }
                 $scope.selectedExpense = null;
+                break;
             }
             $scope.newFieldName = null;
             $scope.newFieldAmt = null;

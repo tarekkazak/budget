@@ -311,6 +311,13 @@
                             </ul>
                         </div>
                         <button class="btn btn-primary" ng-click="loadTemplate()">Load template</button>
+                        <div ng-show="upcoming.length > 0">
+                            <h2>Upcoming!</h2>
+                            <ul>
+                                <li style="color: red; font-weight: bold" ng-repeat="expense in upcoming">{{expense.label}} {{expense.date}}</li>
+                            </ul>
+                        </div>
+
                     </div>
 
                     <div ng-controller="editorController">
@@ -334,8 +341,15 @@
                             <input class="form-control" type="text" ng-model="newFieldName" placeholder="enter new field name">
                             <input class="form-control" type="text" ng-model="newFieldAmt" placeholder="enter new field amount">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-primary" ng-model="addToWishList" btn-radio="false">expense</button>
-                                <button type="button" class="btn btn-primary" ng-model="addToWishList" btn-radio="true">wish list</button>
+                                <button type="button" class="btn btn-primary" ng-model="expenseType" btn-radio="'normal'">expense</button>
+                                <button type="button" class="btn btn-primary" ng-model="expenseType" btn-radio="'wishlist'">wish list</button>
+                                <button type="button" class="btn btn-primary" ng-model="expenseType" btn-radio="'upcoming'">upcoming</button>
+                                <p class="input-group" ng-show="expenseType === 'upcoming'">
+                                    <input  type="text" class="form-control" is-open="opened" datepicker-popup="yyyy-MM-dd" ng-model="upcomingExpenseDate" >
+                                    <span class="input-group-btn">
+                                        <button type="button" ng-click="openCal($event)" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
                             </div>
                             <button ng-disabled="isNullOrUndefined(newFieldName) || isNullOrUndefined(newFieldAmt)" class="btn btn-primary" ng-click="addField()">Add field</button>
 
@@ -453,9 +467,9 @@
                                 </li>
                             </ul>
                         </div>
-                        <button ng-disabled="isNullOrUndefined(selectedWishlistItem)" class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
+                        <button ng-disabled="isNullOrUndefined(selectedWishlistItem) || isNullOrUndefined(expenses)" class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
                         <button ng-disabled="isNullOrUndefined(selectedExpense)" class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit">Apply</button>
-                        <button class="btn btn-default" ng-click="sendReport()">Send Report</button>
+                        <button ng-disabled="isNullOrUndefined(expenses)" class="btn btn-default" ng-click="sendReport()">Send Report</button>
 
                     </form>
 
