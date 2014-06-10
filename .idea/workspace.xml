@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/editorController.js" afterPath="$PROJECT_DIR$/app/controller/editorController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/expenseOperationsController.js" afterPath="$PROJECT_DIR$/app/controller/expenseOperationsController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
     <ignored path="budget.iws" />
@@ -156,8 +154,8 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3181818" vertical-offset="7048" max-vertical-offset="7620">
-              <caret line="482" column="132" selection-start-line="482" selection-start-column="132" selection-end-line="482" selection-end-column="132" />
+            <state vertical-scroll-proportion="0.3583916" vertical-offset="6380" max-vertical-offset="7620">
+              <caret line="439" column="78" selection-start-line="439" selection-start-column="78" selection-end-line="439" selection-end-column="78" />
               <folding>
                 <element signature="n#style#0;n#li#0;n#ul#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -740,7 +738,7 @@
       <workItem from="1399857590135" duration="144000" />
       <workItem from="1399857771961" duration="17317000" />
       <workItem from="1400291076941" duration="72058000" />
-      <workItem from="1402198284359" duration="5755000" />
+      <workItem from="1402198284359" duration="5932000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <created>1392997984181</created>
@@ -750,7 +748,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184723000" />
+    <option name="totallyTimeSpent" value="184900000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="22" width="1276" height="778" extended-state="6" />
@@ -1220,8 +1218,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3181818" vertical-offset="7048" max-vertical-offset="7620">
-          <caret line="482" column="132" selection-start-line="482" selection-start-column="132" selection-end-line="482" selection-end-column="132" />
+        <state vertical-scroll-proportion="0.3583916" vertical-offset="6380" max-vertical-offset="7620">
+          <caret line="439" column="78" selection-start-line="439" selection-start-column="78" selection-end-line="439" selection-end-column="78" />
           <folding>
             <element signature="n#style#0;n#li#0;n#ul#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
