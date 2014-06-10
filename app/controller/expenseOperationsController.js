@@ -52,12 +52,20 @@ define(['lodash',
                 $scope.initialFunds = value;
             });
 
+            budgetAppModel.registerForUpdate('upcoming', function (value) {
+                $scope.upcoming = value;
+            });
+
             $scope.selectExpense = function (expense) {
                 $scope.selectedExpense = expense;
             };
 
             $scope.selectWishlistItem = function (item) {
                 $scope.selectedWishlistItem = item;
+            };
+
+            $scope.selectUpcomingExpense = function (item) {
+                $scope.selectedUpcomingExpense = item;
             };
 
             $scope.allExpenses = function() {
@@ -139,6 +147,14 @@ define(['lodash',
                     _.remove($scope.wishlist, $scope.selectedWishlistItem);
                     budgetAppModel.updateRemainderAndTotalPaid([$scope.selectedWishlistItem]);
                     $scope.selectedWishlistItem = null;
+                }
+
+                if ($scope.selectedUpcomingExpense) {
+                    delete $scope.selectedUpcomingExpense.date;
+                    $scope.expenses.push($scope.selectedUpcomingExpense);
+                    _.remove($scope.upcoming, $scope.selectedUpcomingExpense);
+                    budgetAppModel.updateRemainderAndTotalPaid([$scope.selectedUpcomingExpense]);
+                    $scope.selectedUpcomingExpense = null;
                 }
             };
 

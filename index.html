@@ -314,7 +314,7 @@
                         <div ng-show="upcoming.length > 0">
                             <h2>Upcoming!</h2>
                             <ul>
-                                <li style="color: red; font-weight: bold" ng-repeat="expense in upcoming">{{expense.label}} {{expense.date}}</li>
+                                <li style="color: red; font-weight: bold" ng-repeat="expense in upcoming">{{expense.label}}: {{expense.amt}} - {{expense.date}}</li>
                             </ul>
                         </div>
 
@@ -467,7 +467,20 @@
                                 </li>
                             </ul>
                         </div>
-                        <button ng-disabled="isNullOrUndefined(selectedWishlistItem) || isNullOrUndefined(expenses)" class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
+
+                        <div class="btn-group" >
+                            <button class="btn btn-primary dropdown-toggle" >
+                                {{selectedUpcomingExpense.label || "Select a upcoming item"}}<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="item in upcoming">
+                                    <a ng-click="selectUpcomingExpense(item)">
+                                        <span>{{item.label}}  </span><span>  {{item.amt}}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button ng-disabled="(isNullOrUndefined(selectedUpcomingExpense) && isNullOrUndefined(selectedWishlistItem)) || isNullOrUndefined(expenses)" class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
                         <button ng-disabled="isNullOrUndefined(selectedExpense)" class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit">Apply</button>
                         <button ng-disabled="isNullOrUndefined(expenses)" class="btn btn-default" ng-click="sendReport()">Send Report</button>
 

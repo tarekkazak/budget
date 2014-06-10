@@ -60,6 +60,7 @@ define([
 
         $scope.addField = function() {
             var expense = {"label": $scope.newFieldName, "amt": Number($scope.newFieldAmt), "payments": []};
+            budgetAppModel.updateRemainderAndTotalPaid(expense);
             switch ($scope.expenseType) {
             case 'wishlist':
                 $scope.wishlist.push(expense);
