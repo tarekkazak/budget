@@ -72,15 +72,7 @@ define([
             budgetAppModel.selectedExpense = null;
         };
 
-        function addNonTemplateProps(arr) {
-            _.each(arr, function(el) {
-                el.remainder = Number(el.amt);
-                el.payments = [];
-                el.paid = 0;
-                el.skip = false;
-                el.tags = [];
-            });
-        }
+
 
         function getBudgetFromHistory() {
             if (!_.isUndefined($scope.selectedMonth) && !_.isUndefined($scope.selectedYear)) {
@@ -99,12 +91,12 @@ define([
                     parts = _.groupBy(newExpenses, function(expense) {
                         return !_.has(expense, "children");
                     });
-                    addNonTemplateProps(parts["true"]);
+                    budgetAppModel.addNonTemplateProps(parts["true"]);
 
                     children = _.pluck(parts["false"], "children");
                     children = _.flatten(children);
 
-                    addNonTemplateProps(children);
+                    budgetAppModel.addNonTemplateProps(children);
                     budgetAppModel.setExpenses(newExpenses);
                     budgetAppModel.isNew = true;
                 }

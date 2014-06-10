@@ -423,6 +423,19 @@
                             <input name="expenseTA" type="text" ng-model="selectedExpense" placeholder="select expense" class="form-control"
                                    typeahead="expense as expense.label for expense in allExpenses() | filter:filterExpense"
                                    typeahead-template-url="typeaheadTemplate.html" >
+
+                            <!--<div class="btn-group" ng-hide="isNullOrUndefined(selectedExpense)">
+                                <button class="btn btn-primary dropdown-toggle">
+                                    {{selectedPayment.amt || "Select a payment item"}}<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li ng-repeat="item in selectedExpense.payments">
+                                        <a ng-click="selectPayment(item)">
+                                            <span>{{item.amt}}  </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>-->
                         </div>
 
 
@@ -452,7 +465,7 @@
 
                         <div class="form-group">
                             <label>Current Remaining</label>
-                            <span>{{totalFunds - getTotalRemainingExpenses()}}</span>
+                            <span>{{(totalFunds - getTotalRemainingExpenses()).toFixed(2)}}</span>
                         </div>
 
                         <div class="btn-group" >

@@ -36,6 +36,16 @@ define(['lodash'], function(_) {
             registeredOnjects[prop].push(func);
         };
 
+        me.addNonTemplateProps = function(arr) {
+            _.each(arr, function(el) {
+                el.remainder = Number(el.amt);
+                el.payments = [];
+                el.paid = 0;
+                el.skip = false;
+                el.tags = [];
+            });
+        };
+
         me.setTemplateMode = function(value) {
             templateMode = value;
             updateRegisteredObjects('templateMode', value);

@@ -60,6 +60,10 @@ define(['lodash',
                 $scope.selectedExpense = expense;
             };
 
+            $scope.selectPayment = function (expense) {
+                $scope.selectedPayment = expense;
+            };
+
             $scope.selectWishlistItem = function (item) {
                 $scope.selectedWishlistItem = item;
             };
@@ -145,7 +149,7 @@ define(['lodash',
                 if ($scope.selectedWishlistItem) {
                     $scope.expenses.push($scope.selectedWishlistItem);
                     _.remove($scope.wishlist, $scope.selectedWishlistItem);
-                    budgetAppModel.updateRemainderAndTotalPaid([$scope.selectedWishlistItem]);
+                    budgetAppModel.addNonTemplateProps([$scope.selectedWishlistItem]);
                     $scope.selectedWishlistItem = null;
                 }
 
@@ -153,7 +157,7 @@ define(['lodash',
                     delete $scope.selectedUpcomingExpense.date;
                     $scope.expenses.push($scope.selectedUpcomingExpense);
                     _.remove($scope.upcoming, $scope.selectedUpcomingExpense);
-                    budgetAppModel.updateRemainderAndTotalPaid([$scope.selectedUpcomingExpense]);
+                    budgetAppModel.addNonTemplateProps([$scope.selectedUpcomingExpense]);
                     $scope.selectedUpcomingExpense = null;
                 }
             };
