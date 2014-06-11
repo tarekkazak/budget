@@ -45,11 +45,11 @@ define(['lodash',
             });
 
             budgetAppModel.registerForUpdate('totalFunds', function (value) {
-                $scope.totalFunds = value;
+                $scope.totalFunds = Number(value).toFixed(2);
             });
 
             budgetAppModel.registerForUpdate('initialFunds', function (value) {
-                $scope.initialFunds = value;
+                $scope.initialFunds = Number(value).toFixed(2);
             });
 
             budgetAppModel.registerForUpdate('upcoming', function (value) {

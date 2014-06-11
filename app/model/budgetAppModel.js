@@ -99,7 +99,7 @@ define(['lodash'], function(_) {
                         return Number(total) + Number(amt);
                     }) || 0;
                     el.remainder = (Number(el.amt) - totalPaid).toFixed(2);
-                    el.paid = totalPaid.toFixed(2);
+                    el.paid = Number(totalPaid).toFixed(2);
                 }
             });
         };
@@ -139,7 +139,7 @@ define(['lodash'], function(_) {
                 }
                 return addValues(acc, amt);
             });
-            return total.toFixed(2);
+            return Number(total).toFixed(2);
         };
 
         me.allExpenses = function() {
