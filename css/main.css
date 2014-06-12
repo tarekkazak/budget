@@ -9,7 +9,7 @@
 
 .popover-content {
     word-wrap: break-word;
-    width: 200px
+    width: 150px
 }
 
 @media handheld and (orientation:landscape) and (min-device-height:1025px),
