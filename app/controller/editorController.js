@@ -66,7 +66,7 @@ define([
                 $scope.wishlist.push(expense);
                 break;
             case 'upcoming':
-                expense.date = $scope.upcomingExpenseDate.toDateString();
+                expense.date = $scope.upcomingExpenseDate;
                 $scope.upcoming.push(expense);
                 break;
             case 'normal':

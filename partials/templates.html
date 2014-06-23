@@ -1,0 +1,271 @@
+<script type="text/ng-template" id="typeaheadTemplate.html">
+
+    <div>
+        <span> {{match.model.label}} </span>
+        <span ng-if="match.model.hasOwnProperty('parent')"><b> {{match.model.parent.label}} </b></span>
+    </div>
+
+</script>
+
+<script type="text/ng-template" id="reportTemplate">
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<div>
+<h1><%= selectedMonth %> / <%= selectedYear %></h1>
+<table>
+    <thead>
+    <tr>
+        <th>Paid expenses</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% _.each(expenses, function(expense) {
+    if(!_.has(expense, 'children')) {
+    if(!expense.skip && expense.remainder === 0) {
+    %>
+    <tr>
+        <td><%= expense.label %></td>
+        <td>
+            <div>
+                <p>payments: <%= expense.payments %></p>
+
+            </div>
+        </td>
+
+    </tr>
+
+    <% }
+    } else { %>
+
+
+    <%   _.each(expense.children, function(sub, index) {
+    if(!sub.skip && sub.remainder === 0) {
+    if(index === 0) {
+    %>
+    <tr>
+        <td><%= expense.label %></td>
+
+    </tr>
+    <% } %>
+    <tr>
+        <td>
+            <span style="padding-left: 30px"><%= sub.label %></span>
+        </td>
+        <td>
+            <div>
+                <p>payments: <%= sub.payments %></p>
+            </div>
+
+        </td>
+
+    </tr>
+    <%
+    }
+    });
+    }
+    %>
+
+    <% });%>
+
+    </tbody>
+</table>
+
+<table>
+    <thead>
+    <tr>
+        <th>Overpaid expenses</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% _.each(expenses, function(expense) {
+    if(!_.has(expense, 'children')) {
+    if(!expense.skip && expense.remainder < 0) {
+    %>
+    <tr valign="top">
+        <td><%= expense.label %></td>
+        <td>
+            <div>
+                <span>payments: <%= expense.payments %></span><br/>
+                <span style="color: red"><b></b>overage: <%= expense.remainder %></span>
+
+            </div>
+        </td>
+
+    </tr>
+
+    <% }
+    } else { %>
+
+
+    <%   _.each(expense.children, function(sub, index) {
+    if(!sub.skip && sub.remainder < 0) {
+    if(index === 0) {
+    %>
+    <tr valign="top">
+        <td><%= expense.label %></td>
+
+    </tr>
+    <% } %>
+    <tr valign="top">
+        <td>
+            <span style="padding-left: 30px"><%= sub.label %></span>
+        </td>
+        <td>
+            <div>
+                <span>payments: <%= sub.payments %></span><br/>
+                <span style="color: red"><b></b>overage: <%= sub.remainder %></span>
+            </div>
+
+        </td>
+
+    </tr>
+    <%
+    }
+    });
+    }
+    %>
+
+    <% });%>
+
+
+
+
+
+    </tbody>
+</table>
+
+<table>
+    <thead>
+    <tr>
+        <th>Remaining expenses</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% _.each(expenses, function(expense) {
+    if(!_.has(expense, 'children')) {
+    if(!expense.skip && expense.remainder > 0) {
+    %>
+    <tr valign="top">
+        <td><%= expense.label %></td>
+        <td>
+            <div>
+                <span>payments: <%= expense.payments %></span><br/>
+                <span style="color: green"><b></b>remainder: <%= expense.remainder %></span>
+
+            </div>
+        </td>
+
+    </tr>
+
+    <% }
+    } else { %>
+
+
+    <%   _.each(expense.children, function(sub, index) {
+    if(!sub.skip && sub.remainder > 0) {
+    if(index === 0) {
+    %>
+    <tr valign="top">
+        <td><%= expense.label %></td>
+
+    </tr>
+    <% } %>
+    <tr valign="top">
+        <td>
+            <span style="padding-left: 30px"><%= sub.label %></span>
+        </td>
+        <td>
+            <div>
+                <span>payments: <%= sub.payments %></span><br/>
+                <span style="color: green"><b></b>remainder: <%= sub.remainder %></span>
+            </div>
+
+        </td>
+
+    </tr>
+    <%
+    }
+    });
+    }
+    %>
+
+    <% });%>
+
+
+
+
+
+    </tbody>
+</table>
+
+<table>
+    <thead>
+    <tr>
+        <th>Skipped expenses</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% _.each(expenses, function(expense) {
+    if(!_.has(expense, 'children')) {
+    if(expense.skip) {
+    %>
+    <tr valign="top">
+        <td><%= expense.label %></td>
+        <td>
+            <div>
+                <span>payments: <%= expense.payments %></span><br/>
+                <span style="color: #808080"><b></b>remainder: <%= expense.remainder %></span>
+
+            </div>
+        </td>
+
+    </tr>
+
+    <% }
+    } else { %>
+
+
+    <%   _.each(expense.children, function(sub, index) {
+    if(sub.skip) {
+    if(index === 0) {
+    %>
+    <tr valign="top">
+        <td><%= expense.label %></td>
+
+    </tr>
+    <% } %>
+    <tr valign="top">
+        <td>
+            <span style="padding-left: 30px"><%= sub.label %></span>
+        </td>
+        <td>
+            <div>
+                <span>payments: <%= sub.payments %></span><br/>
+                <span style="color: #808080"><b></b>remainder: <%= sub.remainder %></span>
+            </div>
+
+        </td>
+
+    </tr>
+    <%
+    }
+    });
+    }
+    %>
+
+    <% });%>
+
+
+
+
+
+    </tbody>
+</table>
+
+
+<p><b>Total funds: <%= totalFunds %></b></p>
+</div>
+</html>
+
+</script>

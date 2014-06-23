@@ -3,6 +3,11 @@
     color: red;
 }
 
+.normal {
+    color: #808080;
+    font-weight: normal;
+}
+
 .control-padding {
     margin-bottom: 20px;
 }

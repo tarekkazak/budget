@@ -198,15 +198,13 @@ define(['lodash',
 
                 if (!$scope.templateMode) {
                     if (budgetAppModel.isNew) {
-                        budgetAppModel.siteData.content.history.push(
-                            {
-                                "year": $scope.selectedYear,
-                                "month": $scope.selectedMonth,
-                                "expenses": $scope.expenses,
-                                "totalFunds": $scope.totalFunds,
-                                "initialFunds": $scope.initialFunds
-                            }
-                        );
+                        _.merge(budgetAppModel.loadedExpenseReport, {
+                            "year": $scope.selectedYear,
+                            "month": $scope.selectedMonth,
+                            "totalFunds": $scope.totalFunds,
+                            "initialFunds": $scope.initialFunds
+                        });
+                        budgetAppModel.siteData.content.history.push(budgetAppModel.loadedExpenseReport);
                         budgetAppModel.isNew = false;
                     } else {
                         budgetAppModel.loadedExpenseReport.totalFunds = $scope.totalFunds;

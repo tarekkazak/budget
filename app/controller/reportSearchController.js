@@ -17,7 +17,10 @@ define([
         DataService.get(function(data) {
             budgetAppModel.siteData = data;
             budgetAppModel.setWishlist(budgetAppModel.siteData.content.wishlist);
-            budgetAppModel.setUpcoming(budgetAppModel.siteData.content.upcoming);
+            budgetAppModel.setUpcoming(_.map(budgetAppModel.siteData.content.upcoming, function(item) {
+                item.date = new Date(item.date);
+                return item;
+            }));
         });
 
         budgetAppModel.registerForUpdate('templateMode', function(value) {
@@ -72,7 +75,16 @@ define([
             budgetAppModel.selectedExpense = null;
         };
 
+        $scope.isComingNextMonth = function(date) {
+            var today = new Date();
+            return date.getFullYear() === today.getFullYear() && (date.getMonth() - today.getMonth()) <= 1;
+        };
 
+        $scope.openCal = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.opened = true;
+        };
 
         function getBudgetFromHistory() {
             if (!_.isUndefined($scope.selectedMonth) && !_.isUndefined($scope.selectedYear)) {
@@ -98,6 +110,9 @@ define([
 
                     budgetAppModel.addNonTemplateProps(children);
                     budgetAppModel.setExpenses(newExpenses);
+                    budgetAppModel.loadedExpenseReport = {
+                        expenses : newExpenses
+                    };
                     budgetAppModel.isNew = true;
                 }
                 budgetAppModel.setTemplateMode(false);
