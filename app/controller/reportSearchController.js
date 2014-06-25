@@ -83,7 +83,7 @@ define([
         $scope.openCal = function($event) {
             $event.preventDefault();
             $event.stopPropagation();
-            $scope.opened = true;
+            //$scope.opened = true;
         };
 
         function getBudgetFromHistory() {

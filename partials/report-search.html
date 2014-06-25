@@ -13,7 +13,7 @@
                         <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
                                ng-model="expense.date">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="openCal($event)"><i
+                                        <button type="button" class="btn btn-default" ng-click="openCal($event); opened = !opened"><i
                                                 class="glyphicon glyphicon-calendar"></i></button>
                                     </span>
                     </p>
