@@ -2,15 +2,26 @@
     <div ng-show="upcoming.length > 0">
         <h2>Upcoming!</h2>
         <ul>
-            <li ng-class="{'bold-red' : isComingNextMonth(expense.date), 'normal' : !isComingNextMonth(expense.date)}" ng-repeat="expense in upcoming | orderBy :'+date'">{{expense.label}}: {{expense.amt}} - {{expense.date.toDateString()}}</li>
-            <!--<input type="text" class="form-control" ng-model="expense.amt">
-            <input type="text" class="form-control" ng-model="expense.label">
-            <p class="input-group">
-                <input  type="text" class="form-control" is-open="opened" datepicker-popup="yyyy-MM-dd" ng-model="expense.date" >
-                <span class="input-group-btn">
-                    <button type="button" ng-click="openCal($event)" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-            </p>-->
+            <li ng-class="{'bold-red' : isComingNextMonth(expense.date), 'normal' : !isComingNextMonth(expense.date)}" ng-repeat="expense in upcoming | orderBy :'+date'">
+                {{expense.label}}: {{expense.amt}} - {{expense.date.toDateString()}}
+                <i class="glyphicon glyphicon-edit" ng-click="isCollapsed = !isCollapsed" ></i>
+                <div collapse="!isCollapsed">
+                    <input class="form-control" type="text" ng-model="expense.label">
+                    <input class="form-control" type="text" ng-model="expense.amt">
+
+                    <p class="input-group">
+                        <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
+                               ng-model="expense.date">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openCal($event)"><i
+                                                class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                    </p>
+
+                </div>
+
+            </li>
+
         </ul>
     </div>
 
