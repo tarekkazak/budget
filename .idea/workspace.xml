@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/partials/report-search.html" afterPath="$PROJECT_DIR$/partials/report-search.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/reportSearchController.js" afterPath="$PROJECT_DIR$/app/controller/reportSearchController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="" />
     <ignored path="budget.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -702,7 +698,7 @@
       <workItem from="1399857771961" duration="17317000" />
       <workItem from="1400291076941" duration="72058000" />
       <workItem from="1402198284359" duration="7565000" />
-      <workItem from="1403231360025" duration="19070000" />
+      <workItem from="1403231360025" duration="19117000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <created>1392997984181</created>
@@ -712,7 +708,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="205603000" />
+    <option name="totallyTimeSpent" value="205650000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="22" width="1276" height="778" extended-state="6" />
