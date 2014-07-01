@@ -95,7 +95,7 @@ define(['lodash'], function(_) {
                 if (_.has(el, 'children')) {
                     me.updateRemainderAndTotalPaid(el.children);
                 } else {
-                    totalPaid = _.reduce(el.payments, function (total, amt) {
+                    totalPaid = _.reduce(_.pluck(el.payments, 'amt'), function (total, amt) {
                         return Number(total) + Number(amt);
                     }) || 0;
                     el.remainder = (Number(el.amt) - totalPaid).toFixed(2);

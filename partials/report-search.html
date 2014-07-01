@@ -1,22 +1,30 @@
 <div  ng-controller="reportSearchController">
     <div ng-show="upcoming.length > 0">
         <h2>Upcoming!</h2>
-        <ul>
-            <li ng-class="{'bold-red' : isComingNextMonth(expense.date), 'normal' : !isComingNextMonth(expense.date)}" ng-repeat="expense in upcoming | orderBy :'+date'">
+        <ul class="list-group">
+            <li ng-class="{'list-group-item list-group-item-danger' : isComingNextMonth(expense.date), 'list-group-item' : !isComingNextMonth(expense.date)}" ng-repeat="expense in upcoming | orderBy :'+date'">
                 {{expense.label}}: {{expense.amt}} - {{expense.date.toDateString()}}
-                <i class="glyphicon glyphicon-edit" ng-click="isCollapsed = !isCollapsed" ></i>
-                <div collapse="!isCollapsed">
-                    <input class="form-control" type="text" ng-model="expense.label">
-                    <input class="form-control" type="text" ng-model="expense.amt">
+                <i class="glyphicon glyphicon-pencil" ng-click="isCollapsed = !isCollapsed" ></i>
 
-                    <p class="input-group">
-                        <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
-                               ng-model="expense.date">
+                <div class="row" collapse="!isCollapsed">
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" ng-model="expense.label">
+                    </div>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" ng-model="expense.amt">
+                    </div>
+
+                    <div class="col-md-4">
+                        <p class="input-group">
+                            <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
+                                   ng-model="expense.date">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="openCal($event); opened = !opened"><i
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="openCal($event); opened = !opened"><i
                                                 class="glyphicon glyphicon-calendar"></i></button>
                                     </span>
-                    </p>
+                        </p>
+                    </div>
 
                 </div>
 

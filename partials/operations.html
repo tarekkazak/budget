@@ -2,24 +2,44 @@
     <form name="form" class="control-group" ng-hide="templateMode">
 
 
-        <div class="dropdown" >
+        <div class="row" >
 
             <input name="expenseTA" type="text" ng-model="selectedExpense" placeholder="select expense" class="form-control"
                    typeahead="expense as expense.label for expense in allExpenses() | filter:filterExpense"
                    typeahead-template-url="typeaheadTemplate.html" >
+            <i class="glyphicon glyphicon-pencil" ng-click="isCollapsed = !isCollapsed"></i>
+        </div>
 
-            <!--<div class="btn-group" ng-hide="isNullOrUndefined(selectedExpense)">
-                <button class="btn btn-primary dropdown-toggle">
-                    {{selectedPayment.amt || "Select a payment item"}}<span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li ng-repeat="item in selectedExpense.payments">
-                        <a ng-click="selectPayment(item)">
-                            <span>{{item.amt}}  </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>-->
+        <div collapse="!isCollapsed" >
+            <ul class="list-group">
+                <li ng-repeat="payment in selectedExpense.payments" class="list-group-item">
+                       <div class="row">
+                           <div class="col-md-4">
+                               <input class="form-control" type="text" ng-model="payment.tags">
+
+                           </div>
+
+                           <div class="col-md-4">
+                               <input class="form-control" type="text" ng-model="payment.amt">
+
+                           </div>
+
+                           <div class="col-md-4">
+                               <p class="input-group">
+                                   <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
+                                          ng-model="payment.date">
+                                       <span class="input-group-btn">
+                                           <button type="button" class="btn btn-default" ng-click="openCal($event); opened = !opened"><i
+                                                   class="glyphicon glyphicon-calendar"></i></button>
+                                       </span>
+                               </p>
+                           </div>
+
+
+
+                      </div>
+                </li>
+            </ul>
         </div>
 
 

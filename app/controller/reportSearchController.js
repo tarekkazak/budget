@@ -83,8 +83,19 @@ define([
         $scope.openCal = function($event) {
             $event.preventDefault();
             $event.stopPropagation();
-            //$scope.opened = true;
         };
+
+        function convertPayments(expenses) {
+            var allExpenses, groups = _.groupBy(expenses, function (expense) {
+                return !_.has(expense, "children");
+            });
+            allExpenses = groups['true'].concat(_(groups['false']).pluck('children').flatten().value());
+            _.each(allExpenses, function (expense) {
+                _.each(expense.payments, function (payment, index, payments) {
+                    payments[index] = !_.isObject(payment) ? {amt : Number(payment), tags : [expense.label], date : new Date()} : payment;
+                });
+            });
+        }
 
         function getBudgetFromHistory() {
             if (!_.isUndefined($scope.selectedMonth) && !_.isUndefined($scope.selectedYear)) {
@@ -94,6 +105,7 @@ define([
                 if (loadedExpenseReport) {
                     budgetAppModel.loadedExpenseReport = loadedExpenseReport;
                     budgetAppModel.updateRemainderAndTotalPaid(loadedExpenseReport.expenses);
+                    convertPayments(loadedExpenseReport.expenses);
                     budgetAppModel.setExpenses(loadedExpenseReport.expenses);
                     budgetAppModel.setTotalFunds(loadedExpenseReport.totalFunds);
                     budgetAppModel.setIntialFunds(loadedExpenseReport.initialFunds);
@@ -110,6 +122,7 @@ define([
 
                     budgetAppModel.addNonTemplateProps(children);
                     budgetAppModel.setExpenses(newExpenses);
+                    //TODO: add more base props like month and year
                     budgetAppModel.loadedExpenseReport = {
                         expenses : newExpenses
                     };

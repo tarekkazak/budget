@@ -76,14 +76,23 @@ define(['lodash',
                 return budgetAppModel.allExpenses();
             };
 
+            $scope.openCal = function($event) {
+                $event.preventDefault();
+                $event.stopPropagation();
+            };
 
-            function applyToExpense(expense, amount) {
+
+            function applyToExpense(expense, amount, date, tags) {
                 if (_.contains(amount, ',')) {
                     _.each(amount.split(','), function (el) {
-                        applyToExpense(expense, el.trim());
+                        applyToExpense(expense, el.trim(), date, tags);
                     });
                 } else {
-                    expense.payments.push(amount);
+                    expense.payments.push({
+                        amt : amount,
+                        date : date,
+                        tags : tags
+                    });
                     budgetAppModel.updateRemainderAndTotalPaid([expense]);
                     $scope.totalFunds -= Number(amount);
                 }
@@ -102,7 +111,7 @@ define(['lodash',
 
             $scope.applyPaymentToExpense = function (amount) {
                 if ($scope.selectedExpense) {
-                    applyToExpense($scope.selectedExpense, amount);
+                    applyToExpense($scope.selectedExpense, amount, date, tags);
                     $scope.selectedExpense = null;
 
                 }
@@ -197,20 +206,22 @@ define(['lodash',
                 });
 
                 if (!$scope.templateMode) {
-                    if (budgetAppModel.isNew) {
-                        _.merge(budgetAppModel.loadedExpenseReport, {
-                            "year": $scope.selectedYear,
-                            "month": $scope.selectedMonth,
-                            "totalFunds": $scope.totalFunds,
-                            "initialFunds": $scope.initialFunds
-                        });
-                        budgetAppModel.siteData.content.history.push(budgetAppModel.loadedExpenseReport);
-                        budgetAppModel.isNew = false;
-                    } else {
-                        budgetAppModel.loadedExpenseReport.totalFunds = $scope.totalFunds;
-                        budgetAppModel.loadedExpenseReport.initialFunds = $scope.initialFunds;
+                    if(budgetAppModel.loadedExpenseReport) {
+                        if (budgetAppModel.isNew) {
+                            _.merge(budgetAppModel.loadedExpenseReport, {
+                                "year": $scope.selectedYear,
+                                "month": $scope.selectedMonth,
+                                "totalFunds": $scope.totalFunds,
+                                "initialFunds": $scope.initialFunds
+                            });
+                            budgetAppModel.siteData.content.history.push(budgetAppModel.loadedExpenseReport);
+                            budgetAppModel.isNew = false;
+                        } else {
+                            budgetAppModel.loadedExpenseReport.totalFunds = $scope.totalFunds;
+                            budgetAppModel.loadedExpenseReport.initialFunds = $scope.initialFunds;
+                        }
+                        clean(budgetAppModel.loadedExpenseReport.expenses);
                     }
-                    clean(budgetAppModel.loadedExpenseReport.expenses);
                 } else {
                     budgetAppModel.siteData.content.expenses = $scope.expenses = stripNonTemplateProps($scope.expenses);
                 }

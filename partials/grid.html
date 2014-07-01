@@ -3,14 +3,13 @@
        class="table table-bordered">
     <tbody ng-repeat="expense in expenses">
     <tr>
-        <td popover="{{expense.payments.toString()}}" popover-placement="right" popover-append-to-body="true">{{expense.label}}</td>
+        <td popover="{{_.pluck(expense.payments, 'amt').toString()}}" popover-placement="right" popover-append-to-body="true">{{expense.label}}</td>
         <td>
             <div class="controls" >
                 <input ng-disabled="expense.skip" class="form-control" ng-if="!_.has(expense, 'children')"
                        ng-change="updateExpenseAmount(expense)" ng-model="expense.amt"
                        ng-class="{'bold-red' : expense.amt < 0}" type="text">
-                <input ng-disabled="expense.skip" class="form-control" ng-show="inEditMode && !templateMode"
-                       ng-model="expense.payments" ng-change="updatePayments(expense)">
+
                 <button ng-disabled="expense.skip" ng-if="!_.has(expense, 'children')" class="btn btn-danger"
                         ng-show="inEditMode" ng-click="removeExpense(expense, null)">
                     remove
@@ -22,15 +21,14 @@
         </td>
         <td ><input ng-show="!templateMode && !_.has(expense, 'children')"  type="checkbox" class="checkbox" ng-model="expense.skip"></td>
     <tr ng-disabled="sub.skip" ng-repeat="sub in expense.children" ng-if="_.has(expense, 'children')">
-        <td popover="{{sub.payments.toString()}}" popover-placement="right" popover-append-to-body="true">
+        <td popover="{{_.pluck(sub.payments, 'amt').toString()}}" popover-placement="right" popover-append-to-body="true">
             <span style="padding-left: 30px">{{sub.label}}</span>
         </td>
         <td>
             <div class="controls">
                 <input ng-disabled="sub.skip" class="form-control" ng-change="updateExpenseAmount(sub)" ng-model="sub.amt"
                        type="text">
-                <input ng-disabled="sub.skip" class="form-control" ng-show="inEditMode && !templateMode"
-                       ng-model="sub.payments" ng-change="updatePayments(sub)">
+
                 <button ng-disabled="sub.skip" class="btn btn-danger" ng-show="inEditMode"
                         ng-click="removeExpense(sub, expense)">
                     remove
