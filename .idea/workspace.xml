@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="" />
+    <list default="true" id="c231984c-d88f-4b63-8483-04cc650c3da7" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/expenseOperationsController.js" afterPath="$PROJECT_DIR$/app/controller/expenseOperationsController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/partials/operations.html" afterPath="$PROJECT_DIR$/partials/operations.html" />
+    </list>
     <ignored path="budget.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -92,12 +95,9 @@
       <file leaf-file-name="content.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/content.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="132.91667" vertical-offset="10900" max-vertical-offset="37230">
-              <caret line="514" column="4" selection-start-line="514" selection-start-column="4" selection-end-line="514" selection-end-column="4" />
-              <folding>
-                <element signature="e#12876#22663#0" expanded="false" />
-                <element signature="e#22790#35380#0" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="-2.875" vertical-offset="6231" max-vertical-offset="64755">
+              <caret line="420" column="25" selection-start-line="420" selection-start-column="25" selection-end-line="420" selection-end-column="25" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -132,10 +132,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33582088" vertical-offset="0" max-vertical-offset="645">
+            <state vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="645">
               <caret line="6" column="89" selection-start-line="6" selection-start-column="89" selection-end-line="6" selection-end-column="89" />
               <folding />
             </state>
@@ -145,8 +145,8 @@
       <file leaf-file-name="expenseOperationsController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controller/expenseOperationsController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="947" max-vertical-offset="3660">
-              <caret line="78" column="12" selection-start-line="78" selection-start-column="12" selection-end-line="78" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1228" max-vertical-offset="3660">
+              <caret line="113" column="88" selection-start-line="113" selection-start-column="74" selection-end-line="113" selection-end-column="88" />
               <folding />
             </state>
           </provider>
@@ -162,11 +162,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="operations.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="operations.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/partials/operations.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="1755">
-              <caret line="14" column="66" selection-start-line="14" selection-start-column="66" selection-end-line="14" selection-end-column="66" />
+            <state vertical-scroll-proportion="0.325" vertical-offset="0" max-vertical-offset="2025">
+              <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -216,12 +216,12 @@
         <option value="$PROJECT_DIR$/bower.json" />
         <option value="$PROJECT_DIR$/app/main.js" />
         <option value="$PROJECT_DIR$/partials/report-search.html" />
-        <option value="$PROJECT_DIR$/partials/operations.html" />
-        <option value="$PROJECT_DIR$/app/controller/expenseOperationsController.js" />
         <option value="$PROJECT_DIR$/partials/grid.html" />
         <option value="$PROJECT_DIR$/app/controller/reportSearchController.js" />
-        <option value="$PROJECT_DIR$/data/content.json" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/data/content.json" />
+        <option value="$PROJECT_DIR$/app/controller/expenseOperationsController.js" />
+        <option value="$PROJECT_DIR$/partials/operations.html" />
       </list>
     </option>
   </component>
@@ -840,7 +840,7 @@
       <workItem from="1400291076941" duration="72058000" />
       <workItem from="1402198284359" duration="7565000" />
       <workItem from="1403231360025" duration="19117000" />
-      <workItem from="1403755912750" duration="11803000" />
+      <workItem from="1403755912750" duration="14729000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <created>1392997984181</created>
@@ -850,17 +850,17 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="217453000" />
+    <option name="totallyTimeSpent" value="220379000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="22" width="1276" height="778" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.50145346" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.50145346" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32848838" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -875,7 +875,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24878444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24878444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -893,15 +893,15 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32944608" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24878444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24878444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994187" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.50145346" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32848838" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32848838" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32944608" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1262,24 +1262,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/partials/operations.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="1755">
-          <caret line="14" column="66" selection-start-line="14" selection-start-column="66" selection-end-line="14" selection-end-column="66" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controller/expenseOperationsController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="947" max-vertical-offset="3660">
-          <caret line="78" column="12" selection-start-line="78" selection-start-column="12" selection-end-line="78" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/model/budgetAppModel.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1187" max-vertical-offset="2550">
@@ -1312,22 +1294,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/content.json">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="132.91667" vertical-offset="10900" max-vertical-offset="37230">
-          <caret line="514" column="4" selection-start-line="514" selection-start-column="4" selection-end-line="514" selection-end-column="4" />
-          <folding>
-            <element signature="e#12876#22663#0" expanded="false" />
-            <element signature="e#22790#35380#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="645">
+          <caret line="6" column="89" selection-start-line="6" selection-start-column="89" selection-end-line="6" selection-end-column="89" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/data/content.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33582088" vertical-offset="0" max-vertical-offset="645">
-          <caret line="6" column="89" selection-start-line="6" selection-start-column="89" selection-end-line="6" selection-end-column="89" />
+        <state vertical-scroll-proportion="-2.875" vertical-offset="6231" max-vertical-offset="64755">
+          <caret line="420" column="25" selection-start-line="420" selection-start-column="25" selection-end-line="420" selection-end-column="25" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controller/expenseOperationsController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1228" max-vertical-offset="3660">
+          <caret line="113" column="88" selection-start-line="113" selection-start-column="74" selection-end-line="113" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/partials/operations.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.325" vertical-offset="0" max-vertical-offset="2025">
+          <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

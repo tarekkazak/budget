@@ -91,7 +91,7 @@ define(['lodash',
                     expense.payments.push({
                         amt : amount,
                         date : date,
-                        tags : tags
+                        tags : [expense.label].concat(tags.split(','))
                     });
                     budgetAppModel.updateRemainderAndTotalPaid([expense]);
                     $scope.totalFunds -= Number(amount);
@@ -111,8 +111,8 @@ define(['lodash',
 
             $scope.applyPaymentToExpense = function (amount) {
                 if ($scope.selectedExpense) {
-                    applyToExpense($scope.selectedExpense, amount, date, tags);
-                    $scope.selectedExpense = null;
+                    applyToExpense($scope.selectedExpense, amount, $scope.newPaymentDate, $scope.newPaymentTags);
+                    $scope.newPaymentDate = $scope.newPaymentTags = $scope.selectedExpense = null;
 
                 }
             };
@@ -206,7 +206,7 @@ define(['lodash',
                 });
 
                 if (!$scope.templateMode) {
-                    if(budgetAppModel.loadedExpenseReport) {
+                    if (budgetAppModel.loadedExpenseReport) {
                         if (budgetAppModel.isNew) {
                             _.merge(budgetAppModel.loadedExpenseReport, {
                                 "year": $scope.selectedYear,
