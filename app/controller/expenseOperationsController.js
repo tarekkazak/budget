@@ -83,6 +83,7 @@ define(['lodash',
 
 
             function applyToExpense(expense, amount, date, tags) {
+                tags = _.isUndefined(tags) ? '' : tags;
                 if (_.contains(amount, ',')) {
                     _.each(amount.split(','), function (el) {
                         applyToExpense(expense, el.trim(), date, tags);
