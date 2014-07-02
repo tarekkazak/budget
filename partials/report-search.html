@@ -1,5 +1,6 @@
 <div  ng-controller="reportSearchController">
-    <div ng-show="upcoming.length > 0">
+    <i ng-class="{'glyphicon glyphicon-minus' :  !isUpcomingCollpased, 'glyphicon glyphicon-plus' : isUpcomingCollpased}" ng-click="isUpcomingCollpased = !isUpcomingCollpased" ></i>
+    <div collapse="isUpcomingCollpased" ng-show="upcoming.length > 0">
         <h2>Upcoming!</h2>
         <ul class="list-group">
             <li ng-class="{'list-group-item list-group-item-danger' : isComingNextMonth(expense.date), 'list-group-item' : !isComingNextMonth(expense.date)}" ng-repeat="expense in upcoming | orderBy :'+date'">

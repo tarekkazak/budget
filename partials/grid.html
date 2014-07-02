@@ -1,4 +1,5 @@
-<table ng-controller="gridController"
+<i ng-class="{'glyphicon glyphicon-minus' :  !isGridCollpased, 'glyphicon glyphicon-plus' : isGridCollpased}" ng-click="isGridCollpased = !isGridCollpased" ></i>
+<table collapse="isGridCollpased" ng-controller="gridController"
        ng-show="expenses.length > 0"
        class="table table-bordered">
     <tbody ng-repeat="expense in expenses">
