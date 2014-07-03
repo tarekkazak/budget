@@ -8,7 +8,7 @@
                        typeahead="expense as expense.label for expense in allExpenses() | filter:filterExpense"
                        typeahead-template-url="typeaheadTemplate.html" >
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <p class="input-group">
                     <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
                            ng-model="newPaymentDate">
@@ -23,14 +23,14 @@
                 <input class="form-control" type="text" ng-model="newPaymentTags">
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <i class="glyphicon glyphicon-pencil" ng-click="isCollapsed = !isCollapsed"></i>
             </div>
         </div>
 
         <div collapse="!isCollapsed" >
             <ul class="list-group">
-                <li ng-repeat="payment in selectedExpense.payments" class="list-group-item">
+                <li ng-repeat="payment in selectedExpense.payments | orderBy : '-date'" class="list-group-item">
                        <div class="row">
                            <div class="col-md-4">
                                <input class="form-control" type="text" ng-model="payment.tags">

@@ -56,6 +56,8 @@ define(['lodash',
                 $scope.upcoming = value;
             });
 
+            $scope.newPaymentDate = new Date();
+
             $scope.selectExpense = function (expense) {
                 $scope.selectedExpense = expense;
             };
@@ -83,7 +85,7 @@ define(['lodash',
 
 
             function applyToExpense(expense, amount, date, tags) {
-                tags = _.isUndefined(tags) ? '' : tags;
+                tags = budgetAppModel.isNullOrUndefined(tags) ? '' : tags;
                 if (_.contains(amount, ',')) {
                     _.each(amount.split(','), function (el) {
                         applyToExpense(expense, el.trim(), date, tags);
