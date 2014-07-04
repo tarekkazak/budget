@@ -121,7 +121,13 @@ define(['lodash',
             };
 
             $scope.filterExpense = function(expense) {
-                return expense.label.toLowerCase().indexOf($scope.form.expenseTA.$viewValue.toLowerCase()) !== -1 && (_.isUndefined(expense.skip) || !expense.skip);
+                return expense.label.toLowerCase().indexOf($scope.form.expenseTA.$viewValue.toLowerCase()) !== -1;
+            };
+
+            $scope.deletePayment = function(payment) {
+                _.remove($scope.selectedExpense.payments, function(item) {
+                    return item === payment;
+                });
             };
 
 
@@ -168,7 +174,9 @@ define(['lodash',
                 if ($scope.selectedUpcomingExpense) {
                     delete $scope.selectedUpcomingExpense.date;
                     $scope.expenses.push($scope.selectedUpcomingExpense);
-                    _.remove($scope.upcoming, $scope.selectedUpcomingExpense);
+                    _.remove($scope.upcoming, function(item) {
+                        return item === $scope.selectedUpcomingExpense;
+                    });
                     budgetAppModel.addNonTemplateProps([$scope.selectedUpcomingExpense]);
                     $scope.selectedUpcomingExpense = null;
                 }

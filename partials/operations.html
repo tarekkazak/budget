@@ -26,6 +26,8 @@
             <div class="col-md-1">
                 <i class="glyphicon glyphicon-pencil" ng-click="isCollapsed = !isCollapsed"></i>
             </div>
+
+
         </div>
 
         <div collapse="!isCollapsed" >
@@ -37,7 +39,7 @@
 
                            </div>
 
-                           <div class="col-md-4">
+                           <div class="col-md-3">
                                <input class="form-control" type="text" ng-model="payment.amt">
 
                            </div>
@@ -51,6 +53,10 @@
                                                    class="glyphicon glyphicon-calendar"></i></button>
                                        </span>
                                </p>
+                           </div>
+
+                           <div class="col-md-1">
+                               <i class="glyphicon glyphicon-remove-sign" ng-click="deletePayment(payment)"></i>
                            </div>
 
 
@@ -116,7 +122,7 @@
             </ul>
         </div>
         <button ng-disabled="(isNullOrUndefined(selectedUpcomingExpense) && isNullOrUndefined(selectedWishlistItem)) || isNullOrUndefined(expenses)" class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
-        <button ng-disabled="isNullOrUndefined(selectedExpense)" class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit">Apply</button>
+        <button ng-disabled="isNullOrUndefined(selectedExpense) || selectedExpense.skip" class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit">Apply</button>
         <button ng-disabled="isNullOrUndefined(expenses)" class="btn btn-default" ng-click="sendReport()">Send Report</button>
 
     </form>
