@@ -75,6 +75,13 @@ define([
             budgetAppModel.selectedExpense = null;
         };
 
+        $scope.deleteUpcoming = function (expense) {
+            _.remove($scope.upcoming, function(item) {
+                return expense === item;
+            });
+
+        };
+
         $scope.isComingNextMonth = function(date) {
             var today = new Date();
             return date.getFullYear() === today.getFullYear() && (date.getMonth() - today.getMonth()) <= 1;
@@ -100,6 +107,10 @@ define([
         function getBudgetFromHistory() {
             if (!_.isUndefined($scope.selectedMonth) && !_.isUndefined($scope.selectedYear)) {
                 var parts, newExpenses, children;
+                if (loadedExpenseReport) {
+                    //clean previously loaded expense report that may not have been saved
+                    budgetAppModel.removeCircularReferencesFromChildExpenses(budgetAppModel.loadedExpenseReport.expenses);
+                }
                 loadedExpenseReport = _.findWhere(budgetAppModel.siteData.content.history, {"month" : $scope.selectedMonth, "year" : $scope.selectedYear});
 
                 if (loadedExpenseReport) {

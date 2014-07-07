@@ -89,6 +89,13 @@ define(['lodash'], function(_) {
             updateRegisteredObjects('upcoming', value);
         };
 
+        me.removeCircularReferencesFromChildExpenses = function (expenses) {
+            var expensesWithParent =_(expenses).pluck('children').flatten().compact().value();
+            _.each(expensesWithParent, function(item) {
+                delete item.parent;
+            });
+        };
+
         me.updateRemainderAndTotalPaid = function(expenses) {
             _.each(expenses, function (el) {
                 var totalPaid;

@@ -195,12 +195,6 @@ define(['lodash',
                 }, 3000);
             }
 
-            function clean(expenses) {
-                var expensesWithParent =_(expenses).pluck('children').flatten().compact().value();
-                _.each(expensesWithParent, function(item) {
-                    delete item.parent;
-                });
-            }
 
             $scope.isNullOrUndefined = function(obj) {
                 return budgetAppModel.isNullOrUndefined(obj);
@@ -231,7 +225,7 @@ define(['lodash',
                             budgetAppModel.loadedExpenseReport.totalFunds = $scope.totalFunds;
                             budgetAppModel.loadedExpenseReport.initialFunds = $scope.initialFunds;
                         }
-                        clean(budgetAppModel.loadedExpenseReport.expenses);
+                        budgetAppModel.removeCircularReferencesFromChildExpenses(budgetAppModel.loadedExpenseReport.expenses);
                     }
                 } else {
                     budgetAppModel.siteData.content.expenses = $scope.expenses = stripNonTemplateProps($scope.expenses);
