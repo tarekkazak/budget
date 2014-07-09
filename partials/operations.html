@@ -3,12 +3,12 @@
 
 
         <div class="row" >
-            <div class="col-md-4">
-                <input name="expenseTA" type="text" ng-model="selectedExpense" placeholder="select expense" class="form-control"
+            <div class="col-md-3" >
+                <input ng-disabled="isSplitExpense" name="expenseTA" type="text" ng-model="selectedExpense" placeholder="select expense" class="form-control"
                        typeahead="expense as expense.label for expense in allExpenses() | filter:filterExpense"
-                       typeahead-template-url="typeaheadTemplate.html" >
+                       typeahead-template-url="expenseTypeaheadTemplate.html" >
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <p class="input-group">
                     <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
                            ng-model="newPaymentDate">
@@ -19,12 +19,22 @@
                 </p>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <input class="form-control" type="text" ng-model="newPaymentTags">
+            </div>
+
+            <div class="col-md-2"  >
+                <input ng-disabled="isNullOrUndefined(selectedExpense)" name="splitTA" type="text" ng-model="selectedSplit" placeholder="select split" class="form-control"
+                       typeahead="split as split.label for split in splits"
+                       typeahead-template-url="splitTypeaheadTemplate.html" >
             </div>
 
             <div class="col-md-1">
                 <i class="glyphicon glyphicon-pencil" ng-click="isCollapsed = !isCollapsed"></i>
+            </div>
+
+            <div class="col-md-1">
+                <input class="checkbox-inline" type="checkbox" ng-model="isSplitExpense">
             </div>
 
 
@@ -54,6 +64,8 @@
                                        </span>
                                </p>
                            </div>
+
+
 
                            <div class="col-md-1">
                                <i class="glyphicon glyphicon-remove-sign" ng-click="deletePayment(payment)"></i>
@@ -122,7 +134,7 @@
             </ul>
         </div>
         <button ng-disabled="(isNullOrUndefined(selectedUpcomingExpense) && isNullOrUndefined(selectedWishlistItem)) || isNullOrUndefined(expenses)" class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
-        <button ng-disabled="isNullOrUndefined(selectedExpense) || selectedExpense.skip" class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit">Apply</button>
+        <button ng-disabled="(isNullOrUndefined(selectedExpense) &&  !isSplitExpense) || selectedExpense.skip" class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit">Apply</button>
         <button ng-disabled="isNullOrUndefined(expenses)" class="btn btn-default" ng-click="sendReport()">Send Report</button>
 
     </form>

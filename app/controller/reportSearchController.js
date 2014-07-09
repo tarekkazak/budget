@@ -120,6 +120,10 @@ define([
                     budgetAppModel.setExpenses(loadedExpenseReport.expenses);
                     budgetAppModel.setTotalFunds(loadedExpenseReport.totalFunds);
                     budgetAppModel.setIntialFunds(loadedExpenseReport.initialFunds);
+                    if (budgetAppModel.isNullOrUndefined(loadedExpenseReport.splits)) {
+                        loadedExpenseReport.splits = [];
+                    }
+                    budgetAppModel.setSplits(loadedExpenseReport.splits);
                     budgetAppModel.isNew = false;
                 } else {
                     newExpenses = budgetAppModel.siteData.content.expenses.concat();
@@ -131,12 +135,17 @@ define([
                     children = _.pluck(parts["false"], "children");
                     children = _.flatten(children);
 
-                    budgetAppModel.addNonTemplateProps(children);
-                    budgetAppModel.setExpenses(newExpenses);
-                    //TODO: add more base props like month and year
+
                     budgetAppModel.loadedExpenseReport = {
-                        expenses : newExpenses
+                        year : $scope.selectedYear,
+                        month : $scope.selectedMonth,
+                        expenses : newExpenses,
+                        splits : []
                     };
+
+                    budgetAppModel.addNonTemplateProps(children);
+                    budgetAppModel.setExpenses(budgetAppModel.loadedExpenseReport.expenses);
+                    budgetAppModel.setSplits(budgetAppModel.loadedExpenseReport.splits);
                     budgetAppModel.isNew = true;
                 }
                 budgetAppModel.setTemplateMode(false);

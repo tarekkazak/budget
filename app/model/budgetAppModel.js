@@ -11,6 +11,7 @@ define(['lodash'], function(_) {
             totalFunds = 0,
             expenses,
             wishlist,
+            splits,
             selectedMonth,
             selectedYear,
             templateMode = false,
@@ -60,6 +61,11 @@ define(['lodash'], function(_) {
         me.setExpenses = function(value) {
             expenses = value;
             updateRegisteredObjects('expenses', value);
+        };
+
+        me.setSplits = function(value) {
+            splits = value;
+            updateRegisteredObjects('splits', value);
         };
 
         me.setWishlist = function(value) {

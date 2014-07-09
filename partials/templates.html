@@ -1,4 +1,4 @@
-<script type="text/ng-template" id="typeaheadTemplate.html">
+<script type="text/ng-template" id="expenseTypeaheadTemplate.html">
 
     <div>
         <span> {{match.model.label}} </span>
@@ -6,22 +6,16 @@
     </div>
 
 </script>
-<!--<script type="text/ng-template" id="popover-edit">
-    <div >
-        <input class="form-control" type="text" ng-model="expense.label">
-        <input class="form-control" type="text" ng-model="expense.amt">
 
-        <p class="input-group">
-            <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd"
-                   ng-model="expense.date">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default"><i
-                                                class="glyphicon glyphicon-calendar"></i></button>
-                                    </span>
-        </p>
+<script type="text/ng-template" id="splitTypeaheadTemplate.html">
+
+    <div>
+        <span> - amount: {{match.model.amt}} </span>
+        <span> - id:  {{match.model.id}} </span>
 
     </div>
-</script>-->
+
+</script>
 
 <script type="text/ng-template" id="reportTemplate">
 <!DOCTYPE html>

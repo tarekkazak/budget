@@ -56,6 +56,10 @@ define(['lodash',
                 $scope.upcoming = value;
             });
 
+            budgetAppModel.registerForUpdate('splits', function (value) {
+                $scope.splits = value;
+            });
+
             $scope.newPaymentDate = new Date();
 
             $scope.selectExpense = function (expense) {
@@ -85,17 +89,24 @@ define(['lodash',
 
 
             function applyToExpense(expense, amount, date, tags) {
+                var payment;
                 tags = budgetAppModel.isNullOrUndefined(tags) ? '' : tags;
                 if (_.contains(amount, ',')) {
                     _.each(amount.split(','), function (el) {
                         applyToExpense(expense, el.trim(), date, tags);
                     });
                 } else {
-                    expense.payments.push({
+                    payment = {
                         amt : amount,
                         date : date,
                         tags : [expense.label].concat(tags.split(','))
-                    });
+                    };
+                    if ($scope.selectedSplit) {
+                        payment.splitId = $scope.selectedSplit.id;
+                        $scope.selectedSplit.payments.push(payment);
+                        budgetAppModel.updateRemainderAndTotalPaid([$scope.selectedSplit]);
+                    }
+                    expense.payments.push(payment);
                     budgetAppModel.updateRemainderAndTotalPaid([expense]);
                     $scope.totalFunds -= Number(amount);
                 }
@@ -112,12 +123,30 @@ define(['lodash',
 
             }
 
+            $scope.$watch('isSplitExpense', function (value) {
+                if (value) {
+                    $scope.selectedExpense = null;
+                }
+            });
+
             $scope.applyPaymentToExpense = function (amount) {
                 if ($scope.selectedExpense) {
                     applyToExpense($scope.selectedExpense, amount, $scope.newPaymentDate, $scope.newPaymentTags);
-                    $scope.newPaymentDate = $scope.newPaymentTags = $scope.selectedExpense = null;
-
+                } else {
+                    if ($scope.isSplitExpense) {
+                        $scope.splits.push({
+                            amt : amount,
+                            date : $scope.newPaymentDate,
+                            tags : $scope.newPaymentTags,
+                            id : new Date().getTime(),
+                            remainder : amount,
+                            paid : 0,
+                            payments : []
+                        });
+                    }
                 }
+                $scope.selectedSplit  = $scope.newPaymentTags = $scope.selectedExpense = null;
+                $scope.newPaymentDate = new Date();
             };
 
             $scope.filterExpense = function(expense) {
@@ -214,8 +243,6 @@ define(['lodash',
                     if (budgetAppModel.loadedExpenseReport) {
                         if (budgetAppModel.isNew) {
                             _.merge(budgetAppModel.loadedExpenseReport, {
-                                "year": $scope.selectedYear,
-                                "month": $scope.selectedMonth,
                                 "totalFunds": $scope.totalFunds,
                                 "initialFunds": $scope.initialFunds
                             });
@@ -230,6 +257,9 @@ define(['lodash',
                 } else {
                     budgetAppModel.siteData.content.expenses = $scope.expenses = stripNonTemplateProps($scope.expenses);
                 }
+
+                //Needs to be set as initial load of data creates a copy of this array to be used by $scope
+                budgetAppModel.siteData.content.upcoming = $scope.upcoming;
 
                 $http.post('php/persistence.php', budgetAppModel.siteData).
                     success(function (data) {
