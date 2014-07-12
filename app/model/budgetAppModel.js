@@ -43,7 +43,6 @@ define(['lodash'], function(_) {
                 el.payments = [];
                 el.paid = 0;
                 el.skip = false;
-                el.tags = [];
             });
         };
 
