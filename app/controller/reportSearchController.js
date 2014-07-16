@@ -8,10 +8,11 @@ define([
 
     /* Controllers */
 
-    return function ($scope, DataService) {
+    return function ($scope, $modal, DataService) {
 
         var isNew = false,
-            loadedExpenseReport = budgetAppModel.loadedExpenseReport;
+            loadedExpenseReport = budgetAppModel.loadedExpenseReport,
+            modalInstance;
 
         $scope.dataLoaded = budgetAppModel.dataLoaded;
         DataService.get(function(data) {
@@ -66,6 +67,21 @@ define([
             budgetAppModel.setSelectedYear(year);
         };
 
+        $scope.openQuickEntryDialog = function() {
+            modalInstance = $modal.open({
+                templateUrl: 'partials/quick-entry-modal.html'
+            });
+            $scope.selectedMonth = new Date().getMonth() + 1;
+            $scope.selectedYear = new Date().getFullYear();
+        };
+
+        $scope.submitQuickEntry = function() {
+            $scope.closeQuickEntry();
+        };
+
+        $scope.closeQuickEntry = function() {
+            $scope.$close();
+        };
 
         $scope.loadTemplate = function() {
             budgetAppModel.setTemplateMode(true);

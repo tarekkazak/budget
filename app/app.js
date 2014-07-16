@@ -18,8 +18,8 @@ define([
         'dataService'
     ]);
 
-    budgetApp.controller('reportSearchController',
-        reportSearchController);
+    budgetApp.controller('reportSearchController', ['$scope', '$modal', 'DataService',
+        reportSearchController]);
     budgetApp.controller('gridController',
         gridController);
     budgetApp.controller('editorController',
