@@ -87,6 +87,10 @@ define(['lodash',
                 $event.stopPropagation();
             };
 
+            $scope.newPaymentDateChange = function() {
+                budgetAppModel.setSelectedMonth($scope.newPaymentDate.getMonth() + 1);
+                budgetAppModel.setSelectedYear($scope.newPaymentDate.getFullYear());
+            };
 
             function applyToExpense(expense, amount, date, tags) {
                 var payment;
@@ -108,7 +112,7 @@ define(['lodash',
                     }
                     expense.payments.push(payment);
                     budgetAppModel.updateRemainderAndTotalPaid([expense]);
-                    $scope.totalFunds -= Number(amount);
+                    budgetAppModel.setTotalFunds($scope.totalFunds - Number(amount));
                 }
             }
 

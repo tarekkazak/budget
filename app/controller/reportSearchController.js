@@ -71,8 +71,11 @@ define([
             modalInstance = $modal.open({
                 templateUrl: 'partials/quick-entry-modal.html'
             });
-            $scope.selectedMonth = new Date().getMonth() + 1;
-            $scope.selectedYear = new Date().getFullYear();
+            modalInstance.opened.then(function () {
+                $scope.selectedMonth = new Date().getMonth() + 1;
+                $scope.selectedYear = new Date().getFullYear();
+            });
+
         };
 
         $scope.submitQuickEntry = function() {
