@@ -5,10 +5,11 @@ define([
     'controller/reportSearchController',
     'controller/editorController',
     'controller/expenseOperationsController',
+    'directive/paymentList',
     'service/dataService',
     'angularSpinner',
     'angularUIBootstrap'
-], function (angular, gridController, reportSearchController, editorController, expenseOperationsController) {
+], function (angular, gridController, reportSearchController, editorController, expenseOperationsController, paymentList) {
 
 // Declare app level module which depends on filters, and services
 
@@ -26,6 +27,7 @@ define([
         editorController);
     budgetApp.controller('expenseOperationsController', ['$scope', '$modal', '$timeout', '$window', '$http', '$interpolate', '$templateCache',
         expenseOperationsController]);
+    budgetApp.directive('paymentList', paymentList);
     return budgetApp;
 });
 

@@ -1,3 +1,41 @@
+<script type="text/ng-template" id="paymentListEditTemplate.html" >
+    <ul class="list-group">
+                <li ng-repeat="payment in payments | orderBy : '-date' track by $index" class="list-group-item">
+                       <div class="row">
+                           <div class="col-md-4">
+                               <input class="form-control" type="text" ng-model="payment.tags">
+
+                           </div>
+
+                           <div class="col-md-3">
+                               <input class="form-control" type="text" ng-model="payment.amt">
+
+                           </div>
+
+                           <div class="col-md-4">
+                               <p class="input-group">
+                                   <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
+                                          ng-model="payment.date">
+                                       <span class="input-group-btn">
+                                           <button type="button" class="btn btn-default" ng-click="openCal($event); opened = !opened"><i
+                                                   class="glyphicon glyphicon-calendar"></i></button>
+                                       </span>
+                               </p>
+                           </div>
+
+
+
+                           <div class="col-md-1">
+                               <i class="glyphicon glyphicon-remove-sign" ng-click="deleteItem(payment, payments)"></i>
+                           </div>
+
+
+
+                      </div>
+                </li>
+            </ul>
+</script>
+
 <script type="text/ng-template" id="expenseTypeaheadTemplate.html">
 
     <div>
@@ -10,8 +48,8 @@
 <script type="text/ng-template" id="splitTypeaheadTemplate.html">
 
     <div>
-        <span> - amount: {{match.model.amt}} </span>
-        <span> - id:  {{match.model.id}} </span>
+        <span>{{match.model.vendor}} </span>
+        <span>{{match.model.amt}} </span>
 
     </div>
 

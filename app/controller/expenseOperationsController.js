@@ -4,8 +4,9 @@
 
 define(['lodash',
         'spin',
-        'model/budgetAppModel'],
-    function (_, Spinner, budgetAppModel) {
+        'model/budgetAppModel',
+        'utils/utils'],
+    function (_, Spinner, budgetAppModel, utils) {
         'use strict';
 
         return function ($scope, $modal, $timeout, $window, $http, $interpolate, $templateCache) {
@@ -107,6 +108,7 @@ define(['lodash',
                     };
                     if ($scope.selectedSplit) {
                         payment.splitId = $scope.selectedSplit.id;
+                        payment.tags.push($scope.selectedSplit.vendor);
                         $scope.selectedSplit.payments.push(payment);
                         budgetAppModel.updateRemainderAndTotalPaid([$scope.selectedSplit]);
                     }
@@ -133,6 +135,10 @@ define(['lodash',
                 }
             });
 
+            $scope.updateSelectedSplit = function(item, model, label) {
+                 $scope.newPaymentDate = model.date;
+            }
+
             $scope.applyPaymentToExpense = function (amount) {
                 if ($scope.selectedExpense) {
                     applyToExpense($scope.selectedExpense, amount, $scope.newPaymentDate, $scope.newPaymentTags);
@@ -141,7 +147,7 @@ define(['lodash',
                         $scope.splits.push({
                             amt : amount,
                             date : $scope.newPaymentDate,
-                            tags : $scope.newPaymentTags,
+                            vendor : $scope.newPaymentTags,
                             id : new Date().getTime(),
                             remainder : amount,
                             paid : 0,
@@ -153,15 +159,8 @@ define(['lodash',
                 $scope.newPaymentDate = new Date();
             };
 
-            $scope.filterExpense = function(expense) {
-                return expense.label.toLowerCase().indexOf($scope.form.expenseTA.$viewValue.toLowerCase()) !== -1;
-            };
 
-            $scope.deletePayment = function(payment) {
-                _.remove($scope.selectedExpense.payments, function(item) {
-                    return item === payment;
-                });
-            };
+            $scope.deleteItem = utils.deleteItemFromList;
 
 
             $scope.sendReport = function () {

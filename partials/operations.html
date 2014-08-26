@@ -2,10 +2,10 @@
     <form name="form" class="control-group" ng-hide="templateMode">
 
 
-        <div class="row" >
+        <div class="row payment-control-col-padding" >
             <div class="col-md-3" >
                 <input ng-disabled="isSplitExpense" name="expenseTA" type="text" ng-model="selectedExpense" placeholder="select expense" class="form-control"
-                       typeahead="expense as expense.label for expense in allExpenses() | filter:filterExpense"
+                       typeahead="expense as expense.label for expense in allExpenses() | filter:{label:$viewValue}"
                        typeahead-template-url="expenseTypeaheadTemplate.html" >
             </div>
             <div class="col-md-3">
@@ -24,14 +24,17 @@
             </div>
 
             <div class="col-md-2"  >
-                <input ng-disabled="isNullOrUndefined(selectedExpense)" name="splitTA" type="text" ng-model="selectedSplit" placeholder="select split" class="form-control"
-                       typeahead="split as split.tags.toString() for split in splits"
+                <input ng-disabled="isNullOrUndefined(selectedExpense)" name="splitTA" type="text" ng-model="selectedSplit"
+                       placeholder="select split" class="form-control" typeahead-on-select="updateSelectedSplit($item, $model, $label)"
+                       typeahead="split as split.vendor for split in splits | filter:{vendor:$viewValue}"
                        typeahead-template-url="splitTypeaheadTemplate.html" >
             </div>
 
             <div class="col-md-1">
-                <i class="glyphicon glyphicon-pencil" ng-click="isCollapsed = !isCollapsed"></i>
+                <span><i class="glyphicon glyphicon-pencil" ng-click="isExpensePaymentsCollapsed = !isExpensePaymentsCollapsed"></i></span>
+                <span><i class="glyphicon glyphicon-pencil" ng-click="isSplitPaymentsCollapsed = !isSplitPaymentsCollapsed"></i></span>
             </div>
+
 
             <div class="col-md-1">
                 <input class="checkbox-inline" type="checkbox" ng-model="isSplitExpense">
@@ -39,43 +42,49 @@
 
 
         </div>
-
-        <div collapse="!isCollapsed" >
+        <div collapse="!isSplitPaymentsCollapsed" >
             <ul class="list-group">
-                <li ng-repeat="payment in selectedExpense.payments | orderBy : '-date'" class="list-group-item">
-                       <div class="row">
-                           <div class="col-md-4">
-                               <input class="form-control" type="text" ng-model="payment.tags">
+                <li ng-repeat="split in splits | orderBy : '-date'" class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" ng-model="split.vendor">
 
-                           </div>
+                        </div>
 
-                           <div class="col-md-3">
-                               <input class="form-control" type="text" ng-model="payment.amt">
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" ng-model="split.amt">
 
-                           </div>
+                        </div>
 
-                           <div class="col-md-4">
-                               <p class="input-group">
-                                   <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
-                                          ng-model="payment.date">
+                        <div class="col-md-4">
+                            <p class="input-group">
+                                <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
+                                       ng-model="split.date">
                                        <span class="input-group-btn">
                                            <button type="button" class="btn btn-default" ng-click="openCal($event); opened = !opened"><i
                                                    class="glyphicon glyphicon-calendar"></i></button>
                                        </span>
-                               </p>
-                           </div>
+                            </p>
+                        </div>
 
 
 
-                           <div class="col-md-1">
-                               <i class="glyphicon glyphicon-remove-sign" ng-click="deletePayment(payment)"></i>
-                           </div>
+                        <div class="col-md-1">
+                            <i class="glyphicon glyphicon-remove-sign" ng-click="deleteItem(split, splits)"></i>
+                        </div>
 
 
 
-                      </div>
+                    </div>
+                    <div class="row" style="margin-left: 20px">
+                        <payment-list payments="split.payments"></payment-list>
+                    </div>
                 </li>
             </ul>
+        </div>
+        <div collapse="!isExpensePaymentsCollapsed"  >
+            <payment-list payments="selectedExpense.payments"></payment-list>
+
         </div>
 
 
