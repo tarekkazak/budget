@@ -7,18 +7,18 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="css/main.css" />
 
-    <ng-include src="'partials/templates.html'"></ng-include>
+
 
 
 </head>
 <body >
 
-
+<ng-include src="'partials/templates.html'" onload="showApp = true"></ng-include>
 
     <div class="container-fluid">
 
 
-            <div class="row">
+            <div ng-show="showApp" class="row">
                 <div class="col-sm-6 col-md-6">
                     <ng-include src="'partials/report-search.html'"></ng-include>
 
