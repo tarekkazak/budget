@@ -15,7 +15,8 @@ define([
             modalInstance;
 
         $scope.dataLoaded = budgetAppModel.dataLoaded;
-        DataService.get(function(data) {
+        DataService.get().then(function(res) {
+            var data = res.data;
             budgetAppModel.siteData = data;
             budgetAppModel.setWishlist(budgetAppModel.siteData.content.wishlist);
             budgetAppModel.setUpcoming(_.map(budgetAppModel.siteData.content.upcoming, function(item) {
@@ -86,13 +87,13 @@ define([
             $scope.$close();
         };
 
-        $scope.loadTemplate = function() {
+        /*$scope.loadTemplate = function() {
             budgetAppModel.setTemplateMode(true);
             budgetAppModel.setExpenses(budgetAppModel.siteData.content.expenses);
             budgetAppModel.setSelectedMonth(undefined);
             budgetAppModel.setSelectedYear(undefined);
             budgetAppModel.selectedExpense = null;
-        };
+        };*/
 
         $scope.deleteUpcoming = function (expense) {
             _.remove($scope.upcoming, function(item) {
@@ -111,7 +112,7 @@ define([
             $event.stopPropagation();
         };
 
-        function convertPayments(expenses) {
+        /*function convertPayments(expenses) {
             var allExpenses, groups = _.groupBy(expenses, function (expense) {
                 return !_.has(expense, "children");
             });
@@ -121,7 +122,7 @@ define([
                     payments[index] = !_.isObject(payment) ? {amt : Number(payment), tags : [expense.label], date : new Date()} : payment;
                 });
             });
-        }
+        }*/
 
         function getBudgetFromHistory() {
             if (!_.isUndefined($scope.selectedMonth) && !_.isUndefined($scope.selectedYear)) {
@@ -135,7 +136,6 @@ define([
                 if (loadedExpenseReport) {
                     budgetAppModel.loadedExpenseReport = loadedExpenseReport;
                     budgetAppModel.updateRemainderAndTotalPaid(loadedExpenseReport.expenses);
-                    convertPayments(loadedExpenseReport.expenses);
                     budgetAppModel.setExpenses(loadedExpenseReport.expenses);
                     budgetAppModel.setTotalFunds(loadedExpenseReport.totalFunds);
                     budgetAppModel.setIntialFunds(loadedExpenseReport.initialFunds);
