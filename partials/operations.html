@@ -4,8 +4,8 @@
 
         <div class="row payment-control-col-padding" >
             <div class="col-md-3" >
-                <input ng-disabled="isSplitExpense" name="expenseTA" type="text" ng-model="selectedExpense" placeholder="select expense" class="form-control"
-                       typeahead="expense as expense.label for expense in allExpenses() | filter:{label:$viewValue}"
+                <input ng-disabled="isSplitExpense" name="tagsTA" type="text" ng-model="selectedTag" placeholder="select tag" class="form-control"
+                       typeahead="tag as tag.label for tag in tags | filter:{label:$viewValue}"
                        typeahead-template-url="expenseTypeaheadTemplate.html" >
             </div>
             <div class="col-md-3">
@@ -19,30 +19,30 @@
                 </p>
             </div>
 
-            <div class="col-md-2">
+            <!--<div class="col-md-2">
                 <input class="form-control" type="text" ng-model="newPaymentTags" placeholder="tags">
-            </div>
+            </div>-->
 
-            <div class="col-md-2"  >
+            <!--<div class="col-md-2"  >
                 <input ng-disabled="isNullOrUndefined(selectedExpense)" name="splitTA" type="text" ng-model="selectedSplit"
                        placeholder="select split" class="form-control" typeahead-on-select="updateSelectedSplit($item, $model, $label)"
                        typeahead="split as split.vendor for split in splits | filter:{vendor:$viewValue}"
                        typeahead-template-url="splitTypeaheadTemplate.html" >
-            </div>
+            </div>-->
 
             <div class="col-md-1">
-                <span><i class="glyphicon glyphicon-pencil" ng-click="isExpensePaymentsCollapsed = !isExpensePaymentsCollapsed"></i></span>
+                <!--<span><i class="glyphicon glyphicon-pencil" ng-click="isExpensePaymentsCollapsed = !isExpensePaymentsCollapsed"></i></span>-->
                 <span><i class="glyphicon glyphicon-pencil" ng-click="isSplitPaymentsCollapsed = !isSplitPaymentsCollapsed"></i></span>
             </div>
 
 
-            <div class="col-md-1">
+            <!--<div class="col-md-1">
                 <input class="checkbox-inline" type="checkbox" ng-model="isSplitExpense">
-            </div>
+            </div>-->
 
 
         </div>
-        <div collapse="!isSplitPaymentsCollapsed" >
+        <!--<div collapse="!isSplitPaymentsCollapsed" >
             <ul class="list-group">
                 <li ng-repeat="split in splits | orderBy : '-date'" class="list-group-item">
                     <div class="row">
@@ -85,7 +85,7 @@
         <div collapse="!isExpensePaymentsCollapsed"  >
             <payment-list payments="selectedExpense.payments"></payment-list>
 
-        </div>
+        </div>-->
 
 
         <div class="form-group">
@@ -143,7 +143,7 @@
             </ul>
         </div>
         <button ng-disabled="(isNullOrUndefined(selectedUpcomingExpense) && isNullOrUndefined(selectedWishlistItem)) || isNullOrUndefined(expenses)" class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
-        <button ng-disabled="(isNullOrUndefined(selectedExpense) &&  !isSplitExpense) || selectedExpense.skip" class="btn btn-default" ng-click="applyPaymentToExpense(amount)" type="submit">Apply</button>
+        <button class="btn btn-default" ng-click="addPayment()" type="submit">Apply</button>
         <button ng-disabled="isNullOrUndefined(expenses)" class="btn btn-default" ng-click="sendReport()">Send Report</button>
 
     </form>

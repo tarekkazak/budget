@@ -25,20 +25,12 @@ define(['lodash',
                 $scope.selectedYear = value;
             });
 
-            budgetAppModel.registerForUpdate('expenses', function (value) {
-                $scope.expenses = value;
-            });
-
-            budgetAppModel.registerForUpdate('expenses', function (value) {
-                $scope.expenses = value;
+            budgetAppModel.registerForUpdate('payments', function (value) {
+                $scope.payments = value;
             });
 
             budgetAppModel.registerForUpdate('wishlist', function (value) {
                 $scope.wishlist = value;
-            });
-
-            budgetAppModel.registerForUpdate('templateMode', function (value) {
-                $scope.templateMode = value;
             });
 
             budgetAppModel.registerForUpdate('inEditMode', function (value) {
@@ -63,24 +55,12 @@ define(['lodash',
 
             $scope.newPaymentDate = new Date();
 
-            $scope.selectExpense = function (expense) {
-                $scope.selectedExpense = expense;
-            };
-
-            $scope.selectPayment = function (expense) {
-                $scope.selectedPayment = expense;
-            };
-
             $scope.selectWishlistItem = function (item) {
                 $scope.selectedWishlistItem = item;
             };
 
             $scope.selectUpcomingExpense = function (item) {
                 $scope.selectedUpcomingExpense = item;
-            };
-
-            $scope.allExpenses = function() {
-                return budgetAppModel.allExpenses();
             };
 
             $scope.openCal = function($event) {
@@ -93,7 +73,16 @@ define(['lodash',
                 budgetAppModel.setSelectedYear($scope.newPaymentDate.getFullYear());
             };
 
-            function applyToExpense(expense, amount, date, tags) {
+            $scope.addPayment = function() {
+                $scope.payments.push({
+                    amt : $scope.amount,
+                    tags : $scope.newPaymentTags,
+                    data : $scope.newPaymentDate
+                });
+                budgetAppModel.setPayments($scope.payments);
+            };
+
+            /*function applyToExpense(expense, amount, date, tags) {
                 var payment;
                 tags = budgetAppModel.isNullOrUndefined(tags) ? '' : tags;
                 if (_.contains(amount, ',')) {
@@ -116,7 +105,7 @@ define(['lodash',
                     budgetAppModel.updateRemainderAndTotalPaid([expense]);
                     budgetAppModel.setTotalFunds($scope.totalFunds - Number(amount));
                 }
-            }
+            }*/
 
             function stripNonTemplateProps(expenses) {
                 return _.map(expenses, function (el, index, arr) {
@@ -138,26 +127,6 @@ define(['lodash',
             $scope.updateSelectedSplit = function(item, model, label) {
                  $scope.newPaymentDate = model.date;
             }
-
-            $scope.applyPaymentToExpense = function (amount) {
-                if ($scope.selectedExpense) {
-                    applyToExpense($scope.selectedExpense, amount, $scope.newPaymentDate, $scope.newPaymentTags);
-                } else {
-                    if ($scope.isSplitExpense) {
-                        $scope.splits.push({
-                            amt : amount,
-                            date : $scope.newPaymentDate,
-                            vendor : $scope.newPaymentTags,
-                            id : new Date().getTime(),
-                            remainder : amount,
-                            paid : 0,
-                            payments : []
-                        });
-                    }
-                }
-                $scope.selectedSplit  = $scope.newPaymentTags = $scope.selectedExpense = null;
-                $scope.newPaymentDate = new Date();
-            };
 
 
             $scope.deleteItem = utils.deleteItemFromList;
