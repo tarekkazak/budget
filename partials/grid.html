@@ -1,54 +1,63 @@
-<i ng-class="{'glyphicon glyphicon-minus' :  !isGridCollpased, 'glyphicon glyphicon-plus' : isGridCollpased}" ng-click="isGridCollpased = !isGridCollpased" ></i>
-<table collapse="isGridCollpased" ng-controller="gridController"
-       ng-show="expenses.length > 0"
-       class="table table-bordered">
-    <tbody ng-repeat="expense in expenses">
-    <tr>
-        <td popover="{{_.pluck(expense.payments, 'amt').toString()}}" popover-placement="right" popover-append-to-body="true">{{expense.label}}</td>
-        <td>
-            <div class="controls" >
-                <input ng-disabled="expense.skip" class="form-control" ng-if="!_.has(expense, 'children')"
-                       ng-change="updateExpenseAmount(expense)" ng-model="expense.amt"
-                       ng-class="{'bold-red' : expense.amt < 0}" type="text">
+<div ng-controller="gridController">
+    <div ng-grid="gridOptions" class="gridStyle"></div>
+    <!--<i ng-class="{'glyphicon glyphicon-minus' :  !isGridCollpased, 'glyphicon glyphicon-plus' : isGridCollpased}"
+       ng-click="isGridCollpased = !isGridCollpased"></i>
+    <table collapse="isGridCollpased"
+           ng-show="expenses.length > 0"
+           class="table table-bordered">
+        <tbody ng-repeat="expense in expenses">
+        <tr>
+            <td popover="{{_.pluck(expense.payments, 'amt').toString()}}" popover-placement="right"
+                popover-append-to-body="true">{{expense.label}}
+            </td>
+            <td>
+                <div class="controls">
+                    <input ng-disabled="expense.skip" class="form-control" ng-if="!_.has(expense, 'children')"
+                           ng-change="updateExpenseAmount(expense)" ng-model="expense.amt"
+                           ng-class="{'bold-red' : expense.amt < 0}" type="text">
 
-                <button ng-disabled="expense.skip" ng-if="!_.has(expense, 'children')" class="btn btn-danger"
-                        ng-show="inEditMode" ng-click="removeExpense(expense, null)">
-                    remove
-                </button>
-            </div>
-        </td>
-        <td ng-show="!templateMode" ng-class="{'bold-red' : expense.remainder < 0}">
-            {{expense.remainder}}
-        </td>
-        <td ><input ng-show="!templateMode && !_.has(expense, 'children')"  type="checkbox" class="checkbox" ng-model="expense.skip"></td>
-    <tr ng-disabled="sub.skip" ng-repeat="sub in expense.children" ng-if="_.has(expense, 'children')">
-        <td popover="{{_.pluck(sub.payments, 'amt').toString()}}" popover-placement="right" popover-append-to-body="true">
-            <span style="padding-left: 30px">{{sub.label}}</span>
-        </td>
-        <td>
-            <div class="controls">
-                <input ng-disabled="sub.skip" class="form-control" ng-change="updateExpenseAmount(sub)" ng-model="sub.amt"
-                       type="text">
+                    <button ng-disabled="expense.skip" ng-if="!_.has(expense, 'children')" class="btn btn-danger"
+                            ng-show="inEditMode" ng-click="removeExpense(expense, null)">
+                        remove
+                    </button>
+                </div>
+            </td>
+            <td ng-show="!templateMode" ng-class="{'bold-red' : expense.remainder < 0}">
+                {{expense.remainder}}
+            </td>
+            <td><input ng-show="!templateMode && !_.has(expense, 'children')" type="checkbox" class="checkbox"
+                       ng-model="expense.skip"></td>
+        <tr ng-disabled="sub.skip" ng-repeat="sub in expense.children" ng-if="_.has(expense, 'children')">
+            <td popover="{{_.pluck(sub.payments, 'amt').toString()}}" popover-placement="right"
+                popover-append-to-body="true">
+                <span style="padding-left: 30px">{{sub.label}}</span>
+            </td>
+            <td>
+                <div class="controls">
+                    <input ng-disabled="sub.skip" class="form-control" ng-change="updateExpenseAmount(sub)"
+                           ng-model="sub.amt"
+                           type="text">
 
-                <button ng-disabled="sub.skip" class="btn btn-danger" ng-show="inEditMode"
-                        ng-click="removeExpense(sub, expense)">
-                    remove
-                </button>
-            </div>
+                    <button ng-disabled="sub.skip" class="btn btn-danger" ng-show="inEditMode"
+                            ng-click="removeExpense(sub, expense)">
+                        remove
+                    </button>
+                </div>
 
-        </td>
-        <td ng-show="!templateMode" ng-class="{'bold-red' : sub.remainder < 0}">{{sub.remainder}}
-        </td>
-        <td><input ng-show="!templateMode" type="checkbox" class="checkbox" ng-model="sub.skip"></td>
-    </tr>
-    </tr>
+            </td>
+            <td ng-show="!templateMode" ng-class="{'bold-red' : sub.remainder < 0}">{{sub.remainder}}
+            </td>
+            <td><input ng-show="!templateMode" type="checkbox" class="checkbox" ng-model="sub.skip"></td>
+        </tr>
+        </tr>
 
 
-    </tbody>
-    <tbody ng-show="!templateMode">
-    <tr>
-        <td>Total</td>
-        <td>{{getTotalRemainingExpenses()}}</td>
-    </tr>
-    </tbody>
-</table>
+        </tbody>
+        <tbody ng-show="!templateMode">
+        <tr>
+            <td>Total</td>
+            <td>{{getTotalRemainingExpenses()}}</td>
+        </tr>
+        </tbody>
+    </table>-->
+</div>

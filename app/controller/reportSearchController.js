@@ -126,7 +126,7 @@ define([
 
         function getBudgetFromHistory() {
             if (!_.isUndefined($scope.selectedMonth) && !_.isUndefined($scope.selectedYear)) {
-                var parts, newExpenses, children;
+                var parts, newExpenses, children, allPayments;
                 if (loadedExpenseReport) {
                     //clean previously loaded expense report that may not have been saved
                     budgetAppModel.removeCircularReferencesFromChildExpenses(budgetAppModel.loadedExpenseReport.expenses);
@@ -135,6 +135,10 @@ define([
 
                 if (loadedExpenseReport) {
                     budgetAppModel.loadedExpenseReport = loadedExpenseReport;
+                    allPayments = _.pluck(loadedExpenseReport.expenses, 'payments');
+                    allPayments = _(allPayments).compact().flatten().value();
+                    allPayments = allPayments.concat(_(loadedExpenseReport.expenses).pluck('children').compact().flatten().pluck('payments').flatten().value());
+                    budgetAppModel.setPayments(allPayments);
                     budgetAppModel.updateRemainderAndTotalPaid(loadedExpenseReport.expenses);
                     budgetAppModel.setExpenses(loadedExpenseReport.expenses);
                     budgetAppModel.setTotalFunds(loadedExpenseReport.totalFunds);

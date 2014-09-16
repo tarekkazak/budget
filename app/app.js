@@ -8,7 +8,8 @@ define([
     'directive/paymentList',
     'service/dataService',
     'angularSpinner',
-    'angularUIBootstrap'
+    'angularUIBootstrap',
+    'ngGrid'
 ], function (angular, gridController, reportSearchController, editorController, expenseOperationsController, paymentList) {
 
 // Declare app level module which depends on filters, and services
@@ -16,6 +17,7 @@ define([
     var budgetApp = angular.module('budgetApp', [
         'angularSpinner',
         'ui.bootstrap',
+        'ngGrid',
         'dataService'
     ]);
 

@@ -22,7 +22,18 @@ define([
             $scope.expenses = value;
         });
 
+        budgetAppModel.registerForUpdate('payments', function(value) {
+            $scope.payments = value;
 
+        });
+
+        $scope.gridOptions = {
+            data: 'payments',
+            enableCellSelection: true,
+            enableRowSelection: false,
+            enableCellEdit: true,
+            showFilter: true
+        };
 
         $scope._ = _;
 

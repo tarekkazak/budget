@@ -22,6 +22,10 @@
     width: 150px
 }
 
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+}
+
 @media handheld and (orientation:landscape) and (min-device-height:1025px),
 handheld and (orientation:portrait) and (min-device-width:769px), screen and (min-width:769px) {
 

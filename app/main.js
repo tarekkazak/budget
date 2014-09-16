@@ -3,11 +3,13 @@
  */
 requirejs.config({
     paths: {
-        angular: '../bower_components/angular/angular.min',
+        angular: '../bower_components/angular/angular',
         lodash: '../bower_components/lodash/dist/lodash.min',
         spin: '../bower_components/spin.js/spin-min',
         angularSpinner: '../bower_components/angular-spinner/angular-spinner.min',
-        angularUIBootstrap: '../js/ui-bootstrap-tpls-0.10.0.min'
+        angularUIBootstrap: '../js/ui-bootstrap-tpls-0.10.0.min',
+        ngGrid: '../bower_components/ng-grid/build/ng-grid.debug',
+        jQuery: '../bower_components/jquery/jquery.min'
     },
     urlArgs : 'd=' + (new Date()).getTime(),
     shim: {
@@ -25,6 +27,9 @@ requirejs.config({
         },
         'lodash': {
             exports : '_'
+        },
+        'ngGrid' : {
+            deps : ['angular', 'jQuery']
         }
 
     }
