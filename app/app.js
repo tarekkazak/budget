@@ -27,7 +27,7 @@ define([
         gridController);
     budgetApp.controller('editorController',
         editorController);
-    budgetApp.controller('expenseOperationsController', ['$scope', '$modal', '$timeout', '$window', '$http', '$interpolate', '$templateCache',
+    budgetApp.controller('expenseOperationsController', ['$scope', '$modal', '$timeout', '$window', '$http', '$interpolate', '$templateCache', 'DataService',
         expenseOperationsController]);
     budgetApp.directive('paymentList', paymentList);
     return budgetApp;

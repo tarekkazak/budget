@@ -3,12 +3,12 @@
 
 
         <div class="row payment-control-col-padding" >
-            <div class="col-md-3" >
-                <input ng-disabled="isSplitExpense" name="tagsTA" type="text" ng-model="selectedTag" placeholder="select tag" class="form-control"
+            <div class="col-md-6" >
+                <input  name="tagsTA" type="text" ng-model="selectedTag" placeholder="select tag" class="form-control"
                        typeahead="tag as tag.label for tag in tags | filter:{label:$viewValue}"
                        typeahead-template-url="expenseTypeaheadTemplate.html" >
             </div>
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <p class="input-group">
                     <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
                            ng-model="newPaymentDate">
@@ -99,12 +99,12 @@
         </div>
         <div class="form-group">
             <label>Total Remaining</label>
-            <span>{{(initialFunds - getTotalPaid()).toFixed(2)}}</span>
+            <!--<span>{{(initialFunds - getTotalPaid()).toFixed(2)}}</span>-->
         </div>
 
         <div class="form-group">
             <label>Total Spent</label>
-            <span>{{getTotalPaid()}}</span>
+           <!-- <span>{{getTotalPaid()}}</span>-->
         </div>
 
         <div class="form-group">
@@ -114,7 +114,7 @@
 
         <div class="form-group">
             <label>Current Remaining</label>
-            <span>{{(totalFunds - getTotalRemainingExpenses()).toFixed(2)}}</span>
+           <!-- <span>{{(totalFunds - getTotalRemainingExpenses()).toFixed(2)}}</span>-->
         </div>
 
         <div class="btn-group" >
@@ -142,10 +142,10 @@
                 </li>
             </ul>
         </div>
-        <button ng-disabled="(isNullOrUndefined(selectedUpcomingExpense) && isNullOrUndefined(selectedWishlistItem)) || isNullOrUndefined(expenses)" class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
-        <button class="btn btn-default" ng-click="addPayment()" type="submit">Apply</button>
-        <button ng-disabled="isNullOrUndefined(expenses)" class="btn btn-default" ng-click="sendReport()">Send Report</button>
+        <!--<button ng-disabled="(isNullOrUndefined(selectedUpcomingExpense) && isNullOrUndefined(selectedWishlistItem)) || isNullOrUndefined(expenses)" class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
 
+        <button ng-disabled="isNullOrUndefined(expenses)" class="btn btn-default" ng-click="sendReport()">Send Report</button>-->
+        <button class="btn btn-default" ng-click="addPayment()" type="submit">Apply</button>
     </form>
 
 

@@ -32,7 +32,8 @@ define([
             enableCellSelection: true,
             enableRowSelection: false,
             enableCellEdit: true,
-            showFilter: true
+            showFilter: true,
+            showFooter : true
         };
 
         $scope._ = _;

@@ -24,6 +24,7 @@
 
 .gridStyle {
     border: 1px solid rgb(212,212,212);
+    height : 550px;
 }
 
 @media handheld and (orientation:landscape) and (min-device-height:1025px),

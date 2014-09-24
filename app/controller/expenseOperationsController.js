@@ -49,8 +49,8 @@ define(['lodash',
                 $scope.upcoming = value;
             });
 
-            budgetAppModel.registerForUpdate('splits', function (value) {
-                $scope.splits = value;
+            budgetAppModel.registerForUpdate('tags', function (value) {
+                $scope.tags = value;
             });
 
             $scope.newPaymentDate = new Date();
@@ -76,47 +76,19 @@ define(['lodash',
             $scope.addPayment = function() {
                 $scope.payments.push({
                     amt : $scope.amount,
-                    tags : $scope.newPaymentTags,
-                    data : $scope.newPaymentDate
+                    tags : [$scope.selectedTag],
+                    date : $scope.newPaymentDate
                 });
                 budgetAppModel.setPayments($scope.payments);
             };
 
-            /*function applyToExpense(expense, amount, date, tags) {
-                var payment;
-                tags = budgetAppModel.isNullOrUndefined(tags) ? '' : tags;
-                if (_.contains(amount, ',')) {
-                    _.each(amount.split(','), function (el) {
-                        applyToExpense(expense, el.trim(), date, tags);
-                    });
-                } else {
-                    payment = {
-                        amt : amount,
-                        date : date,
-                        tags : [expense.label].concat(tags.split(','))
-                    };
-                    if ($scope.selectedSplit) {
-                        payment.splitId = $scope.selectedSplit.id;
-                        payment.tags.push($scope.selectedSplit.vendor);
-                        $scope.selectedSplit.payments.push(payment);
-                        budgetAppModel.updateRemainderAndTotalPaid([$scope.selectedSplit]);
-                    }
-                    expense.payments.push(payment);
-                    budgetAppModel.updateRemainderAndTotalPaid([expense]);
-                    budgetAppModel.setTotalFunds($scope.totalFunds - Number(amount));
-                }
-            }*/
-
-            function stripNonTemplateProps(expenses) {
-                return _.map(expenses, function (el, index, arr) {
-                    if (_.has(el, "children")) {
-                        el.children = stripNonTemplateProps(el.children);
-                    }
-                    return _.pick(el, ["label", 'amt', 'children']);
-
+            $scope.createTag = function(max) {
+                budgetAppModel.tags.push({
+                    "label" : $scope.selectedTag,
+                     "max" : max
                 });
-
-            }
+                $scope.tags = budgetAppModel.tags;
+            };
 
             $scope.$watch('isSplitExpense', function (value) {
                 if (value) {
@@ -232,14 +204,10 @@ define(['lodash',
 
                 //Needs to be set as initial load of data creates a copy of this array to be used by $scope
                 budgetAppModel.siteData.content.upcoming = $scope.upcoming;
+                DataService.post(budgetAppModel.siteData).then(function(){
+                    closeModal();
+                });
 
-                $http.post('php/persistence.php', budgetAppModel.siteData).
-                    success(function (data) {
-                        closeModal();
-                    }).
-                    error(function (data) {
-                        closeModal();
-                    });
 
             };
         };

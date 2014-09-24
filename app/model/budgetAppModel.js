@@ -9,7 +9,6 @@ define(['lodash'], function(_) {
         var me = this,
             registeredOnjects = {},
             totalFunds = 0,
-            expenses,
             wishlist,
             splits,
             selectedMonth,
@@ -19,6 +18,7 @@ define(['lodash'], function(_) {
         me.siteData = undefined;
         me.loadedExpenseReport = null;
         me.isNew = false;
+        me.tags = []
 
         function updateRegisteredObjects(prop, value) {
             _.each(registeredOnjects[prop], function (func) {
@@ -46,20 +46,15 @@ define(['lodash'], function(_) {
             });
         };
 
-        me.setTemplateMode = function(value) {
-            templateMode = value;
-            updateRegisteredObjects('templateMode', value);
-        };
-
 
         me.setInEditMode = function(value) {
             inEditMode = value;
             updateRegisteredObjects('inEditMode', value);
         };
 
-        me.setExpenses = function(value) {
+        me.setTags = function(value) {
             expenses = value;
-            updateRegisteredObjects('expenses', value);
+            updateRegisteredObjects('tags', value);
         };
 
         me.setSplits = function(value) {

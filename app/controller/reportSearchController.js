@@ -19,22 +19,19 @@ define([
             var data = res.data;
             budgetAppModel.siteData = data;
             budgetAppModel.setWishlist(budgetAppModel.siteData.content.wishlist);
+            budgetAppModel.setTags(budgetAppModel.siteData.content.tags);
             budgetAppModel.setUpcoming(_.map(budgetAppModel.siteData.content.upcoming, function(item) {
                 item.date = new Date(item.date);
                 return item;
             }));
         });
 
-        budgetAppModel.registerForUpdate('templateMode', function(value) {
-            $scope.templateMode = value;
-        });
-
         budgetAppModel.registerForUpdate('dataLoaded', function(value) {
             $scope.dataLoaded = value;
         });
 
-        budgetAppModel.registerForUpdate('expenses', function(value) {
-            $scope.expenses = value;
+        budgetAppModel.registerForUpdate('tags', function(value) {
+            $scope.tags = value;
         });
 
         budgetAppModel.registerForUpdate('selectedMonth', function(value) {
@@ -87,13 +84,6 @@ define([
             $scope.$close();
         };
 
-        /*$scope.loadTemplate = function() {
-            budgetAppModel.setTemplateMode(true);
-            budgetAppModel.setExpenses(budgetAppModel.siteData.content.expenses);
-            budgetAppModel.setSelectedMonth(undefined);
-            budgetAppModel.setSelectedYear(undefined);
-            budgetAppModel.selectedExpense = null;
-        };*/
 
         $scope.deleteUpcoming = function (expense) {
             _.remove($scope.upcoming, function(item) {
@@ -112,21 +102,10 @@ define([
             $event.stopPropagation();
         };
 
-        /*function convertPayments(expenses) {
-            var allExpenses, groups = _.groupBy(expenses, function (expense) {
-                return !_.has(expense, "children");
-            });
-            allExpenses = groups['true'].concat(_(groups['false']).pluck('children').flatten().value());
-            _.each(allExpenses, function (expense) {
-                _.each(expense.payments, function (payment, index, payments) {
-                    payments[index] = !_.isObject(payment) ? {amt : Number(payment), tags : [expense.label], date : new Date()} : payment;
-                });
-            });
-        }*/
 
         function getBudgetFromHistory() {
             if (!_.isUndefined($scope.selectedMonth) && !_.isUndefined($scope.selectedYear)) {
-                var parts, newExpenses, children, allPayments;
+                var allTags, children, allPayments;
                 if (loadedExpenseReport) {
                     //clean previously loaded expense report that may not have been saved
                     budgetAppModel.removeCircularReferencesFromChildExpenses(budgetAppModel.loadedExpenseReport.expenses);
@@ -135,43 +114,40 @@ define([
 
                 if (loadedExpenseReport) {
                     budgetAppModel.loadedExpenseReport = loadedExpenseReport;
-                    allPayments = _.pluck(loadedExpenseReport.expenses, 'payments');
-                    allPayments = _(allPayments).compact().flatten().value();
-                    allPayments = allPayments.concat(_(loadedExpenseReport.expenses).pluck('children').compact().flatten().pluck('payments').flatten().value());
+                    //if legacy report
+                    if(loadedExpenseReport.expenses) {
+                        allPayments = _.pluck(loadedExpenseReport.expenses, 'payments');
+                        allPayments = _(allPayments).compact().flatten().value();
+                        allPayments = allPayments.concat(_(loadedExpenseReport.expenses).pluck('children').compact().flatten().pluck('payments').flatten().value());
+                        allTags = _(allPayments).pluck('tags').flatten().compact().uniq().map(function(tag){
+                            return {
+                                "label" : tag,
+                                "id" : new Date().getTime(),
+                                "max" : 0
+                            };
+                        }).value();
+                        //debugger;
+                        budgetAppModel.setTags(allTags);
+                    } else {
+                        allPayments = loadedExpenseReport.payments;
+                    }
                     budgetAppModel.setPayments(allPayments);
-                    budgetAppModel.updateRemainderAndTotalPaid(loadedExpenseReport.expenses);
-                    budgetAppModel.setExpenses(loadedExpenseReport.expenses);
+                   // budgetAppModel.updateRemainderAndTotalPaid(loadedExpenseReport.expenses);
                     budgetAppModel.setTotalFunds(loadedExpenseReport.totalFunds);
                     budgetAppModel.setIntialFunds(loadedExpenseReport.initialFunds);
-                    if (budgetAppModel.isNullOrUndefined(loadedExpenseReport.splits)) {
-                        loadedExpenseReport.splits = [];
-                    }
-                    budgetAppModel.setSplits(loadedExpenseReport.splits);
                     budgetAppModel.isNew = false;
                 } else {
-                    newExpenses = budgetAppModel.siteData.content.expenses.concat();
-                    parts = _.groupBy(newExpenses, function(expense) {
-                        return !_.has(expense, "children");
-                    });
-                    budgetAppModel.addNonTemplateProps(parts["true"]);
-
-                    children = _.pluck(parts["false"], "children");
-                    children = _.flatten(children);
 
 
                     budgetAppModel.loadedExpenseReport = {
                         year : $scope.selectedYear,
                         month : $scope.selectedMonth,
-                        expenses : newExpenses,
-                        splits : []
+                        payments : [],
+                        tags : []
                     };
-
-                    budgetAppModel.addNonTemplateProps(children);
-                    budgetAppModel.setExpenses(budgetAppModel.loadedExpenseReport.expenses);
-                    budgetAppModel.setSplits(budgetAppModel.loadedExpenseReport.splits);
+                    budgetAppModel.setPayments(budgetAppModel.loadedExpenseReport.payments);
                     budgetAppModel.isNew = true;
                 }
-                budgetAppModel.setTemplateMode(false);
                 budgetAppModel.setInEditMode(false);
 
             }

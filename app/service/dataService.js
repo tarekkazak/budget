@@ -11,6 +11,9 @@ define(['angular'], function (angular) {
             return {
                 get: function () {
                     return promise;
+                },
+                post : function(data) {
+                    return $http.post('php/persistence.php', data);
                 }
             };
 

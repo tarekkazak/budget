@@ -40,7 +40,11 @@
 
     <div>
         <span> {{match.model.label}} </span>
-        <span ng-if="match.model.hasOwnProperty('parent')"><b> {{match.model.parent.label}} </b></span>
+        <div class="form-group" ng-show="match.model === null || match.model === undefined">
+            <label>Create tag</label>
+            <input class="form-control" type="text" ng-model="newTagMax">
+            <button class="btn btn-primary" ng-click="createTag(newTagMax)">create</button>
+        </div>
     </div>
 
 </script>
