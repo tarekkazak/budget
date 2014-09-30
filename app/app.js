@@ -19,7 +19,11 @@ define([
         'ui.bootstrap',
         'ngGrid',
         'dataService'
-    ]);
+    ], function($tooltipProvider) {
+        $tooltipProvider.setTriggers({
+            "keydown" : "hideCreateTag"
+        });
+    });
 
     budgetApp.controller('reportSearchController', ['$scope', '$modal', 'DataService',
         reportSearchController]);

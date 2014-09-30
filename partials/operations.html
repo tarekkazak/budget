@@ -3,12 +3,12 @@
 
 
         <div class="row payment-control-col-padding" >
-            <div class="col-md-6" >
-                <input  name="tagsTA" type="text" ng-model="selectedTag" placeholder="select tag" class="form-control"
+            <div class="col-md-4" >
+                <input name="tagsTA" type="text" ng-model="selectedTag" placeholder="select tag" class="form-control"
                        typeahead="tag as tag.label for tag in tags | filter:{label:$viewValue}"
-                       typeahead-template-url="expenseTypeaheadTemplate.html" >
+                       tooltip-trigger="keydown"  tooltip-html-unsafe="{{createTagTemplate}}" tooltip-placement="left">
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <p class="input-group">
                     <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
                            ng-model="newPaymentDate">
@@ -19,103 +19,16 @@
                 </p>
             </div>
 
-            <!--<div class="col-md-2">
-                <input class="form-control" type="text" ng-model="newPaymentTags" placeholder="tags">
-            </div>-->
+            <div class="col-md-4">
+                <label for="amount-to-apply">Amount to apply</label>
+                <input id="amount-to-apply" type="number" ng-model="amount"  name="amount" class="form-control">
 
-            <!--<div class="col-md-2"  >
-                <input ng-disabled="isNullOrUndefined(selectedExpense)" name="splitTA" type="text" ng-model="selectedSplit"
-                       placeholder="select split" class="form-control" typeahead-on-select="updateSelectedSplit($item, $model, $label)"
-                       typeahead="split as split.vendor for split in splits | filter:{vendor:$viewValue}"
-                       typeahead-template-url="splitTypeaheadTemplate.html" >
-            </div>-->
-
-            <div class="col-md-1">
-                <!--<span><i class="glyphicon glyphicon-pencil" ng-click="isExpensePaymentsCollapsed = !isExpensePaymentsCollapsed"></i></span>-->
-                <span><i class="glyphicon glyphicon-pencil" ng-click="isSplitPaymentsCollapsed = !isSplitPaymentsCollapsed"></i></span>
             </div>
 
-
-            <!--<div class="col-md-1">
-                <input class="checkbox-inline" type="checkbox" ng-model="isSplitExpense">
-            </div>-->
-
-
-        </div>
-        <!--<div collapse="!isSplitPaymentsCollapsed" >
-            <ul class="list-group">
-                <li ng-repeat="split in splits | orderBy : '-date'" class="list-group-item">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input class="form-control" type="text" ng-model="split.vendor">
-
-                        </div>
-
-                        <div class="col-md-3">
-                            <input class="form-control" type="text" ng-model="split.amt">
-
-                        </div>
-
-                        <div class="col-md-4">
-                            <p class="input-group">
-                                <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
-                                       ng-model="split.date">
-                                       <span class="input-group-btn">
-                                           <button type="button" class="btn btn-default" ng-click="openCal($event); opened = !opened"><i
-                                                   class="glyphicon glyphicon-calendar"></i></button>
-                                       </span>
-                            </p>
-                        </div>
-
-
-
-                        <div class="col-md-1">
-                            <i class="glyphicon glyphicon-remove-sign" ng-click="deleteItem(split, splits)"></i>
-                        </div>
-
-
-
-                    </div>
-                    <div class="row" style="margin-left: 20px">
-                        <payment-list payments="split.payments"></payment-list>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div collapse="!isExpensePaymentsCollapsed"  >
-            <payment-list payments="selectedExpense.payments"></payment-list>
-
-        </div>-->
-
-
-        <div class="form-group">
-            <label for="amount-to-apply">Amount to apply</label>
-            <input id="amount-to-apply" type="text" ng-model="amount"  name="amount" class="form-control">
-            <div style="border-bottom: 1px dashed #808080; margin: 5px 0px"></div>
-        </div>
-        <div class="form-group">
-            <label>Total funds</label>
-            <input type="text" ng-model="initialFunds" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Total Remaining</label>
-            <!--<span>{{(initialFunds - getTotalPaid()).toFixed(2)}}</span>-->
         </div>
 
-        <div class="form-group">
-            <label>Total Spent</label>
-           <!-- <span>{{getTotalPaid()}}</span>-->
-        </div>
+        <div style="border-bottom: 1px dashed #808080; margin: 5px 0px"></div>
 
-        <div class="form-group">
-            <label>Current funds</label>
-            <input type="text" ng-model="totalFunds" class="form-control">
-        </div>
-
-        <div class="form-group">
-            <label>Current Remaining</label>
-           <!-- <span>{{(totalFunds - getTotalRemainingExpenses()).toFixed(2)}}</span>-->
-        </div>
 
         <div class="btn-group" >
             <button class="btn btn-primary dropdown-toggle" >
@@ -142,9 +55,6 @@
                 </li>
             </ul>
         </div>
-        <!--<button ng-disabled="(isNullOrUndefined(selectedUpcomingExpense) && isNullOrUndefined(selectedWishlistItem)) || isNullOrUndefined(expenses)" class="btn btn-default" ng-click="addToExpenses()" >Add to expenses</button>
-
-        <button ng-disabled="isNullOrUndefined(expenses)" class="btn btn-default" ng-click="sendReport()">Send Report</button>-->
         <button class="btn btn-default" ng-click="addPayment()" type="submit">Apply</button>
     </form>
 

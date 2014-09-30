@@ -15,6 +15,7 @@ define([
             modalInstance;
 
         $scope.dataLoaded = budgetAppModel.dataLoaded;
+
         DataService.get().then(function(res) {
             var data = res.data;
             budgetAppModel.siteData = data;
@@ -131,10 +132,9 @@ define([
                     } else {
                         allPayments = loadedExpenseReport.payments;
                     }
-                    budgetAppModel.setPayments(allPayments);
-                   // budgetAppModel.updateRemainderAndTotalPaid(loadedExpenseReport.expenses);
                     budgetAppModel.setTotalFunds(loadedExpenseReport.totalFunds);
                     budgetAppModel.setIntialFunds(loadedExpenseReport.initialFunds);
+                    budgetAppModel.setPayments(allPayments);
                     budgetAppModel.isNew = false;
                 } else {
 

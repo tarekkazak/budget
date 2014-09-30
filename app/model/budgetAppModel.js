@@ -13,12 +13,12 @@ define(['lodash'], function(_) {
             splits,
             selectedMonth,
             selectedYear,
-            templateMode = false,
             inEditMode = false;
         me.siteData = undefined;
         me.loadedExpenseReport = null;
         me.isNew = false;
-        me.tags = []
+        me.tags = [];
+        me.payments = [];
 
         function updateRegisteredObjects(prop, value) {
             _.each(registeredOnjects[prop], function (func) {
@@ -53,7 +53,7 @@ define(['lodash'], function(_) {
         };
 
         me.setTags = function(value) {
-            expenses = value;
+            me.tags = value;
             updateRegisteredObjects('tags', value);
         };
 
@@ -90,7 +90,16 @@ define(['lodash'], function(_) {
         };
 
         me.setPayments = function(value) {
+            me.payments = value;
             updateRegisteredObjects('payments', value);
+        };
+
+        me.updateTotalPaid = function() {
+            if(me.payments) {
+                return _(me.payments).pluck("amt").reduce(function (a, b) {
+                    return Number(a) + Number(b);
+                }).toFixed(2);
+            }
         };
 
         me.removeCircularReferencesFromChildExpenses = function (expenses) {

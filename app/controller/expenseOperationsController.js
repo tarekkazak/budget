@@ -5,25 +5,18 @@
 define(['lodash',
         'spin',
         'model/budgetAppModel',
-        'utils/utils'],
-    function (_, Spinner, budgetAppModel, utils) {
+        'utils/utils',
+        'angular'],
+    function (_, Spinner, budgetAppModel, utils, angular) {
         'use strict';
 
-        return function ($scope, $modal, $timeout, $window, $http, $interpolate, $templateCache) {
+        return function ($scope, $modal, $timeout, $window, $http, $interpolate, $templateCache, $tooltipPovider, DataService) {
             $window.Spinner = Spinner;
             var modalInstance, report, reportTemplateFunc;
             $scope._ = _;
             $scope.showFeedback = false;
 
             reportTemplateFunc = _.template($templateCache.get("reportTemplate"));
-
-            budgetAppModel.registerForUpdate('selectedMonth', function (value) {
-                $scope.selectedMonth = value;
-            });
-
-            budgetAppModel.registerForUpdate('selectedYear', function (value) {
-                $scope.selectedYear = value;
-            });
 
             budgetAppModel.registerForUpdate('payments', function (value) {
                 $scope.payments = value;
@@ -33,21 +26,6 @@ define(['lodash',
                 $scope.wishlist = value;
             });
 
-            budgetAppModel.registerForUpdate('inEditMode', function (value) {
-                $scope.inEditMode = value;
-            });
-
-            budgetAppModel.registerForUpdate('totalFunds', function (value) {
-                $scope.totalFunds = Number(value).toFixed(2);
-            });
-
-            budgetAppModel.registerForUpdate('initialFunds', function (value) {
-                $scope.initialFunds = Number(value).toFixed(2);
-            });
-
-            budgetAppModel.registerForUpdate('upcoming', function (value) {
-                $scope.upcoming = value;
-            });
 
             budgetAppModel.registerForUpdate('tags', function (value) {
                 $scope.tags = value;
@@ -82,24 +60,24 @@ define(['lodash',
                 budgetAppModel.setPayments($scope.payments);
             };
 
-            $scope.createTag = function(max) {
+            $scope.createTagTemplate =  '<div><input type="text" ng-model="newTagMax" placeholder="max" /></div>' +
+                '<button class="btn btn-primary" ng-click="createNewTag()">Create tag</button>';
+
+            $scope.onTagsTAFocus = function() {
+                //angular.element(form.tagsTA).triggerHandler('showCreateTag');
+                //form.tagsTA.dispatchEvent(new Event('showCreateTag'));
+
+            };
+
+            $scope.createNewTag = function() {
                 budgetAppModel.tags.push({
                     "label" : $scope.selectedTag,
                      "max" : max
                 });
                 $scope.tags = budgetAppModel.tags;
+                console.log('click');
+                angular.element(form.tagsTA).triggerHandler('hideCreateTag');
             };
-
-            $scope.$watch('isSplitExpense', function (value) {
-                if (value) {
-                    $scope.selectedExpense = null;
-                }
-            });
-
-            $scope.updateSelectedSplit = function(item, model, label) {
-                 $scope.newPaymentDate = model.date;
-            }
-
 
             $scope.deleteItem = utils.deleteItemFromList;
 
@@ -127,13 +105,6 @@ define(['lodash',
 
             };
 
-            $scope.getTotalRemainingExpenses = function() {
-                return budgetAppModel.sumValuesForProperty("remainder", 'skip');
-            };
-
-            $scope.getTotalPaid = function() {
-                return budgetAppModel.sumValuesForProperty("paid");
-            };
 
             $scope.addToExpenses = function () {
 
@@ -196,10 +167,10 @@ define(['lodash',
                             budgetAppModel.loadedExpenseReport.totalFunds = $scope.totalFunds;
                             budgetAppModel.loadedExpenseReport.initialFunds = $scope.initialFunds;
                         }
-                        budgetAppModel.removeCircularReferencesFromChildExpenses(budgetAppModel.loadedExpenseReport.expenses);
+                     //   budgetAppModel.removeCircularReferencesFromChildExpenses(budgetAppModel.loadedExpenseReport.expenses);
                     }
                 } else {
-                    budgetAppModel.siteData.content.expenses = $scope.expenses = stripNonTemplateProps($scope.expenses);
+                 //   budgetAppModel.siteData.content.expenses = $scope.expenses = stripNonTemplateProps($scope.expenses);
                 }
 
                 //Needs to be set as initial load of data creates a copy of this array to be used by $scope
