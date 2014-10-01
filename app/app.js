@@ -5,12 +5,12 @@ define([
     'controller/reportSearchController',
     'controller/editorController',
     'controller/expenseOperationsController',
-    'directive/paymentList',
     'service/dataService',
     'angularSpinner',
     'angularUIBootstrap',
-    'ngGrid'
-], function (angular, gridController, reportSearchController, editorController, expenseOperationsController, paymentList) {
+    'ngGrid',
+    'directive/typeaheadTooltip'
+], function (angular, gridController, reportSearchController, editorController, expenseOperationsController) {
 
 // Declare app level module which depends on filters, and services
 
@@ -18,12 +18,9 @@ define([
         'angularSpinner',
         'ui.bootstrap',
         'ngGrid',
-        'dataService'
-    ], function($tooltipProvider) {
-        $tooltipProvider.setTriggers({
-            "keydown" : "hideCreateTag"
-        });
-    });
+        'dataService',
+        'typeaheadToolTipModule'
+    ]);
 
     budgetApp.controller('reportSearchController', ['$scope', '$modal', 'DataService',
         reportSearchController]);
@@ -33,7 +30,6 @@ define([
         editorController);
     budgetApp.controller('expenseOperationsController', ['$scope', '$modal', '$timeout', '$window', '$http', '$interpolate', '$templateCache', 'DataService',
         expenseOperationsController]);
-    budgetApp.directive('paymentList', paymentList);
     return budgetApp;
 });
 

@@ -5,8 +5,7 @@
         <div class="row payment-control-col-padding" >
             <div class="col-md-4" >
                 <input name="tagsTA" type="text" ng-model="selectedTag" placeholder="select tag" class="form-control"
-                       typeahead="tag as tag.label for tag in tags | filter:{label:$viewValue}"
-                       tooltip-trigger="keydown"  tooltip-html-unsafe="{{createTagTemplate}}" tooltip-placement="left">
+                       typeahead="tag as tag.label for tag in tags | filter:{label:$viewValue}" typeahead-tool-tip>
             </div>
             <div class="col-md-4">
                 <p class="input-group">
@@ -20,8 +19,7 @@
             </div>
 
             <div class="col-md-4">
-                <label for="amount-to-apply">Amount to apply</label>
-                <input id="amount-to-apply" type="number" ng-model="amount"  name="amount" class="form-control">
+                <input id="amount-to-apply" type="number" ng-model="amount" placeholder="amount"  name="amount" class="form-control">
 
             </div>
 

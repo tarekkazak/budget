@@ -54,7 +54,7 @@ define(['lodash',
             $scope.addPayment = function() {
                 $scope.payments.push({
                     amt : $scope.amount,
-                    tags : [$scope.selectedTag],
+                    tags : [$scope.selectedTag.label],
                     date : $scope.newPaymentDate
                 });
                 budgetAppModel.setPayments($scope.payments);
