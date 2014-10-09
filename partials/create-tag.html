@@ -1,0 +1,11 @@
+<div class="row create-tag-form" style="margin-bottom:6px">
+	<div class="col-md-3">
+   		<input class="form-control" style="padding-left:0px" type="text" ng-model="tag.tagAmt" placeholder="amount" />
+	</div>
+	<div class="col-md-3">
+    	<input type="text" class="form-control" ng-model="tag.label" ng-show="editMode" class="form-control" />
+	</div>
+    <input type="checkbox" class="col-md-1 checkbox" ng-model="tag.isRecurring" />
+
+   <button class="btn btn-primary" ng-show="!editMode" ng-click="createNewTag(tag.label, tag.tagAmt, tag.isRecurring)">Create tag</button>
+</div>

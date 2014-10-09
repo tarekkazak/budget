@@ -1,13 +1,26 @@
 <div ng-controller="expenseOperationsController" class="col-sm-6 col-md-6">
     <form name="form" class="control-group" ng-hide="templateMode">
 
-
+        <div class="row well" ng-show="selectedTags.length > 0">
+                    <div class="col-md-12 btn-group">
+                        <button class="btn btn-primary" style="margin-bottom:6px" ng-click="editTag(tag)" ng-repeat="tag in selectedTags">
+                            {{tag.label}}
+                                    <i class="glyphicon glyphicon-remove" ng-click="removeTag(tag)"></i>
+                            
+                        </button>
+                    </div>   
+                </div>
+        <create-tag editMode="false"></create-tag>
+        <create-tag editMode="true" ng-show="editTag"></create-tag>
         <div class="row payment-control-col-padding" >
-            <div class="col-md-4" >
-                <input name="tagsTA" type="text" ng-model="selectedTag" placeholder="select tag" class="form-control"
-                       typeahead="tag as tag.label for tag in tags | filter:{label:$viewValue}" typeahead-tool-tip>
+            <div class="col-md-3" >
+                <input  name="tagsTA" type="text" ng-model="selectedTag"
+                       placeholder="select tag" class="form-control"
+                       typeahead-on-select="addToSelectedTags()"
+                       typeahead="tag as tag.label for tag in tags | filter:{label:$viewValue}" />
+                       
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <p class="input-group">
                     <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
                            ng-model="newPaymentDate">
@@ -18,13 +31,15 @@
                 </p>
             </div>
 
-            <div class="col-md-4">
+                
+            <div class="col-md-2">
                 <input id="amount-to-apply" type="number" ng-model="amount" placeholder="amount"  name="amount" class="form-control">
 
             </div>
 
         </div>
-
+        <div class="row">
+        </div>
         <div style="border-bottom: 1px dashed #808080; margin: 5px 0px"></div>
 
 

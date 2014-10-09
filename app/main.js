@@ -5,17 +5,17 @@ requirejs.config({
     paths: {
         angular: '../bower_components/angular/angular',
         lodash: '../bower_components/lodash/dist/lodash.min',
-        spin: '../bower_components/spin.js/spin-min',
+        spin: '../bower_components/spin.js/spin',
         angularSpinner: '../bower_components/angular-spinner/angular-spinner.min',
         angularUIBootstrap: '../js/ui-bootstrap-tpls-0.10.0.min',
         ngGrid: '../bower_components/ng-grid/build/ng-grid.debug',
-        jQuery: '../bower_components/jquery/jquery.min',
-        bstooltip : '../bower_components/bootstrap/js/tooltip'
+        jquery: '../bower_components/jquery/jquery.min'
     },
     urlArgs : 'd=' + (new Date()).getTime(),
     shim: {
         'angular' : {
-            exports : 'angular'
+            exports : 'angular',
+            deps : ['jquery']
         },
         'angularSanitize': {
             deps : ['angular']
@@ -30,10 +30,7 @@ requirejs.config({
             exports : '_'
         },
         'ngGrid' : {
-            deps : ['angular', 'jQuery']
-        },
-        'bstooltip' : {
-            deps : ['jQuery']
+            deps : ['angular', 'jquery']
         }
 
     }

@@ -106,7 +106,8 @@ define([
 
         function getBudgetFromHistory() {
             if (!_.isUndefined($scope.selectedMonth) && !_.isUndefined($scope.selectedYear)) {
-                var allTags, children, allPayments;
+                var diff, allTags, children, allPayments, existingTags, allTagLabels, diffTags;
+
                 if (loadedExpenseReport) {
                     //clean previously loaded expense report that may not have been saved
                     budgetAppModel.removeCircularReferencesFromChildExpenses(budgetAppModel.loadedExpenseReport.expenses);
@@ -120,17 +121,31 @@ define([
                         allPayments = _.pluck(loadedExpenseReport.expenses, 'payments');
                         allPayments = _(allPayments).compact().flatten().value();
                         allPayments = allPayments.concat(_(loadedExpenseReport.expenses).pluck('children').compact().flatten().pluck('payments').flatten().value());
-                        allTags = _(allPayments).pluck('tags').flatten().compact().uniq().map(function(tag){
-                            return {
-                                "label" : tag,
-                                "id" : new Date().getTime(),
-                                "max" : 0
-                            };
-                        }).value();
-                        //debugger;
-                        budgetAppModel.setTags(allTags);
+
                     } else {
                         allPayments = loadedExpenseReport.payments;
+                    }
+                    allTagLabels = _(allPayments).pluck('tags').flatten().compact().uniq();
+                    allTags = allTagLabels.map(function(tag){
+                        return {
+                            "label" : tag,
+                            "id" : new Date().getTime()
+                        };
+                    }).value();
+                    if(!budgetAppModel.siteData.content.tags) {
+                        budgetAppModel.siteData.content.tags = allTags;
+                        budgetAppModel.setTags(budgetAppModel.siteData.content.tags);
+                    } else {
+                        existingTags = _(budgetAppModel.siteData.content.tags).pluck('label').value();
+                        diff = existingTags.length > allTags.length ? _.difference(existingTags, allTagLabels) : _.difference(allTagLabels, existingTags);
+                        diffTags = diff.map(function(tag){
+                            return {
+                                "label" : tag,
+                                "id" : new Date().getTime()
+                            };
+                        }).value();
+                        budgetAppModel.siteData.content.tags = budgetAppModel.siteData.content.tags.concat(diffTags);
+                        budgetAppModel.setTags(budgetAppModel.siteData.content.tags);
                     }
                     budgetAppModel.setTotalFunds(loadedExpenseReport.totalFunds);
                     budgetAppModel.setIntialFunds(loadedExpenseReport.initialFunds);
@@ -138,17 +153,14 @@ define([
                     budgetAppModel.isNew = false;
                 } else {
 
-
                     budgetAppModel.loadedExpenseReport = {
                         year : $scope.selectedYear,
                         month : $scope.selectedMonth,
-                        payments : [],
-                        tags : []
+                        payments : []
                     };
                     budgetAppModel.setPayments(budgetAppModel.loadedExpenseReport.payments);
                     budgetAppModel.isNew = true;
                 }
-                budgetAppModel.setInEditMode(false);
 
             }
         }

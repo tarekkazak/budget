@@ -1,4 +1,4 @@
-/**
+    /**
  * Created by tarekkazak on 2014-04-07.
  */
 define([
@@ -14,6 +14,29 @@ define([
             $scope.templateMode = value;
         });
 
+        budgetAppModel.registerForUpdate('tags', function(value) {
+            $scope.tags = value;
+            $scope.recurringTags = _($scope.tags).map(function(item){
+                if(_.has(item, 'isRecurring') && item.isRecurring) {
+                    return {
+                        'label' : item.label,
+                        'amt' : item.amt,
+                        'remainder' : updateRemainder(item),
+                    }
+                }
+            });
+        });
+
+        function upateRemainder(tag) {
+            var remainder, paymentsAgainstTag;
+            paymentsAgainstTag = _.filter($scope.payments, function(item){
+                return _.contains(item.tags, tag.label);
+            });
+            remainder = _(paymentsAgainstTag).pluck('amt').reduce(function(sum, next) {
+                return Number(sum) + Number(next);
+            });
+            return remainder;
+        }
         budgetAppModel.registerForUpdate('inEditMode', function(value) {
             $scope.inEditMode = value;
         });
@@ -36,6 +59,7 @@ define([
 
         });
         $scope._ = _;
+
 
         $scope.gridOptions = {
             data: 'payments',

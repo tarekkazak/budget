@@ -9,7 +9,7 @@ define([
     'angularSpinner',
     'angularUIBootstrap',
     'ngGrid',
-    'directive/typeaheadTooltip'
+    'directive/createTag'
 ], function (angular, gridController, reportSearchController, editorController, expenseOperationsController) {
 
 // Declare app level module which depends on filters, and services
@@ -19,7 +19,7 @@ define([
         'ui.bootstrap',
         'ngGrid',
         'dataService',
-        'typeaheadToolTipModule'
+        'createTagModule'
     ]);
 
     budgetApp.controller('reportSearchController', ['$scope', '$modal', 'DataService',

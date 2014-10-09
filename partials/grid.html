@@ -1,4 +1,12 @@
 <div ng-controller="gridController">
     <div ng-grid="gridOptions" class="gridStyle"></div>
-
+    <div>
+    	<ul>
+    		<li ng-repeat="tag in recurringTags">
+    			<span>{{tag.label}}</span>
+    			<span>{{tag.amt}}</span>
+    			<span>{{tag.remainder}}</span>
+    		</li>
+    	</ul>
+    </div>
 </div>

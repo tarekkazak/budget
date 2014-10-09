@@ -15,7 +15,7 @@ define(['lodash',
             var modalInstance, report, reportTemplateFunc;
             $scope._ = _;
             $scope.showFeedback = false;
-
+            $scope.selectedTags = [];
             reportTemplateFunc = _.template($templateCache.get("reportTemplate"));
 
             budgetAppModel.registerForUpdate('payments', function (value) {
@@ -54,29 +54,43 @@ define(['lodash',
             $scope.addPayment = function() {
                 $scope.payments.push({
                     amt : $scope.amount,
-                    tags : [$scope.selectedTag.label],
+                    tags : [_($scope.selectedTags).pluck('label').value()],
                     date : $scope.newPaymentDate
                 });
                 budgetAppModel.setPayments($scope.payments);
             };
 
-            $scope.createTagTemplate =  '<div><input type="text" ng-model="newTagMax" placeholder="max" /></div>' +
-                '<button class="btn btn-primary" ng-click="createNewTag()">Create tag</button>';
+            $scope.addToSelectedTags = function() {
+                if(!_.contains($scope.selectedTags, $scope.selectedTag)) {
+                    $scope.selectedTags.push($scope.selectedTag);
+                    $scope.selectedTag = null;
+                }
+            };
 
-            $scope.onTagsTAFocus = function() {
-                //angular.element(form.tagsTA).triggerHandler('showCreateTag');
-                //form.tagsTA.dispatchEvent(new Event('showCreateTag'));
+            $scope.removeTag = function(tag) {
+                _.remove($scope.selectedTags, function(item) {
+                    return tag === item;
+                });
+            };
 
+            $scope.editTag = function(tag) {
+                $scope.editTag = true;
+                $scope.selectedTag = tag;
             };
 
             $scope.createNewTag = function() {
-                budgetAppModel.tags.push({
+                var tag = {
                     "label" : $scope.selectedTag,
-                     "max" : max
-                });
+                     "id" : new Date().getTime()
+                    };
+                if($scope.newTagAmt) {
+                    tag.amt = $scope.newTagAmt;
+                }
+                if($scope.newTagIsRecurring) {
+                    tag.newTagIsRecurring = $scope.newTagIsRecurring;
+                }
+                budgetAppModel.tags.push(tag);
                 $scope.tags = budgetAppModel.tags;
-                console.log('click');
-                angular.element(form.tagsTA).triggerHandler('hideCreateTag');
             };
 
             $scope.deleteItem = utils.deleteItemFromList;
@@ -171,8 +185,8 @@ define(['lodash',
                     }
                 } else {
                  //   budgetAppModel.siteData.content.expenses = $scope.expenses = stripNonTemplateProps($scope.expenses);
-                }
 
+                }
                 //Needs to be set as initial load of data creates a copy of this array to be used by $scope
                 budgetAppModel.siteData.content.upcoming = $scope.upcoming;
                 DataService.post(budgetAppModel.siteData).then(function(){
