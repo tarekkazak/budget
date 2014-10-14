@@ -1,14 +1,8 @@
 /**
  * Created by tarekkazak on 2014-04-07.
  */
-define([
-    'lodash',
-    'model/budgetAppModel'], function (_, budgetAppModel) {
-    'use strict';
-
-    /* Controllers */
-
-    return function ($scope) {
+angular.module('budgetApp.gridController', ['model.mainModel'])
+    .controller('gridController', ['$scope', 'budgetAppModel',function ($scope, budgetAppModel) {
 
         budgetAppModel.registerForUpdate('templateMode', function(value) {
             $scope.templateMode = value;
@@ -83,7 +77,4 @@ define([
 
 
 
-    };
-
-
-});
+    }]);

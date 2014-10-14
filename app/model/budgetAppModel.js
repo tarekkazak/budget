@@ -1,9 +1,10 @@
 /**
  * Created by tarekkazak on 2014-05-15.
  */
-define(['lodash'], function(_) {
 
-    function BudgetAppModel(_) {
+
+angular.module('model.mainModel', [])
+    .factory('budgetAppModel', function () {
 
 
         var me = this,
@@ -177,9 +178,7 @@ define(['lodash'], function(_) {
             return splitExpenses[true].concat(flattened);
         };
 
+        return me;
+    });
 
-    }
-    var MODEL = new BudgetAppModel(_);
-    return MODEL;
 
-});

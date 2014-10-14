@@ -1,14 +1,8 @@
 /**
  * Created by tarekkazak on 2014-05-15.
  */
-define([
-    'lodash',
-    'model/budgetAppModel'], function (_, budgetAppModel) {
-    'use strict';
-
-    /* Controllers */
-
-    return function ($scope, $modal, DataService) {
+angular.module('budgetApp.reportSearchContoller', ['dataService', 'model.mainModel'])
+    .controller('reportSearchController', ['$scope', '$modal', 'DataService', 'budgetAppModel', function ($scope, $modal, DataService, budgetAppModel) {
 
         var isNew = false,
             loadedExpenseReport = budgetAppModel.loadedExpenseReport,
@@ -153,7 +147,4 @@ define([
             }
         }
 
-    };
-
-
-});
+    }]);
