@@ -9,13 +9,18 @@ define([
     /* Controllers */
 
     return function ($scope) {
-
-        budgetAppModel.registerForUpdate('templateMode', function(value) {
-            $scope.templateMode = value;
-        });
-
-        budgetAppModel.registerForUpdate('tags', function(value) {
-            $scope.tags = value;
+        var allTags;
+        function updateRemainder(tag) {
+           var remainder, paymentsAgainstTag;
+            paymentsAgainstTag = _.filter($scope.payments, function(item){
+                return _.contains(item.tags, tag.label);
+            });
+            remainder = _(paymentsAgainstTag).pluck('amt').reduce(function(sum, next) {
+                return Number(sum) + Number(next);
+            });
+            return remainder;
+        } 
+        function updateRecurringTags() {
             $scope.recurringTags = _($scope.tags).map(function(item){
                 if(_.has(item, 'isRecurring') && item.isRecurring) {
                     return {
@@ -24,21 +29,25 @@ define([
                         'remainder' : updateRemainder(item),
                     }
                 }
-            });
+            }).compact().value();
+        }
+
+        
+        budgetAppModel.registerForUpdate('templateMode', function(value) {
+            $scope.templateMode = value;
         });
 
-        function upateRemainder(tag) {
-            var remainder, paymentsAgainstTag;
-            paymentsAgainstTag = _.filter($scope.payments, function(item){
-                return _.contains(item.tags, tag.label);
-            });
-            remainder = _(paymentsAgainstTag).pluck('amt').reduce(function(sum, next) {
-                return Number(sum) + Number(next);
-            });
-            return remainder;
-        }
-        budgetAppModel.registerForUpdate('inEditMode', function(value) {
-            $scope.inEditMode = value;
+        budgetAppModel.registerForUpdate('tags', function(value) {
+            $scope.tags = value;
+            updateRecurringTags();
+            console.log($scope.recurringTags);
+        });
+
+        
+
+
+        budgetAppModel.registerForUpdate('tags', function(value) {
+            allTags = value;
         });
 
         budgetAppModel.registerForUpdate('expenses', function(value) {
@@ -59,7 +68,19 @@ define([
 
         });
         $scope._ = _;
+        $scope.removeTag = function(tags, tag) {
+            _.remove(tags, function(item) {
+                return tag === item;
+            });
+        };
 
+        $scope.selectTag = function(tag) {
+            $scope.selectedTag = _(allTags).find({label : tag});
+        };
+
+        $scope.$watch('selectedTag', function(value) {
+            updateRecurringTags();
+        }, true);
 
         $scope.gridOptions = {
             data: 'payments',
@@ -71,7 +92,7 @@ define([
             columnDefs : [
                 {'field' : 'amt', 'displayName' : 'Amount'},
                 {'field' : 'date', 'displayName' : 'Date', 'cellTemplate' : '<div>{{row.getProperty(col.field).substr(0, 10)}}</div>'},
-                {'field' : 'tags' , 'displayName' : 'Tags'}
+                {'field' : 'tags' , 'displayName' : 'Tags', 'cellTemplate' : '<div class="btn-group"><button class="btn btn-primary" ng-repeat="tag in row.getProperty(col.field)" ng-click="selectTag(tag)">{{tag}}<i class="glyphicon glyphicon-remove" ng-click="removeTag(row.getProperty(col.field), tag)"></i></button></div>'}
             ],
             footerTemplate : '<div style="margin-top: 9px; font-size: 11px"> ' +
                 '<div> ' +

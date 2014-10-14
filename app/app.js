@@ -9,7 +9,7 @@ define([
     'angularSpinner',
     'angularUIBootstrap',
     'ngGrid',
-    'directive/createTag'
+    'directive/tagEditor'
 ], function (angular, gridController, reportSearchController, editorController, expenseOperationsController) {
 
 // Declare app level module which depends on filters, and services
@@ -19,7 +19,7 @@ define([
         'ui.bootstrap',
         'ngGrid',
         'dataService',
-        'createTagModule'
+        'tagEditorModule'
     ]);
 
     budgetApp.controller('reportSearchController', ['$scope', '$modal', 'DataService',

@@ -1,12 +1,13 @@
 <div ng-controller="gridController">
-    <div ng-grid="gridOptions" class="gridStyle"></div>
+    <tag-editor editMode="true"></tag-editor>
     <div>
     	<ul>
-    		<li ng-repeat="tag in recurringTags">
-    			<span>{{tag.label}}</span>
-    			<span>{{tag.amt}}</span>
-    			<span>{{tag.remainder}}</span>
-    		</li>
+    		<button class="btn btn-primary" ng-repeat="tag in recurringTags">
+    		{{tag.label}} : 
+    		{{tag.amt}}
+    		<span class="badge">{{tag.remainder}}</span>
+    		</button>
     	</ul>
     </div>
+    <div ng-grid="gridOptions" class="gridStyle"></div>
 </div>

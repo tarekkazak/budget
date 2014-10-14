@@ -2,11 +2,11 @@
  * Created by tarekkazak on 2014-10-01.
  */
 define(['jquery', 'angular', 'lodash'], function ($, angular, _) {
-    angular.module('createTagModule', [])
-        .directive('createTag', function ($timeout) {
+    angular.module('tagEditorModule', [])
+        .directive('tagEditor', function ($timeout) {
             return {
                 restrict : 'E',
-                templateUrl : 'partials/create-tag.html',
+                templateUrl : 'partials/tag-editor.html',
                 replace : true,
                 scope : true,
                 link : function(scope, iElem, iAttrs) {
