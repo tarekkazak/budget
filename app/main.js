@@ -1,6 +1,7 @@
 /**
  * Created by tarekkazak on 2014-04-07.
  */
+
 requirejs.config({
     paths: {
         angular: '../bower_components/angular/angular',
@@ -9,10 +10,14 @@ requirejs.config({
         angularSpinner: '../bower_components/angular-spinner/angular-spinner.min',
         angularUIBootstrap: '../js/ui-bootstrap-tpls-0.10.0.min',
         ngGrid: '../bower_components/ng-grid/build/ng-grid.debug',
-        jquery: '../bower_components/jquery/jquery.min'
+        jquery: '../bower_components/jquery/jquery.min',
+        bstooltip : '../bower_components/bootstrap/js/tooltip'
     },
-    urlArgs : 'd=' + (new Date()).getTime(),
+    //urlArgs : 'd=' + (new Date()).getTime(),
     shim: {
+        'bstooltip' : {
+            deps : ['jquery']
+        },
         'angular' : {
             exports : 'angular',
             deps : ['jquery']

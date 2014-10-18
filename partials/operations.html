@@ -10,12 +10,14 @@
                         </button>
                     </div>   
                 </div>
-        <tag-editor editMode="false"></tag-editor>
+        <!-- <tag-editor editMode="false"></tag-editor> -->
         <div class="row payment-control-col-padding" >
             <div class="col-md-3" >
                 <input  name="tagsTA" type="text" ng-model="selectedTag"
-                       placeholder="select tag" class="form-control"
-                       typeahead-on-select="addToSelectedTags()"
+                       placeholder="select tag" class="form-control" tag-editor
+                       tag-editor-trigger="selectedTagIsValid"
+                       typeahead-on-select="addToSelectedTags()" data-toggle="tooltip"
+                       title="Create" trigger="manual manual"
                        typeahead="tag as tag.label for tag in tags | filter:{label:$viewValue}" />
                        
             </div>

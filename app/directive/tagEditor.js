@@ -1,16 +1,16 @@
 /**
  * Created by tarekkazak on 2014-10-01.
  */
-define(['jquery', 'angular', 'lodash'], function ($, angular, _) {
+define(['jquery', 'angular', 'lodash', 'bstooltip'], function ($, angular, _) {
     angular.module('tagEditorModule', [])
         .directive('tagEditor', function ($timeout) {
             return {
-                restrict : 'E',
+                restrict : 'EA',
                 templateUrl : 'partials/tag-editor.html',
-                replace : true,
+                replace : false,
                 scope : true,
                 link : function(scope, iElem, iAttrs) {
-
+/*
                     scope.editMode = iAttrs.editmode === 'true' 
                     if(!scope.editMode) { 
                         console.log('create-tag');                   
@@ -37,14 +37,12 @@ define(['jquery', 'angular', 'lodash'], function ($, angular, _) {
                         scope.$watch('selectedTag', function(value) {
                             scope.tag = scope.selectedTag;
                         });
-                    }
-                    /*$(iElem[0]).tooltip({
-                        trigger : 'click click',
-                        html : true,
-                        //template : scope.createTagTemplate,
-                        placement : 'left',
-                        container : 'tags-ta'
-                    });*/
+                    }*/
+                        $(iElem).tooltip({
+                            placement:'bottom',
+                            template :'<div class="tooltip row create-tag-form" style="margin-bottom:6px"><p class="tooltip-inner"></p> <div class="col-md-3"> <input class="form-control" style="padding-left:0px" type="text" ng-model="tag.amt" placeholder="amount" /> </div> <div class="col-md-3"> <input type="text" class="form-control" ng-model="tag.label" ng-show="editMode" class="form-control" /> </div> <input type="checkbox" class="col-md-1 checkbox" ng-model="tag.isRecurring" /> <button class="btn btn-primary" ng-show="!editMode" ng-click="createNewTag(tag.label, tag.tagAmt, tag.isRecurring)">Create tag</button> </div>'
+                        });
+                    
 
                 }
             };
