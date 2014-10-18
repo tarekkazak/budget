@@ -1,14 +1,8 @@
-
-define([
-    'angular',
-    'controller/gridController',
-    'controller/reportSearchController',
-    'controller/editorController',
-    'controller/expenseOperationsController',
-    'service/dataService',
+var budgetApp = angular.module('budgetApp', [
     'angularSpinner',
-    'angularUIBootstrap',
+    'ui.bootstrap',
     'ngGrid',
+<<<<<<< HEAD
     'directive/tagEditor'
 ], function (angular, gridController, reportSearchController, editorController, expenseOperationsController) {
 
@@ -32,29 +26,18 @@ define([
         expenseOperationsController]);
     return budgetApp;
 });
+=======
+    'dataService',
+    'model.mainModel',
+    'budgetApp.directive',
+    'budgetApp.reportSearchContoller',
+    'budgetApp.editorController',
+    'budgetApp.gridController',
+    'budgetApp.expenseOperationsController']);
+>>>>>>> 09e9dc13bd10f1c65ace6829a12afe5cdaf23572
 
 
 
 
-//routes
-//budgetApp.config(['$routeProvider',
-//    function($routeProvider) {
-//        $routeProvider.
-//            when('/about', {
-//                templateUrl: 'partials/about.html',
-//                controller: 'controller'
-//            }).
-//            when('/contact', {
-//                templateUrl: 'partials/contact.html',
-//                controller: 'controller'
-//            }).
-//            when('/products', {
-//                templateUrl: 'partials/products.html',
-//                controller: 'controller'
-//            }).
-//            otherwise({
-//                redirectTo: '/home'
-//            });
-//    }]);
 
 

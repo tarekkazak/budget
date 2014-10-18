@@ -1,16 +1,15 @@
-define(['lodash', 'utils/utils'], function(_, utils) {
-    return function () {
+angular.module('budgetApp.directive', [])
+    .directive('paymentList', function () {
         return {
-            restrict : 'E',
-            templateUrl : 'paymentListEditTemplate.html',
-            replace : true,
-            scope : {
-                payments : '='
+            restrict: 'E',
+            templateUrl: 'paymentListEditTemplate.html',
+            replace: true,
+            scope: {
+                payments: '='
             },
-            controller : function($scope) {
+            controller: function ($scope) {
                 $scope.deleteItem = utils.deleteItemFromList;
 
             }
         };
-    };
-});
+    });

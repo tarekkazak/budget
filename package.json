@@ -1,0 +1,40 @@
+{
+    "name": "budget",
+    "version": "0.0.0",
+    "description": "",
+    "dependencies": {
+        "angular": "~1.2.23",
+        "angular-route": "~1.2.17-build.163.1",
+        "angular-sanitize": "~0.0.1",
+        "angular-spinner": "~0.5.1",
+        "bootstrap": "~3.2.0",
+        "browserify": "~6.1.0",
+        "browserify-shim": "~3.8.0",
+        "jquery": "~2.1.1",
+        "lodash": "~2.4.1",
+        "markdown": "~0.5.0",
+        "ng-grid": "~2.0.1",
+        "spin.js": "~2.0.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/tarekkazak/budget.git"
+    },
+    "browser": {
+        "ngGrid": "./node_modules/ng-grid/ng-grid-2.0.1.debug.js",
+        "angularUIBootstrap": "./js/ui-bootstrap-tpls-0.10.0.min.js",
+        "jquery": "./node_modules/jquery/dist/jquery.js",
+        "lodash": "./node_modules/lodash/dist/lodash.js",
+        "spinjs": "./node_modules/spin.js/spin.js"
+    },
+    "browserify-shim": {
+        "jquery" :"$",
+        "lodash" :"_",
+        "ngGrid" : {"depends":["jquery", "angular"]},
+        "angularUIBootstrap" : {"depends":["angular"]},
+        "spinjs" : "Spinner"
+    },
+    "browserify": {
+        "transform": [ "browserify-shim" ]
+    }
+}
