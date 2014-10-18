@@ -1,0 +1,39 @@
+.bold-red {
+    font-weight: bold;
+    color: red;
+}
+
+.normal {
+    color: #808080;
+    font-weight: normal;
+}
+
+.payment-control-col-padding [class^="col-"]  {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.control-padding {
+    margin-bottom: 20px;
+}
+
+.popover-content {
+    word-wrap: break-word;
+    width: 150px
+}
+
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    height : 550px;
+}
+
+
+@media handheld and (orientation:landscape) and (min-device-height:1025px),
+handheld and (orientation:portrait) and (min-device-width:769px), screen and (min-width:769px) {
+
+
+}
+@media handheld and (orientation:landscape) and (max-device-height:1024px),
+handheld and (orientation:portrait) and (max-device-width:768px), screen and (max-width:768px)  {
+
+}

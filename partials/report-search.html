@@ -1,0 +1,54 @@
+<div  ng-controller="reportSearchController">
+    <i ng-class="{'glyphicon glyphicon-minus' :  isUpcomingCollpased, 'glyphicon glyphicon-plus' : !isUpcomingCollpased}" ng-click="isUpcomingCollpased = !isUpcomingCollpased" ></i>
+    <div collapse="!isUpcomingCollpased" ng-show="upcoming.length > 0">
+        <h2>Upcoming!</h2>
+        <ul class="list-group">
+            <li ng-class="{'list-group-item list-group-item-danger' : isComingNextMonth(expense.date), 'list-group-item' : !isComingNextMonth(expense.date)}" ng-repeat="expense in upcoming | orderBy :'+date'">
+                {{expense.label}}: {{expense.amt}} - {{expense.date.toDateString()}}
+                <i class="glyphicon glyphicon-pencil" ng-click="isCollapsed = !isCollapsed" ></i>
+                <i class="glyphicon glyphicon-remove-sign" ng-click="deleteUpcoming(expense)"></i>
+
+                <div class="row" collapse="!isCollapsed">
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" ng-model="expense.label">
+                    </div>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" ng-model="expense.amt">
+                    </div>
+
+                    <div class="col-md-4">
+                        <p class="input-group">
+                            <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
+                                   ng-model="expense.date">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="openCal($event); opened = !opened"><i
+                                                class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                        </p>
+                    </div>
+
+                </div>
+
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-default" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12]" ng-click="updateSelectedMonth(n)">{{n}}</button>
+        </div>
+    </div>
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-default" ng-repeat="n in [2014,2015,2016,2017]" ng-click="updateSelectedYear(n)">{{n}}</button>
+        </div>
+        <button class="btn btn-primary" ng-click="openQuickEntryDialog()">Quick entry</button>
+    </div>
+
+
+
+
+
+</div>

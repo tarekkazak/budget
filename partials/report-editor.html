@@ -1,0 +1,36 @@
+<div ng-controller="editorController">
+    <button class="btn btn-primary" ng-show="!inEditMode && expenses.length > 0" ng-model="inEditMode" ng-click="startEditMode()">Edit</button>
+    <div ng-show="inEditMode">
+        <input type="text" ng-model="newCategoryName" placeholder="enter new category name">
+        <button ng-disabled="isNullOrUndefined(newCategoryName)" class="btn btn-default" ng-click="addCategory()">Add category</button>
+
+        <div class="dropdown" >
+            <button class="btn dropdown-toggle" >
+                {{selectedExpense.label || "Select category"}}
+            </button>
+            <ul class="dropdown-menu">
+                <li ng-repeat="expense in expenses" ng-if="_.has(expense, 'children')">
+                    <a ng-click="selectExpense(expense)" >{{expense.label}}</a>
+                </li>
+
+            </ul>
+        </div>
+
+        <input class="form-control" type="text" ng-model="newFieldName" placeholder="enter new field name">
+        <input class="form-control" type="text" ng-model="newFieldAmt" placeholder="enter new field amount">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" ng-model="expenseType" btn-radio="'normal'">expense</button>
+            <button type="button" class="btn btn-primary" ng-model="expenseType" btn-radio="'wishlist'">wish list</button>
+            <button type="button" class="btn btn-primary" ng-model="expenseType" btn-radio="'upcoming'">upcoming</button>
+            <p class="input-group" ng-show="expenseType === 'upcoming'">
+                <input  type="text" class="form-control" is-open="opened" datepicker-popup="yyyy-MM-dd" ng-model="upcomingExpenseDate" >
+                                    <span class="input-group-btn">
+                                        <button type="button" ng-click="openCal($event)" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+            </p>
+        </div>
+        <button ng-disabled="isNullOrUndefined(newFieldName) || isNullOrUndefined(newFieldAmt)" class="btn btn-primary" ng-click="addField()">Add field</button>
+
+        <button class="btn btn-default" ng-click="cancelEditMode()">Cancel</button>
+    </div>
+</div>

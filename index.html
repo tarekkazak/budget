@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0;">
+    <title>Budget</title>
+    <link rel="stylesheet" href="bower_components/ng-grid/ng-grid.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+
+
+</head>
+<body >
+
+<ng-include src="'partials/templates.html'" onload="showApp = true"></ng-include>
+
+    <div class="container-fluid">
+
+
+            <div ng-show="showApp" class="row">
+                <div class="col-sm-6 col-md-6">
+                    <ng-include src="'partials/report-search.html'"></ng-include>
+
+                    <ng-include src="'partials/report-editor.html'"></ng-include>
+
+                    <ng-include src="'partials/grid.html'"></ng-include>
+                </div>
+                    <ng-include src="'partials/operations.html'"></ng-include>
+
+
+            </div>
+
+
+    </div>
+    <script data-main="app/main" src="bower_components/requirejs/require.js"></script>
+</body>
+</html>
