@@ -159,4 +159,5 @@ angular.module('budgetApp.reportSearchContoller', ['dataService', 'model.mainMod
             }
         }
 
+
     }]);

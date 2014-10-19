@@ -2,6 +2,30 @@
 angular.module('budgetApp.gridController', ['model.mainModel'])
     .controller('gridController', ['$scope', 'budgetAppModel',function ($scope, budgetAppModel) {
 
+         var allTags;
+        function updateRemainder(tag) {
+           var remainder, paymentsAgainstTag;
+            paymentsAgainstTag = _.filter($scope.payments, function(item){
+                return _.contains(item.tags, tag.label);
+            });
+            remainder = _(paymentsAgainstTag).pluck('amt').reduce(function(sum, next) {
+                return Number(sum) + Number(next);
+            });
+            return remainder;
+        } 
+        function updateRecurringTags() {
+            $scope.recurringTags = _($scope.tags).map(function(item){
+                if(_.has(item, 'isRecurring') && item.isRecurring) {
+                    return {
+                        'label' : item.label,
+                        'amt' : item.amt,
+                        'remainder' : updateRemainder(item),
+                    }
+                }
+            }).compact().value();
+        }
+
+        
         budgetAppModel.registerForUpdate('templateMode', function(value) {
             $scope.templateMode = value;
         });
@@ -94,6 +118,7 @@ angular.module('budgetApp.gridController', ['model.mainModel'])
         $scope.$on('ngGridEventEndCellEdit', function () {
             $scope.totalPaid = budgetAppModel.updateTotalPaid();
         });
+
 
 
 
