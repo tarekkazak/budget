@@ -13,7 +13,6 @@
     "express": "^4.9.8",
     "jquery": "~2.1.1",
     "lodash": "~2.4.1",
-    "markdown": "~0.5.0",
     "ng-grid": "~2.0.1",
     "spin.js": "~2.0.1"
   },
@@ -26,11 +25,15 @@
     "angularUIBootstrap": "./js/ui-bootstrap-tpls-0.10.0.min.js",
     "jquery": "./node_modules/jquery/dist/jquery.js",
     "lodash": "./node_modules/lodash/dist/lodash.js",
-    "spinjs": "./node_modules/spin.js/spin.js"
+    "spinjs": "./node_modules/spin.js/spin.js",
+    "bstooltip": "./node_modules/bootstrap/js/tooltip.js"
   },
   "browserify-shim": {
     "jquery": "$",
     "lodash": "_",
+    "bstooltip" : {
+       "depends" : ["jquery"]
+    },
     "ngGrid": {
       "depends": [
         "jquery",

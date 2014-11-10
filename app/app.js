@@ -5,6 +5,7 @@ var budgetApp = angular.module('budgetApp', [
     'dataService',
     'model.mainModel',
     'budgetApp.directive',
+    'tagEditorModule',
     'budgetApp.reportSearchContoller',
     'budgetApp.editorController',
     'budgetApp.gridController',

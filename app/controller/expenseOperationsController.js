@@ -1,4 +1,3 @@
-
 angular.module('budgetApp.expenseOperationsController', ['model.mainModel', 'dataService']).
     controller ('expenseOperationsController',
     ['$scope', '$modal', '$timeout', '$window', '$http', '$interpolate', '$templateCache',
@@ -7,6 +6,7 @@ angular.module('budgetApp.expenseOperationsController', ['model.mainModel', 'dat
          $window.Spinner = Spinner;
             var modalInstance, report, reportTemplateFunc;
             $scope._ = _;
+	    $scope.selectedTagIsValid = null;
             $scope.showFeedback = false;
             $scope.selectedTags = [];
             reportTemplateFunc = _.template($templateCache.get("reportTemplate"));
@@ -33,6 +33,18 @@ angular.module('budgetApp.expenseOperationsController', ['model.mainModel', 'dat
             $scope.selectUpcomingExpense = function (item) {
                 $scope.selectedUpcomingExpense = item;
             };
+
+            $scope.tagCreated = function(newTag) {
+                $scope.tags.push(newTag);
+                $scope.selectedTag = newTag;
+                $scope.addToSelectedTags();
+                console.log(newTag);
+            };
+
+	    $scope.$watch('selectedTag', function(value) {
+		$scope.showTagEditor = ( !$scope.isNullOrUndefined(value) && !_.isEmpty(value) ) && !_.find($scope.tags, {label:value}) 
+		     ? true : false;
+	    });
 
             $scope.openCal = function($event) {
                 $event.preventDefault();
