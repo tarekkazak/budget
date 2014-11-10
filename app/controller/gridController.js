@@ -1,4 +1,3 @@
-
 angular.module('budgetApp.gridController', ['model.mainModel'])
     .controller('gridController', ['$scope', 'budgetAppModel',function ($scope, budgetAppModel) {
 
@@ -85,7 +84,7 @@ angular.module('budgetApp.gridController', ['model.mainModel'])
             columnDefs : [
                 {'field' : 'amt', 'displayName' : 'Amount'},
                 {'field' : 'date', 'displayName' : 'Date', 'cellTemplate' : '<div>{{row.getProperty(col.field).substr(0, 10)}}</div>'},
-                {'field' : 'tags' , 'displayName' : 'Tags', 'cellTemplate' : '<div class="btn-group"><button class="btn btn-primary" ng-repeat="tag in row.getProperty(col.field)" ng-click="selectTag(tag)">{{tag}}<i class="glyphicon glyphicon-remove" ng-click="removeTag(row.getProperty(col.field), tag)"></i></button></div>'}
+                {'field' : 'tags' , 'displayName' : 'Tags', 'cellTemplate' : '<div class="btn-group"><button data-toggle="tooltip" title="edit" tag-editor edit-tag="selectedTag" class="btn btn-primary" ng-repeat="tag in row.getProperty(col.field)" ng-click="selectTag(tag)">{{tag}}<i class="glyphicon glyphicon-remove" ng-click="removeTag(row.getProperty(col.field), tag)"></i></button></div>'}
             ],
             footerTemplate : '<div style="margin-top: 9px; font-size: 11px"> ' +
                 '<div> ' +
