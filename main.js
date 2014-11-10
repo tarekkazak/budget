@@ -15,6 +15,7 @@ require('bstooltip');
 //app
 require('./app/model/budgetAppModel');
 require('./app/service/dataService');
+require('./app/service/templateService');
 require('./app/directive/paymentList');
 require('./app/directive/tagEditor');
 require('./app/controller/reportSearchController');
