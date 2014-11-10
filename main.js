@@ -13,6 +13,7 @@ require('angular-spinner');
 require('bstooltip');
 
 //app
+require('./app/utils/utils');
 require('./app/model/budgetAppModel');
 require('./app/service/dataService');
 require('./app/service/templateService');
