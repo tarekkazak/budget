@@ -35,10 +35,11 @@ angular.module('budgetApp.expenseOperationsController', ['model.mainModel', 'dat
             };
 
             $scope.tagCreated = function(newTag) {
+                console.log('tag created');
+                console.log(newTag);
                 $scope.tags.push(newTag);
                 $scope.selectedTag = newTag;
                 $scope.addToSelectedTags();
-                console.log(newTag);
             };
 
 	    $scope.$watch('selectedTag', function(value) {
@@ -83,23 +84,7 @@ angular.module('budgetApp.expenseOperationsController', ['model.mainModel', 'dat
                 $scope.selectedTag = tag;
             };
 
-            $scope.createNewTag = function() {
-                var tag = {
-                    "label" : $scope.selectedTag,
-                     "id" : new Date().getTime()
-                    };
-                if($scope.newTagAmt) {
-                    tag.amt = $scope.newTagAmt;
-                }
-                if($scope.newTagIsRecurring) {
-                    tag.newTagIsRecurring = $scope.newTagIsRecurring;
-                }
-                budgetAppModel.tags.push(tag);
-                $scope.tags = budgetAppModel.tags;
-            };
-
             $scope.deleteItem = utils.deleteItemFromList;
-
 
             $scope.sendReport = function () {
                 report = reportTemplateFunc($scope);
