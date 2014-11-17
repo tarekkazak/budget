@@ -1,14 +1,20 @@
-<div class="tooltip create-tag-form" style="margin-bottom:6px">
-	<div class="tooltip-inner">{{title}}</div>
+<div class="tooltip create-tag-form" >
+	<div class="tooltip-inner">
+		{{title}}
+	</div>
+	<span class="glyphicon glyphicon-remove" ng-click="close()"></span>
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 form-group">
 			<input class="form-control" style="padding-left:0px" type="text" ng-model="tag.amt" placeholder="amount" />
 		</div>
-		<div class="col-md-8">
-			<input type="text" class="form-control" ng-model="tag.label" ng-show="editMode" class="form-control" />
+		<div class="col-md-7 form-group">
+			<input type="text" class="form-control" ng-model="tag.label"  class="form-control" />
 		</div>
-		<div class="col-md-1">
-			<input type="checkbox" class="col-md-1 checkbox" ng-model="tag.isRecurring" />
+		<div class="col-md-2 checkbox">
+                    <label>
+		    <input type="checkbox"  ng-model="tag.isRecurring" />
+                        recurring
+                    </label>
 		</div>
 	</div>
 

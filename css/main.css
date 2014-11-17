@@ -1,3 +1,11 @@
+.create-tag-form {
+    width:220px;
+    background: whitesmoke;
+}
+.create-tag-form div[class^=col-md], .create-tag-form div.row {
+    padding-left:3px;
+    padding-right:3px
+}
 .bold-red {
     font-weight: bold;
     color: red;
