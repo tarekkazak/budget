@@ -1,16 +1,15 @@
+angular.module('budgetApp.model', []);
+angular.module('budgetApp.controller', []);
+angular.module('budgetApp.service', []);
 var budgetApp = angular.module('budgetApp', [
     'angularSpinner',
     'ui.bootstrap',
     'ngGrid',
-    'model.mainModel',
-    'templateServiceModule',
-    'budgetApp.directive',
+    'budgetApp.model',
+    'budgetApp.service',
     'tagEditorModule',
-    'budgetApp.reportSearchContoller',
-    'budgetApp.editorController',
-    'budgetApp.gridController',
-    'budgetApp.expenseOperationsController']);
-
+    'budgetApp.controller'
+]);
 
 
 

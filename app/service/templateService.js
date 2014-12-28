@@ -1,4 +1,4 @@
-angular.module('templateServiceModule', [])
+angular.module('budgetApp.service')
     .factory('templateService', ['$http', function($http){
 	return (function() {
 	    var promise;

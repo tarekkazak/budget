@@ -1,4 +1,4 @@
-    angular.module('tagEditorModule', ['templateServiceModule'])
+    angular.module('tagEditorModule', [])
     	.controller('tagEditorController', function($scope) {
 		$scope.tag= {
 		    id : new Date().getTime()
@@ -35,10 +35,10 @@
 		        	container : 'body',
 				trigger : !_.isUndefined(iAttrs.tagEditorTrigger) ? "manual"  : "click"
 			    });
-                            $(el).on('shown.bs.tooltip', function () {
-                                console.log('show tooltip');
+                            //$(el).on('shown.bs.tooltip', function () {
+                            //    console.log('show tooltip');
 				//scope.$apply();
-                             });
+                             //});
 			    if(!_.isUndefined(iAttrs.editTag)) {
 				scope.$watch('editTag', function(value) {
                                     if(value) {
