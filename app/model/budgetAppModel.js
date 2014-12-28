@@ -1,14 +1,11 @@
 /**
  * Created by tarekkazak on 2014-05-15.
  */
-
-
-angular.module('model.mainModel', [])
-    .factory('budgetAppModel', function () {
+angular.module('budgetApp.model')
+    .factory('budgetAppModel', ['dao', '$rootScope', function (dao, $rootScope) {
 
 
         var me = this,
-            registeredOnjects = {},
             totalFunds = 0,
             wishlist,
             splits,
@@ -21,78 +18,46 @@ angular.module('model.mainModel', [])
         me.tags = [];
         me.payments = [];
 
-        function updateRegisteredObjects(prop, value) {
-            _.each(registeredOnjects[prop], function (func) {
-                func(value);
+        dao.dataStream.where(function(data) {return data.name === 'tags'}).subscribe(function(data) {
+            console.log('return form io server');
+            console.log(data);
+        }, function(err){
+            console.log('error');
+         console.log(err);   
+        });
+
+        me.updatePayments = function(payment) {
+            dao.updatePayments(me.loadedExpenseReport.year, me.loadedExpenseReport.month, payment);
+        }; 
+
+        me.getReport = function(year, month) {
+            dao.getReport(year, month).then(function(res) {
+                
+                    me.loadedExpenseReport = res.data;
+
+                    if (me.loadedExpenseReport) {
+                        me.isNew = false;
+                        console.log(me.loadedExpenseReport); 
+                    } else {
+
+                        me.loadedExpenseReport = {
+                            year : year,
+                            month : month,
+                            payments : []
+                        };
+                        me.isNew = true;
+                    }
+                    me.updateTags({id: 123, label : 'tag'});
+                    
             });
-        }
+        };
 
         me.isNullOrUndefined = function(object) {
             return _.isUndefined(object) || _.isNull(object);
         };
 
-        me.registerForUpdate = function(prop, func) {
-            if (me.isNullOrUndefined(registeredOnjects[prop])) {
-                registeredOnjects[prop] = [];
-            }
-            registeredOnjects[prop].push(func);
-        };
-
-        me.addNonTemplateProps = function(arr) {
-            _.each(arr, function(el) {
-                el.remainder = Number(el.amt);
-                el.payments = [];
-                el.paid = 0;
-                el.skip = false;
-            });
-        };
-
-
-        me.setInEditMode = function(value) {
-            inEditMode = value;
-            updateRegisteredObjects('inEditMode', value);
-        };
-
-        me.setTags = function(value) {
-            me.tags = value;
-            updateRegisteredObjects('tags', value);
-        };
-
-        me.setSplits = function(value) {
-            splits = value;
-            updateRegisteredObjects('splits', value);
-        };
-
-        me.setWishlist = function(value) {
-            wishlist = value;
-            updateRegisteredObjects('wishlist', value);
-        };
-
-        me.setTotalFunds = function(value) {
-            me.loadedExpenseReport.totalFunds = value;
-            updateRegisteredObjects('totalFunds', value);
-        };
-
-        me.setIntialFunds = function(value) {
-            me.loadedExpenseReport.initialFunds = value;
-            updateRegisteredObjects('initialFunds', value);
-        };
-
-        me.setSelectedMonth = function(value) {
-            updateRegisteredObjects('selectedMonth', value);
-        };
-
-        me.setSelectedYear = function(value) {
-            updateRegisteredObjects('selectedYear', value);
-        };
-
-        me.setUpcoming = function(value) {
-            updateRegisteredObjects('upcoming', value);
-        };
-
-        me.setPayments = function(value) {
-            me.payments = value;
-            updateRegisteredObjects('payments', value);
+        me.updateTags= function(tag) {
+            dao.updateTags(tag);
         };
 
         me.updateTotalPaid = function() {
@@ -103,12 +68,9 @@ angular.module('model.mainModel', [])
             }
         };
 
-        me.removeCircularReferencesFromChildExpenses = function (expenses) {
-            var expensesWithParent =_(expenses).pluck('children').flatten().compact().value();
-            _.each(expensesWithParent, function(item) {
-                delete item.parent;
-            });
-        };
+        $rootScope.$on('modelUpdate', function(scope, payload) {
+            $rootScope.$broadcast('modelUpdated', payload);
+        });
 
         me.updateRemainderAndTotalPaid = function(expenses) {
             _.each(expenses, function (el) {
@@ -163,22 +125,8 @@ angular.module('model.mainModel', [])
             return Number(total).toFixed(2);
         };
 
-        me.allExpenses = function() {
-            var splitExpenses,
-                flattened;
-            splitExpenses = _.groupBy(expenses, function(expense) {
-                return !_.has(expense, "children");
-            });
-            flattened = _.flatten(splitExpenses[false], function(item) {
-                _.each(item.children, function(subItem) {
-                    subItem.parent = item;
-                });
-                return item.children;
-            });
-            return splitExpenses[true].concat(flattened);
-        };
 
         return me;
-    });
+    }]);
 
 

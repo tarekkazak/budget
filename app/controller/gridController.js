@@ -1,7 +1,9 @@
-angular.module('budgetApp.gridController', ['model.mainModel'])
-    .controller('gridController', ['$scope', 'budgetAppModel',function ($scope, budgetAppModel) {
+angular.module('budgetApp.controller')
+    .controller('gridController', ['$scope', 'budgetAppModel', 'DataService' ,function ($scope, budgetAppModel, DataService) {
 
-         var allTags;
+        var allTags;
+
+        
         function updateRemainder(tag) {
            var remainder, paymentsAgainstTag;
             paymentsAgainstTag = _.filter($scope.payments, function(item){
@@ -12,6 +14,7 @@ angular.module('budgetApp.gridController', ['model.mainModel'])
             });
             return remainder;
         } 
+
         function updateRecurringTags() {
             $scope.recurringTags = _($scope.tags).map(function(item){
                 if(_.has(item, 'isRecurring') && item.isRecurring) {
@@ -25,40 +28,17 @@ angular.module('budgetApp.gridController', ['model.mainModel'])
         }
 
         
-        budgetAppModel.registerForUpdate('templateMode', function(value) {
-            $scope.templateMode = value;
+        $scope.$on('modelUpdated', function(scope, payload) {
+            $scope[payload.key] = payload.value;    
+            switch(payload.key) {
+                case 'report' :
+                    $scope.totalPaid = budgetAppModel.updateTotalPaid();
+                    $scope.payments = payload.payments;
+                    break;
+
+            }
         });
 
-        budgetAppModel.registerForUpdate('tags', function(value) {
-            $scope.tags = value;
-            updateRecurringTags();
-            console.log($scope.recurringTags);
-        });
-
-        
-
-
-        budgetAppModel.registerForUpdate('tags', function(value) {
-            allTags = value;
-        });
-
-        budgetAppModel.registerForUpdate('expenses', function(value) {
-            $scope.expenses = value;
-        });
-
-        budgetAppModel.registerForUpdate('totalFunds', function (value) {
-            $scope.totalFunds = Number(value).toFixed(2);
-        });
-
-        budgetAppModel.registerForUpdate('initialFunds', function (value) {
-            $scope.initialFunds = Number(value).toFixed(2);
-        });
-
-        budgetAppModel.registerForUpdate('payments', function(value) {
-            $scope.payments = value;
-            $scope.totalPaid = budgetAppModel.updateTotalPaid();
-
-        });
         $scope._ = _;
         $scope.removeTag = function(tags, tag) {
             _.remove(tags, function(item) {
