@@ -10,7 +10,6 @@ var _ = require('lodash');
 var promise;
 var defer;
 var currentReport;
-io.listen(3300);
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
@@ -78,6 +77,14 @@ function loadData() {
     }
 } 
 
+function writeData() {
+    fs.writeFile('./data/content.json', JSON.stringify(data), 'utf-8', function(err) {
+     if(err) {
+        throw err;
+     }
+     console.log('saved');
+    });
+}
 
 app.get('/reports/:year/:month', function(req, res, next) {
         loadData();
@@ -95,35 +102,56 @@ app.get('/reports/:year/:month', function(req, res, next) {
 
             console.log('-------------------------------------');
             data.content.tags = checkNoMissingTagsInMainList(currentReport.payments);
+            console.log('tags loaded');
+            io.emit('tagsUpdated', data.content.tags);
+            io.emit('paymentsUpdated', currentReport.payments);
             res.json(currentReport);
+
             res.end();
         });
     });
 
 app.route('/reports/:year/:month/payments/:id')
-    .post(function(req, res) {
-        console.log('payments');
+    .put(function(req, res) {
         currentReport.payments.push(req.body);
-        io.emit('payments', currentReport.payments);
+        io.emit('paymentsUpdated', currentReport.payments);
+        writeData();
+    })
+    .patch(function(req, res) {
+        var payment = req.body;
+        _(currentReport.payments).where({id : payment.id}).merge(payment);
+        console.log('updated payment: ' + _(currentReport.payments).where({id : payment.id}).value());
+        io.emit('paymentsUpdated', currentReport.payments);
+        writeData();
     })
     .delete(function(req, res) {
         _.remove(currentReport.payments, function(item) {
             return item.id === req.params.id;
         });
-        io.emit('payments', currentReport.payments);
+        io.emit('paymentsUpdated', currentReport.payments);
+        writeData();
     });
 
 
 
 app.route('/tags/:id')
-    .post(function(req, res) {
-        console.log('tags');
+    .patch(function(req, res) {
+        var tag = req.body;
+        _(data.content.tags).where({id : tag.id}).merge(tag);
+        console.log('updated tag: ' + _(data.content.tags).where({id : tag.id}).value());
+        io.emit('tagsUpdated', data.content.tags);
+        writeData();
+    })
+    .put(function(req, res) {
         console.log(req.body);
-        data.content.tags = req.body;
-        io.emit('tags', data.content.tags);
+        data.content.tags.push(req.body);
+        io.emit('tagsUpdated', data.content.tags);
+        writeData();
     
 });
 
+io.listen(3300);
 app.listen(4400, function() {
+    loadData();
     console.log('running on 4400');   
 });
