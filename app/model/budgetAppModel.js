@@ -18,15 +18,9 @@ angular.module('budgetApp.model')
         me.tags = [];
         me.payments = [];
 
-        dao.dataStream.where(function(data) {return data.name === 'tags'}).subscribe(function(data) {
-            console.log('return form io server');
-            console.log(data);
-        }, function(err){
-            console.log('error');
-         console.log(err);   
-        });
 
         me.updatePayments = function(payment) {
+            console.log(payment);
             dao.updatePayments(me.loadedExpenseReport.year, me.loadedExpenseReport.month, payment);
         }; 
 
@@ -47,7 +41,6 @@ angular.module('budgetApp.model')
                         };
                         me.isNew = true;
                     }
-                    me.updateTags({id: 123, label : 'tag'});
                     
             });
         };

@@ -9,6 +9,12 @@ angular.module('budgetApp.service')
                 get: function (path) {
                     return $http.get(path);
                 },
+                patch : function(path, data) {
+                    return $http.patch(path, data);
+                },
+                put : function(path, data) {
+                    return $http.put(path, data);
+                },
                 post : function(path, data) {
                     return $http.post(path, data);
                 },
