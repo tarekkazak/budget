@@ -10,7 +10,6 @@
                         </button>
                     </div>   
                 </div>
-        <!-- <tag-editor editMode="false"></tag-editor> -->
         <div class="row payment-control-col-padding" >
             <div class="col-md-3" >
                 <input  name="tagsTA" type="text" ng-model="selectedTag"
@@ -28,21 +27,21 @@
                 <p class="input-group">
                     <input type="text" is-open="opened" class="form-control" datepicker-popup="yyyy-MM-dd"
                            ng-model="newPaymentDate">
-                                       <span class="input-group-btn">
-                                           <button type="button" class="btn btn-default" ng-click="openCal($event); opened = !opened"><i
-                                                   class="glyphicon glyphicon-calendar"></i></button>
-                                       </span>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openCal($event); opened = !opened">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                         </span>
                 </p>
             </div>
 
                 
             <div class="col-md-2">
-                <input id="amount-to-apply" type="number" ng-model="amount" placeholder="amount"  name="amount" class="form-control">
+                <input id="amount-to-apply" type="number" 
+                ng-model="amount" placeholder="amount"  name="amount" class="form-control">
 
             </div>
 
-        </div>
-        <div class="row">
         </div>
         <div style="border-bottom: 1px dashed #808080; margin: 5px 0px"></div>
 
@@ -76,9 +75,4 @@
     </form>
 
 
-    <div class="control-group">
-        <div class="controls control-padding">
-            <button class="btn btn-primary" ng-click="save()" >Save</button>
-        </div>
-    </div>
 </div>
