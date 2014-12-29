@@ -1,14 +1,21 @@
 angular.module('budgetApp.controller')
     .controller ('expenseOperationsController',
-    ['$scope', '$modal', '$timeout', '$window', '$interpolate', '$templateCache',
-          'budgetAppModel',
-        function ($scope, $modal, $timeout, $window, $interpolate, $templateCache, budgetAppModel) {
-            var modalInstance, report, reportTemplateFunc;
+    ['$scope', '$modal', '$timeout', '$window',
+          'budgetAppModel', 'tagModel', 
+        function ($scope, $modal, $timeout, $window, budgetAppModel, tagModel) {
+            var modalInstance;
+
+            tagModel.ready.subscribe(function() {
+                tagModel.getStream().subscribe(function(tags) {
+                    $scope.tags = tags;
+                });
+            });
+
+
             $scope._ = _;
 	    $scope.selectedTagIsValid = null;
             $scope.showFeedback = false;
             $scope.selectedTags = [];
-            reportTemplateFunc = _.template($templateCache.get("reportTemplate"));
 
             $scope.newPaymentDate = new Date();
 
@@ -41,9 +48,9 @@ angular.module('budgetApp.controller')
 
             $scope.addPayment = function() {
                 budgetAppModel.updatePayments({
-
+                    id : new Date().getTime(),
                     amt : $scope.amount,
-                    tags : [_($scope.selectedTags).pluck('label').value()],
+                    tags : _($scope.selectedTags).pluck('label').value(),
                     date : $scope.newPaymentDate
                 });
             };

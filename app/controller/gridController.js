@@ -1,8 +1,19 @@
 angular.module('budgetApp.controller')
-    .controller('gridController', ['$scope', 'budgetAppModel', 'DataService' ,function ($scope, budgetAppModel, DataService) {
+    .controller('gridController', ['$scope', 'budgetAppModel', 'tagModel', 'paymentsModel' ,function ($scope, budgetAppModel, tagModel, paymentsModel) {
 
         var allTags;
 
+        tagModel.ready.subscribe(function() {
+            tagModel.getStream().subscribe(function(tags) {
+                  $scope.tags = tags;
+             });
+        });
+        
+        paymentsModel.ready.subscribe(function() {
+            paymentsModel.getStream().subscribe(function(payments) {
+                $scope.payments = payments;
+            });
+        });
         
         function updateRemainder(tag) {
            var remainder, paymentsAgainstTag;
@@ -64,7 +75,7 @@ angular.module('budgetApp.controller')
             columnDefs : [
                 {'field' : 'amt', 'displayName' : 'Amount'},
                 {'field' : 'date', 'displayName' : 'Date', 'cellTemplate' : '<div>{{row.getProperty(col.field).substr(0, 10)}}</div>'},
-                {'field' : 'tags' , 'displayName' : 'Tags', 'cellTemplate' : '<div class="btn-group"><button data-toggle="tooltip" title="edit" tag-editor-trigger="{{editTag}}" tag-editor edit-tag="selectedTag" class="btn btn-primary" ng-repeat="tag in row.getProperty(col.field)" ng-click="selectTag(tag); editTag = true;" >{{tag}}<i class="glyphicon glyphicon-remove" ng-click="removeTag(row.getProperty(col.field), tag)"></i></button></div>'}
+                {'field' : 'tags' , 'displayName' : 'Tags', 'cellTemplate' : '<div class="btn-group"><button data-toggle="tooltip" title="edit" tag-editor-trigger="{{editTag}}" tag-editor edit-tag="selectedTag" class="btn btn-primary" ng-repeat="tag in row.getProperty(col.field) track by $index" ng-click="selectTag(tag); editTag = true;" >{{tag}}<i class="glyphicon glyphicon-remove" ng-click="removeTag(row.getProperty(col.field), tag)"></i></button></div>'}
             ],
             footerTemplate : '<div style="margin-top: 9px; font-size: 11px"> ' +
                 '<div> ' +

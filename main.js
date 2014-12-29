@@ -18,6 +18,8 @@ require('bstooltip');
 require('./app/utils/utils');
 require('./app/app');
 require('./app/model/budgetAppModel');
+require('./app/model/paymentsModel');
+require('./app/model/tagModel');
 require('./app/model/dao/reportDao');
 require('./app/service/dataService');
 require('./app/service/templateService');
