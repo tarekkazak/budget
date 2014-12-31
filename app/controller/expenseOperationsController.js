@@ -9,14 +9,15 @@ angular.module('budgetApp.controller')
                 tagModel.getStream().subscribe(function(tags) {
                     $scope.tags = tags;
                 });
-            });
 
+
+            });
 
             $scope._ = _;
 	    $scope.selectedTagIsValid = null;
             $scope.showFeedback = false;
             $scope.selectedTags = [];
-
+            $scope.transactionType = 'debit';
             $scope.newPaymentDate = new Date();
 
 
@@ -34,6 +35,7 @@ angular.module('budgetApp.controller')
                 $scope.tags.push(newTag);
                 $scope.selectedTag = newTag;
                 $scope.addToSelectedTags();
+                budgetAppModel.addTag(newTag);
             };
 
 	    $scope.$watch('selectedTag', function(value) {
@@ -41,16 +43,17 @@ angular.module('budgetApp.controller')
 		     ? true : false;
 	    });
 
+
             $scope.openCal = function($event) {
                 $event.preventDefault();
                 $event.stopPropagation();
             };
 
             $scope.addPayment = function() {
-                budgetAppModel.updatePayments({
+                budgetAppModel.addPayment({
                     id : new Date().getTime(),
                     amt : $scope.amount,
-                    tags : _($scope.selectedTags).pluck('label').value(),
+                    tags : _($scope.selectedTags).pluck('label').value().push($scope.transactionType);
                     date : $scope.newPaymentDate
                 });
             };
@@ -74,22 +77,8 @@ angular.module('budgetApp.controller')
             $scope.deleteItem = utils.deleteItemFromList;
 
 
-
-            function closeModal() {
-                $timeout(function () {
-                        //close loading spinner after send email complete and show server feedback
-                    modalInstance.close();
-                    $scope.showFeedback = true;
-                    $timeout(function () {
-                        //hide feedback message after delay
-                        $scope.showFeedback = false;
-                    }, 2000);
-                }, 3000);
-            }
-
-
             $scope.isNullOrUndefined = function(obj) {
-                return budgetAppModel.isNullOrUndefined(obj);
+                return utils.isNullOrUndefined(obj);
             };
 
     }]);
