@@ -53,16 +53,32 @@ angular.module('budgetApp.model')
                     return DataService.get('/reports/' + year + '/' + month);
                 },
 
-                updateTags : function(tag) {
+                updateReport : function(year, month, change) {
+                    return DataService.patch('/reports/' + year + '/' + month, change);
+                },
+
+                createReport : function(year, month, report) {
+                    return DataService.post('/reports/' + year + '/' + month, report);
+                },
+
+                addTag : function(tag) {
                     return DataService.put('/tags/' + tag.id , tag);
+                },
+                
+                updateTag : function(id, change) {
+                    return DataService.patch('/tags/' + id , change);
                 },
                 
                 deleteTag : function(id) {
                     return DataService.delete('/tags/' + id);
                 },
 
-                updatePayments : function(year, month, payment) {
+                addPayment : function(year, month, payment) {
                     return DataService.put('/reports/' + year + '/' + month + '/payments/' + payment.id , payment);
+                },
+
+                updatePayment : function(year, month, id, change) {
+                    return DataService.patch('/reports/' + year + '/' + month + '/payments/' + id , change);
                 },
 
                 deletePayment : function(year, month, id) {

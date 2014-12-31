@@ -1,8 +1,8 @@
 angular.module('budgetApp.model')
     .factory('paymentsModel', ['dao', function(dao) {
-        var subscriber;
+        var observable;
         dao.dataStream.ready.subscribe(function() {
-            subscriber = dao.dataStream.stream.where(function(data) { return data.name === 'paymentsUpdated'})
+            observable = dao.dataStream.stream.where(function(data) { return data.name === 'paymentsUpdated'})
                 .select(function(data) {
                     return data.data;  
                 }); 
@@ -10,7 +10,7 @@ angular.module('budgetApp.model')
         });
         return {
             getStream :  function() {
-                return subscriber;
+                return observable;
             },
             ready : dao.dataStream.ready
         }

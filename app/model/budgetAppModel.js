@@ -2,27 +2,35 @@
  * Created by tarekkazak on 2014-05-15.
  */
 angular.module('budgetApp.model')
-    .factory('budgetAppModel', ['dao', '$rootScope', function (dao, $rootScope) {
+    .factory('budgetAppModel', ['dao', function (dao) {
 
 
-        var me = this,
-            totalFunds = 0,
-            wishlist,
-            splits,
-            selectedMonth,
-            selectedYear,
-            inEditMode = false;
-        me.siteData = undefined;
+        var me = this;
         me.loadedExpenseReport = null;
-        me.isNew = false;
-        me.tags = [];
-        me.payments = [];
+        me.isNew = false,
+        
+        
+        me.addTag = function(tag) {
+            dao.addTag(tag);
+        };
 
+        me.updateTag = function(id, change) {
+            dao.updateTag(id, [{
+                "op" : "replace", "path" : change.property, "value" : change.value
+            }]);
+        };
 
-        me.updatePayments = function(payment) {
+        me.addPayment = function(payment) {
             console.log(payment);
-            dao.updatePayments(me.loadedExpenseReport.year, me.loadedExpenseReport.month, payment);
+            dao.addPayment(me.loadedExpenseReport.year, me.loadedExpenseReport.month, payment);
         }; 
+
+        me.updatePayment = function(id, change) {
+            console.log(id + '  ' + change);
+            dao.updatePayment(me.loadedExpenseReport.year, me.loadedExpenseReport.month, id, [{
+                "op" : "replace", "path" : change.property, "value" : change.value
+            }]);
+        };
 
         me.getReport = function(year, month) {
             dao.getReport(year, month).then(function(res) {
@@ -45,13 +53,7 @@ angular.module('budgetApp.model')
             });
         };
 
-        me.isNullOrUndefined = function(object) {
-            return _.isUndefined(object) || _.isNull(object);
-        };
 
-        me.updateTags= function(tag) {
-            dao.updateTags(tag);
-        };
 
         me.updateTotalPaid = function() {
             if(me.payments) {
@@ -60,10 +62,6 @@ angular.module('budgetApp.model')
                 }).toFixed(2);
             }
         };
-
-        $rootScope.$on('modelUpdate', function(scope, payload) {
-            $rootScope.$broadcast('modelUpdated', payload);
-        });
 
         me.updateRemainderAndTotalPaid = function(expenses) {
             _.each(expenses, function (el) {
