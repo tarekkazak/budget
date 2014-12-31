@@ -2,10 +2,9 @@
  * Created by tarekkazak on 2014-05-15.
  */
 angular.module('budgetApp.controller')
-    .controller('reportSearchController', ['$scope', '$modal', 'DataService', 'budgetAppModel', function ($scope, $modal, DataService, budgetAppModel) {
+    .controller('reportSearchController', ['$scope', '$modal', 'budgetAppModel', function ($scope, $modal, budgetAppModel) {
 
         var isNew = false,
-            loadedExpenseReport = budgetAppModel.loadedExpenseReport,
             modalInstance;
 
 
@@ -13,7 +12,7 @@ angular.module('budgetApp.controller')
 
         $scope._ = _;
 
-        $scope.$watch("selectedMonth && selectedYear", function(value) {
+        $scope.$watch("selectedMonth && selectedYear && reportNotLoaded", function(value) {
             if(value) {
                 getBudgetFromHistory();
             }
@@ -22,10 +21,12 @@ angular.module('budgetApp.controller')
 
         $scope.updateSelectedMonth = function(month) {
             $scope.selectedMonth = month;
+            $scope.reportNotLoaded = true;
         };
 
         $scope.updateSelectedYear = function(year) {
             $scope.selectedYear = year;
+            $scope.reportNotLoaded = true;
         };
 
         $scope.deleteUpcoming = function (expense) {
@@ -43,8 +44,8 @@ angular.module('budgetApp.controller')
         };
 
 
-
         function getBudgetFromHistory() {
-                budgetAppModel.getReport($scope.selectedYear, $scope.selectedMonth);
+            budgetAppModel.getReport($scope.selectedYear, $scope.selectedMonth);
+            $scope.reportNotLoaded = false;
         }
     }]);
