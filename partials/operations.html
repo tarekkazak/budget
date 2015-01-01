@@ -1,6 +1,12 @@
 <div ng-controller="expenseOperationsController" class="col-sm-6 col-md-6">
     <form name="form" class="control-group" ng-hide="templateMode">
 
+        <div class="row">
+            <label class="col-md-4" for="">total funds: {{totalFunds}}</label>
+            <label class="col-md-4" for="">total paid: {{totalPaid}}</label>
+            <label class="col-md-4" for="">balance: {{currentBalance}}</label>
+        </div>
+        <div style="border-bottom: 1px dashed #808080; margin: 5px 0px"></div>
         <div class="row well" ng-show="selectedTags.length > 0">
                     <div class="col-md-12 btn-group">
                         <button class="btn btn-primary" style="margin-bottom:6px" ng-click="editTag(tag)" ng-repeat="tag in selectedTags">
@@ -42,10 +48,10 @@
 
             </div>
 
-        </div>
-        <div class="btn-group">
-            <label class="btn btn-primary" ng-model="transactionType" btn-radio="'credit'">credit</label>
-            <label class="btn btn-primary" ng-model="transactionType" btn-radio="'debit'">debit</label>
+            <div class="btn-group col-md-4">
+                <label class="btn btn-primary" ng-model="transactionType" btn-radio="'credit'">credit</label>
+                <label class="btn btn-primary" ng-model="transactionType" btn-radio="'debit'">debit</label>
+            </div>
         </div>
         <div style="border-bottom: 1px dashed #808080; margin: 5px 0px"></div>
 

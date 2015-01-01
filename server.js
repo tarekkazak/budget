@@ -21,14 +21,26 @@ function processLegacyReport(expenses) {
      _.each(allPayments, function(item) {
         item.id = (new Date()).getTime();
      });
+     //if tags do not contain debit or credit, set debit by default
+     var tags = _(allPayments).pluck('tags').compact().value();
+     _(tags).each(function(item) {
+        if(_.isString(item)) {
+            index = tags.indexOf(item);
+            item = item.split(',');
+            tags[index] = item;
+        }
+
+        if(!_.contains(item, 'debit') && !_.contains(item, 'credit')) {
+            item.push('debit');
+        }
+     });
      return allPayments;
  }
 
 function checkNoMissingTagsInMainList(payments) {
      var allTags, existingTags, diff, diffTags,
-         allTagLabels = _(payments).pluck('tags').flatten().compact().uniq();
-            
-     allTags = allTagLabels.map(function(tag){
+         allTagLabels = _(payments).pluck('tags').flatten().compact().uniq().value();
+     allTags = _(allTagLabels).map(function(tag){
          return {
                  "label" : tag,
                  "id" : new Date().getTime()
@@ -39,7 +51,7 @@ function checkNoMissingTagsInMainList(payments) {
       existingTags = _(data.content.tags).pluck('label').value();
       if(existingTags.length < allTags.length ) {
           diff = _.difference(allTagLabels, existingTags);
-          diffTags = diff.map(function(tag){
+          diffTags = _(diff).map(function(tag){
                       return {
                       "label" : tag,
                       "id" : new Date().getTime()
@@ -88,13 +100,15 @@ app.route('/reports/:year/:month')
         month = req.params.month;
         promise.then(function(result) {
             currentReport = _(result.content.history).findWhere({"year" : Number(year), "month" : Number(month)});
-            if(data.content.expenses) {
+            if(data.content.expenses || currentReport.expenses) {
+                console.log('legacy');
                 delete data.content.expenses;
                 currentReport.payments = processLegacyReport(currentReport.expenses);
                 delete currentReport.expenses;
             }
-
             data.content.tags = checkNoMissingTagsInMainList(currentReport.payments);
+
+            console.log('report ready');
             io.emit('tagsUpdated', data.content.tags);
             io.emit('paymentsUpdated', currentReport.payments);
             res.json(currentReport);

@@ -7,8 +7,6 @@ angular.module('budgetApp.model')
 
         var me = this;
         me.loadedExpenseReport = null;
-        me.isNew = false,
-        
         
         me.addTag = function(tag) {
             dao.addTag(tag);
@@ -38,16 +36,13 @@ angular.module('budgetApp.model')
                     me.loadedExpenseReport = res.data;
 
                     if (me.loadedExpenseReport) {
-                        me.isNew = false;
                         console.log(me.loadedExpenseReport); 
                     } else {
-
-                        me.loadedExpenseReport = {
-                            year : year,
+                        dao.createReport(year, month, {
+                            year: year,
                             month : month,
                             payments : []
-                        };
-                        me.isNew = true;
+                        });
                     }
                     
             });
@@ -55,14 +50,28 @@ angular.module('budgetApp.model')
 
 
 
-        me.updateTotalPaid = function() {
-            if(me.payments) {
-                return _(me.payments).pluck("amt").reduce(function (a, b) {
+        me.getTotalByTransactionType = function(payments, transactionType) {
+            var total = 0, transactions;
+            transactions =  _(payments).filter(function(item) {
+                     return _.contains(item.tags, transactionType);   
+                }).value();
+            if(transactions && transactions.length > 0) {
+                total += _(transactions).pluck("amt").reduce(function (a, b) {
                     return Number(a) + Number(b);
-                }).toFixed(2);
+                });
             }
+            return total.toFixed(2);
         };
 
+        me.getTotalCredit = function(payments) {
+            return me.getTotalByTransactionType(payments, 'credit');
+        };
+
+        me.getTotalDebit = function(payments) {
+            return me.getTotalByTransactionType(payments, 'debit');
+        };
+
+        //TODO: refactor or delete..
         me.updateRemainderAndTotalPaid = function(expenses) {
             _.each(expenses, function (el) {
                 var totalPaid;
