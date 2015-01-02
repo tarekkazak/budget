@@ -46,7 +46,7 @@ angular.module('budgetApp.controller')
             };
 
 	    $scope.$watch('selectedTag', function(value) {
-		$scope.showTagEditor = ( !$scope.isNullOrUndefined(value) && !_.isEmpty(value) ) && !_.find($scope.tags, {label:value}) 
+		$scope.showTagEditor = ( !utils.isNullOrUndefined(value) && !_.isEmpty(value) ) && !_.find($scope.tags, {label:value}) 
 		     ? true : false;
 	    });
 
@@ -82,10 +82,5 @@ angular.module('budgetApp.controller')
             };
 
             $scope.deleteItem = utils.deleteItemFromList;
-
-
-            $scope.isNullOrUndefined = function(obj) {
-                return utils.isNullOrUndefined(obj);
-            };
 
     }]);

@@ -65,7 +65,7 @@ angular.module('budgetApp.controller')
                 {'field' : 'date', 'displayName' : 'Date', 'cellTemplate' : '<div>{{row.getProperty(col.field).substr(0, 10)}}</div>'},
                 {'field' : 'tags' , 'displayName' : 'Tags', 'cellTemplate' : '<div class="btn-group">' +
                    '<button data-toggle="tooltip" title="edit" ' + 
-                       'tag-editor-trigger="{{editTag}}" tag-editor edit-tag="selectedTag" ' + 
+                       'tag-editor-trigger="editTag" tag-editor edit-tag="selectedTag" ' + 
                         'class="btn btn-primary" ng-repeat="tag in row.getProperty(col.field) track by $index" ' + 
                         'ng-click="selectTag(tag); editTag = true;" >{{tag}}' +
                     '<i class="glyphicon glyphicon-remove" ng-click="removeTag(row.getProperty(col.field), tag, row.getProperty(\'id\'))">'+

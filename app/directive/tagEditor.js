@@ -1,25 +1,30 @@
-    angular.module('tagEditorModule', [])
-    	.controller('tagEditorController', function($scope) {
+    angular.module('budgetApp.directive')
+    	.controller('tagEditorController', ['$scope', '$window', '$element', function($scope, $window, $element) {
+		$scope.editMode = false;
+
 		$scope.tag= {
 		    id : new Date().getTime()
 		};
-		$scope.editMode = false;
+
+                $($window).on('click', function(ev) {
+                    if($element[0] !== ev.target && !$.contains($('.create-tag-form').get()[0], ev.target)) {
+                        $scope.tagEditorTrigger = false;
+                        $scope.$digest();
+                    }
+                });
+
 		$scope.createNewTag = function() {
 		    console.log("create new tag " + $scope.tag.label);
 		    $scope.tagCreateCallBack()($scope.tag);
 		};
 
-		$scope.close = function() {
-		    console.log("close tag editor");
-		    $scope.tagEditorTrigger = "false";
-		};
-	})
+	}])
         .directive('tagEditor', ['$compile', 'templateService', function ($compile, templateService) {
             return {
                 restrict : 'EA',
 		controller : 'tagEditorController',
 		scope : {
-		    tagEditorTrigger: '@',
+		    tagEditorTrigger: '=',
 		    editTag : '=',
 		    tagCreateCallBack : '&tagEditorCreateComplete'
 		},
@@ -35,32 +40,27 @@
 		        	container : 'body',
 				trigger : !_.isUndefined(iAttrs.tagEditorTrigger) ? "manual"  : "click"
 			    });
-                            //$(el).on('shown.bs.tooltip', function () {
-                            //    console.log('show tooltip');
-				//scope.$apply();
-                             //});
+
 			    if(!_.isUndefined(iAttrs.editTag)) {
 				scope.$watch('editTag', function(value) {
                                     if(value) {
 			                scope.tag = value;
 				        scope.editMode = true;
 				        scope.title= 'editing: ' + scope.tag.label;
-				        //console.log(scope.title);
-				        //console.log(scope.tag);
                                     }
 				});
 			    } else {
 				scope.title = 'create';
 			    }
 
-			    if(!_.isUndefined(scope.tagEditorTrigger) && !_.isNull(scope.tagEditorTrigger)) {
+			    if(!_.isUndefined(iAttrs.tagEditorTrigger) || !_.isEmpty(iAttrs.tagEditorTrigger)) {
 			        scope.$watch('tagEditorTrigger', function(value) {
 				    console.log('tag trigger ' + value);
-				if(value == 'true') {
-				    $(el).tooltip('show');
-				} else {
-				    $(el).tooltip('hide');
-				}
+				    if(value)  {
+				        $(el).tooltip('show');
+				    } else {
+				        $(el).tooltip('hide');
+				    }
 			        });		
 			    }
 			});
