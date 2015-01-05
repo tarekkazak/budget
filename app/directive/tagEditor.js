@@ -1,13 +1,16 @@
     angular.module('budgetApp.directive')
-    	.controller('tagEditorController', ['$scope', '$window', '$element', function($scope, $window, $element) {
+    	.controller('tagEditorController', ['$scope', '$window', '$element', 'budgetAppModel', function($scope, $window, $element,budgetAppModel) {
 		$scope.editMode = false;
 
-		$scope.tag= {
+		$scope.tag = {
 		    id : new Date().getTime()
 		};
 
                 $($window).on('click', function(ev) {
-                    if($element[0] !== ev.target && !$.contains($('.create-tag-form').get()[0], ev.target)) {
+                    if($element[0] !== ev.target) {
+                        if($('.create-tag-form').length > 0 && $.contains($('.create-tag-form').get()[0], ev.target)) {
+                            return;
+                        }
                         $scope.tagEditorTrigger = false;
                         $scope.$digest();
                     }
@@ -15,7 +18,10 @@
 
 		$scope.createNewTag = function() {
 		    console.log("create new tag " + $scope.tag.label);
-		    $scope.tagCreateCallBack()($scope.tag);
+                    budgetAppModel.addTag($scope.tag);
+		    if($scope.tagCreateCallBack) {
+                        $scope.tagCreateCallBack()($scope.tag);
+                    }
 		};
 
 	}])
@@ -23,10 +29,11 @@
             return {
                 restrict : 'EA',
 		controller : 'tagEditorController',
+                require : 'ngModel',
 		scope : {
-		    tagEditorTrigger: '=',
 		    editTag : '=',
-		    tagCreateCallBack : '&tagEditorCreateComplete'
+		    tagCreateCallBack : '&tagEditorCreateComplete',
+                    tags : '='
 		},
                 link : function(scope, iElem, iAttrs, controller) {
 			templateService.get('partials/tag-editor.html').then(function(data) {
@@ -38,7 +45,7 @@
                                 placement:'right',
                                 template: compiled,
 		        	container : 'body',
-				trigger : !_.isUndefined(iAttrs.tagEditorTrigger) ? "manual"  : "click"
+				trigger : 'manual' //!_.isUndefined(iAttrs.tagEditorTrigger) ? "manual"  : "click"
 			    });
 
 			    if(!_.isUndefined(iAttrs.editTag)) {
@@ -53,18 +60,22 @@
 				scope.title = 'create';
 			    }
 
-			    if(!_.isUndefined(iAttrs.tagEditorTrigger) || !_.isEmpty(iAttrs.tagEditorTrigger)) {
-			        scope.$watch('tagEditorTrigger', function(value) {
-				    console.log('tag trigger ' + value);
-				    if(value)  {
-				        $(el).tooltip('show');
-				    } else {
-				        $(el).tooltip('hide');
-				    }
-			        });		
-			    }
+			    scope.$watch('tagEditorTrigger', function(value) {
+				console.log('tag trigger ' + value);
+				if(value)  {
+				    $(el).tooltip('show');
+				} else {
+				    $(el).tooltip('hide');
+				}
+			    });		
+			    
 			});
-
+                    
+                        controller.$parsers.push(function(value) {
+		            		scope.tagEditorTrigger = ( !utils.isNullOrUndefined(value) && 
+                                            !_.isEmpty(value) ) && 
+                                            !_.find(scope.tags, {label:value}) ? true : false;
+                        });
 
                 }
             };

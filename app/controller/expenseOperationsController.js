@@ -39,16 +39,10 @@ angular.module('budgetApp.controller')
             $scope.tagCreated = function(newTag) {
                 console.log('tag created');
                 console.log(newTag);
-                $scope.tags.push(newTag);
                 $scope.selectedTag = newTag;
                 $scope.addToSelectedTags();
-                budgetAppModel.addTag(newTag);
             };
 
-	    $scope.$watch('selectedTag', function(value) {
-		$scope.showTagEditor = ( !utils.isNullOrUndefined(value) && !_.isEmpty(value) ) && !_.find($scope.tags, {label:value}) 
-		     ? true : false;
-	    });
 
 
             $scope.openCal = function($event) {
