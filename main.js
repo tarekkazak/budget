@@ -9,8 +9,6 @@ require('spinjs');
 var angular = require('angular');
 require('ngGrid');
 require('angularUIBootstrap');
-require('angular-route');
-require('angular-sanitize');
 require('angular-spinner');
 require('bstooltip');
 
@@ -24,6 +22,7 @@ require('./app/model/dao/reportDao');
 require('./app/service/dataService');
 require('./app/service/templateService');
 require('./app/directive/tagEditor');
+require('./app/directive/gridTagsDisplay');
 require('./app/controller/reportSearchController');
 require('./app/controller/gridController');
 require('./app/controller/expenseOperationsController');

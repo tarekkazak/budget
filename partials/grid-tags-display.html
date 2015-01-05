@@ -1,0 +1,28 @@
+<div class="tooltip tags-display panel panel-default">
+    <div class="panel-heading">
+        <div class="tooltip-inner panel-title">{{title}}</div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <input  name="tagsTA" type="text" ng-model="selectedTag"
+                       placeholder="select tag" class="form-control"
+		       tag-editor
+		       data-toggle="tooltip"
+		       typeahead-on-select="addTag()"
+                       tags="tags"
+                       title="Create"
+                       typeahead="tag as tag.label for tag in tags | filter:{label:$viewValue}" />
+            
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-xs btn-primary" ng-repeat="tag in source track by $index">
+                    {{tag}}<i class="glyphicon glyphicon-remove" ng-click="removeTag(source, tag, tag.id)"></i>
+                </button>
+            
+            </div>
+        </div>
+    </div>
+</div>

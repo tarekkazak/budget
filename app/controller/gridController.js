@@ -1,5 +1,5 @@
 angular.module('budgetApp.controller')
-    .controller('gridController', ['$scope', 'budgetAppModel', 'tagModel', 'paymentsModel' ,function ($scope, budgetAppModel, tagModel, paymentsModel) {
+    .controller('gridController', ['$scope', 'budgetAppModel', 'tagModel', 'paymentsModel', '$compile', function ($scope, budgetAppModel, tagModel, paymentsModel, $compile) {
 
         var allTags;
 
@@ -33,21 +33,13 @@ angular.module('budgetApp.controller')
                         'label' : item.label,
                         'amt' : item.amt,
                         'remainder' : updateRemainder(item),
-                    }
+                    };
                 }
             }).compact().value();
         }
 
         
         $scope._ = _;
-        $scope.removeTag = function(tags, tag, id) {
-            utils.deleteItemFromList(tag, tags);
-            budgetAppModel.updatePayment(id, {property : "tags", value : tags});
-        };
-
-        $scope.selectTag = function(tag) {
-            $scope.selectedTag = _(allTags).find({label : tag});
-        };
 
         $scope.$watch('selectedTag', function(value) {
             updateRecurringTags();
@@ -57,25 +49,18 @@ angular.module('budgetApp.controller')
             data: 'payments',
             enableCellSelection: true,
             enableRowSelection: false,
-            enableCellEdit: true,
             showFilter: true,
             showFooter : true,
             columnDefs : [
-                {'field' : 'amt', 'displayName' : 'Amount'},
+                {'field' : 'amt', 'displayName' : 'Amount', 'enableCellEdit':true},
                 {'field' : 'date', 'displayName' : 'Date', 'cellTemplate' : '<div>{{row.getProperty(col.field).substr(0, 10)}}</div>'},
-                {'field' : 'tags' , 'displayName' : 'Tags', 'cellTemplate' : '<div class="btn-group">' +
-                   '<button data-toggle="tooltip" title="edit" ' + 
-                       'tag-editor-trigger="editTag" tag-editor edit-tag="selectedTag" ' + 
-                        'class="btn btn-primary" ng-repeat="tag in row.getProperty(col.field) track by $index" ' + 
-                        'ng-click="selectTag(tag); editTag = true;" >{{tag}}' +
-                    '<i class="glyphicon glyphicon-remove" ng-click="removeTag(row.getProperty(col.field), tag, row.getProperty(\'id\'))">'+
-                        '</i>'+
-                        '</button></div>'}
+                {'field' : 'tags' , 'displayName' : 'Tags', 'cellTemplate' : '<i data-toggle="tooltip" tags="tags" title="edit" grid-tags-display row-data="row" class="glyphicon glyphicon-edit" ></i>'}
             ]
         };
 
         $scope.$on('ngGridEventEndCellEdit', function (ev) {
-            budgetAppModel.updatePayment(ev.data);
+            console.log('cell edit');
+            //budgetAppModel.updatePayment(ev.data);
         });
 
     }]);
