@@ -3,7 +3,7 @@ module.exports = function(grunt) {
         watch : {
             js : {
                 files : ['app/**/*.js', 'main.js', 'package.json'],
-                tasks : ['browserify:js', 'jshint:js']
+                tasks : ['jshint:js']
             }
         },
         jshint : {
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
             dev : {
                 script : 'server.js',
                 options : {
-                    ignore : ['app/**/*.js', 'node_modules/**', 'package.json', 'partials/**']
+                    ignore : ['app/**', 'node_modules/**', 'package.json', 'partials/**']
                 }
             }
         },

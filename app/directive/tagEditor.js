@@ -3,7 +3,7 @@
 		$scope.editMode = false;
 
 		$scope.tag = {
-		    id : new Date().getTime()
+		    id : utils.getGUID()
 		};
 
                 $($window).on('click', function(ev) {
@@ -52,7 +52,7 @@
 				scope.$watch('editTag', function(value) {
                                     if(value) {
 			                scope.tag = value;
-				        scope.editMode = true;
+                                        scope.tagEditorTrigger = true;
 				        scope.title= 'editing: ' + scope.tag.label;
                                     }
 				});

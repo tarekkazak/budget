@@ -4,9 +4,9 @@
 	</div>
 	<div class="row">
 		<div class="col-md-3 form-group">
-			<input class="form-control" style="padding-left:0px" type="text" ng-model="tag.amt" placeholder="amount" />
+		    <input class="form-control" style="padding-left:0px" type="text" ng-model="tag.amt" placeholder="amount" />
 		</div>
-		<div class="col-md-7 form-group">
+		<div class="col-md-7 form-group" ng-show="!editMode">
 			<input type="text" class="form-control" ng-model="tag.label"  class="form-control" />
 		</div>
 		<div class="col-md-2 checkbox">
@@ -17,5 +17,6 @@
 		</div>
 	</div>
 
-   <button class="btn btn-primary" ng-show="!editMode" ng-click="createNewTag(tag.label, tag.tagAmt, tag.isRecurring)">Create tag</button>
+        <button class="btn btn-primary" ng-show="!editMode" 
+            ng-click="createNewTag(tag.label, tag.tagAmt, tag.isRecurring)">Create tag</button>
 </div>

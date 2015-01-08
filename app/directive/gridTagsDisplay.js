@@ -1,9 +1,9 @@
     angular.module('budgetApp.directive')
     	.controller('gridTagsDisplayController', ['$scope', '$window', '$element', 'budgetAppModel',  function($scope, $window, $element, budgetAppModel) {
         
-                $scope.removeTag = function(tags, tag, id) {
+                $scope.removeTag = function(tags, tag) {
                     utils.deleteItemFromList(tag, tags);
-                    budgetAppModel.updatePayment(id, {property : "tags", value : tags});
+                    budgetAppModel.updatePayment($scope.rowData.entity.id, {property : "tags", value : tags});
                 };
 
                 $($window).on('click', function(ev) {
@@ -12,8 +12,14 @@
                             return;
                         }
                        $scope.show = false;
+                       $scope.$digest();
                     }
                 });
+
+                $scope.selectTag = function(tag) {
+                    $scope.selectedTag =_($scope.tags).where({label : tag }).first();
+                    $scope.editTag = true;
+                };
 
                 $scope.addTag = function() {
                     $scope.source.push($scope.selectedTag.label);

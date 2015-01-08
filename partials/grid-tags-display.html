@@ -10,6 +10,7 @@
 		       tag-editor
 		       data-toggle="tooltip"
 		       typeahead-on-select="addTag()"
+                       edit-tag="editTag"
                        tags="tags"
                        title="Create"
                        typeahead="tag as tag.label for tag in tags | filter:{label:$viewValue}" />
@@ -18,8 +19,9 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-xs btn-primary" ng-repeat="tag in source track by $index">
-                    {{tag}}<i class="glyphicon glyphicon-remove" ng-click="removeTag(source, tag, tag.id)"></i>
+                <button ng-click="selectTag(tag);"  
+                    class="btn btn-xs btn-primary" ng-repeat="tag in source track by $index">
+                    {{tag}}<i class="glyphicon glyphicon-remove" ng-click="removeTag(source, tag)"></i>
                 </button>
             
             </div>

@@ -52,7 +52,7 @@ angular.module('budgetApp.controller')
 
             $scope.addPayment = function() {
                 budgetAppModel.addPayment({
-                    id : new Date().getTime(),
+                    id : utils.getGUID(),
                     amt : $scope.amount,
                     tags : _($scope.selectedTags).pluck('label').value().push($scope.transactionType),
                     date : $scope.newPaymentDate

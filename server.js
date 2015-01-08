@@ -10,6 +10,7 @@ var _ = require('lodash');
 var promise;
 var defer;
 var currentReport;
+var utils = require('./app/utils/utils');
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
@@ -19,7 +20,7 @@ function processLegacyReport(expenses) {
      allPayments = _(allPayments).compact().flatten().value();
      allPayments = allPayments.concat(_(expenses).pluck('children').compact().flatten().pluck('payments').flatten().value());
      _.each(allPayments, function(item) {
-        item.id = (new Date()).getTime();
+        item.id = utils.getGUID();
      });
      //if tags do not contain debit or credit, set debit by default
      var tags = _(allPayments).pluck('tags').compact().value();
@@ -43,7 +44,7 @@ function checkNoMissingTagsInMainList(payments) {
      allTags = _(allTagLabels).map(function(tag){
          return {
                  "label" : tag,
-                 "id" : new Date().getTime()
+                 "id" : utils.getGUID()
             };
      }).value();
             
@@ -54,7 +55,7 @@ function checkNoMissingTagsInMainList(payments) {
           diffTags = _(diff).map(function(tag){
                       return {
                       "label" : tag,
-                      "id" : new Date().getTime()
+                      "id" : utils.getGUID()
                   };
               }).value();
                   
@@ -136,11 +137,13 @@ app.route('/reports/:year/:month/payments/:id')
     })
     .patch(function(req, res) {
         var payment, propChange = req.body[0];
-        payment = _(currentReport.payments).where({ 'id' : Number(req.params.id) }).first();
-        payment[propChange.path] = propChange.value;
-        io.emit('paymentsUpdated', currentReport.payments);
-        console.log(payment);
-        writeData();
+        payment = _(currentReport.payments).where({ 'id' : req.params.id }).first();
+        if(payment) {
+            payment[propChange.path] = propChange.value;
+            io.emit('paymentsUpdated', currentReport.payments);
+            console.log(payment);
+            writeData();
+        }
     })
     .delete(function(req, res) {
         _.remove(currentReport.payments, function(item) {

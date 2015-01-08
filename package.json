@@ -42,11 +42,13 @@
     "spinjs": "./node_modules/spin.js/spin.js",
     "bstooltip": "./node_modules/bootstrap/js/tooltip.js",
     "rxjs": "./node_modules/rx/dist/rx.all.js",
-    "socketio": "./node_modules/socket.io-client/socket.io.js"
+    "socketio": "./node_modules/socket.io-client/socket.io.js",
+    "utils" : "./app/utils/utils.js"
   },
   "browserify-shim": {
     "jquery": "$",
     "lodash": "_",
+    "utils" : "utils",
     "rxjs": "Rx",
     "socketio": "io",
     "bstooltip": {

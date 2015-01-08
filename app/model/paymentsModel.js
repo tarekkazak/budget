@@ -2,7 +2,7 @@ angular.module('budgetApp.model')
     .factory('paymentsModel', ['dao', function(dao) {
         var observable;
         dao.dataStream.ready.subscribe(function() {
-            observable = dao.dataStream.stream.where(function(data) { return data.name === 'paymentsUpdated'})
+            observable = dao.dataStream.stream.where(function(data) { return data.name === 'paymentsUpdated';})
                 .select(function(data) {
                     return data.data;  
                 }); 
@@ -13,6 +13,6 @@ angular.module('budgetApp.model')
                 return observable;
             },
             ready : dao.dataStream.ready
-        }
+        };
         
     }]);
