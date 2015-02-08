@@ -28,7 +28,7 @@ module.exports = function(grunt) {
             dev : {
                 script : 'server.js',
                 options : {
-                    ignore : ['app/**', 'node_modules/**', 'package.json', 'partials/**']
+                    ignore : ['app/**', 'node_modules/**', 'package.json', 'partials/**', 'bundle.js']
                 }
             }
         },

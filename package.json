@@ -28,7 +28,8 @@
     "rx": "~2.3.22",
     "socket.io": "~1.2.1",
     "socket.io-client": "~1.2.1",
-    "body-parser": "~1.10.0"
+    "body-parser": "~1.10.0",
+    "reactify": "~0.17.1"
   },
   "repository": {
     "type": "git",
@@ -43,12 +44,14 @@
     "bstooltip": "./node_modules/bootstrap/js/tooltip.js",
     "rxjs": "./node_modules/rx/dist/rx.all.js",
     "socketio": "./node_modules/socket.io-client/socket.io.js",
-    "utils" : "./app/utils/utils.js"
+    "utils": "./app/utils/utils.js",
+    "reactjs" : "./node_modules/react/dist/react.js"
   },
   "browserify-shim": {
     "jquery": "$",
     "lodash": "_",
-    "utils" : "utils",
+    "utils": "utils",
+    "reactjs" : "React",
     "rxjs": "Rx",
     "socketio": "io",
     "bstooltip": {
@@ -71,7 +74,8 @@
   },
   "browserify": {
     "transform": [
-      "browserify-shim"
+      "browserify-shim",
+      "reactify"
     ]
   }
 }

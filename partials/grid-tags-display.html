@@ -5,21 +5,26 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
-                <input  name="tagsTA" type="text" ng-model="selectedTag"
+                <input  id="tagsDisplayTA" type="text" ng-model="selectedTag"
                        placeholder="select tag" class="form-control"
-		       tag-editor
 		       data-toggle="tooltip"
 		       typeahead-on-select="addTag()"
-                       edit-tag="editTag"
-                       tags="tags"
                        title="Create"
+                       tag-editor
+                       tags="tags"
+                       edit-mode="false"
                        typeahead="tag as tag.label for tag in tags | filter:{label:$viewValue}" />
             
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <button ng-click="selectTag(tag);"  
+                <button 
+                    tag-editor
+		       data-toggle="tooltip"
+                       title="edit tag"
+                    edit-mode="true"
+                    edit-tag="tag"
                     class="btn btn-xs btn-primary" ng-repeat="tag in source track by $index">
                     {{tag}}<i class="glyphicon glyphicon-remove" ng-click="removeTag(source, tag)"></i>
                 </button>

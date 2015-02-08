@@ -30,12 +30,6 @@
                     }
                 });
 
-
-                $scope.selectTag = function(tag) {
-                    $scope.selectedTag =_($scope.tags).where({label : tag }).first();
-                    $scope.editTag = true;
-                };
-
                 $scope.addTag = function() {
                     $scope.source.push($scope.selectedTag.label);
                     budgetAppModel.updatePayment($scope.rowData.entity.id, {property:'tags', value: $scope.source});
@@ -77,31 +71,8 @@
 				    $(el).tooltip('show');
 			        } else {
 			            $(el).tooltip('hide');
-                                    if(ta) {
-                                        ta.tooltip('hide');
-                                    }
 			        }
 			    });		
-
-                            $(el).on('shown.bs.tooltip', function() {
-                                if(!ta) {
-                                    ta = $('.tooltip').find('#tagsDisplayTA');
-                                    ta.tooltip({
-                                        placement:'right',
-                                        container : 'body',
-                                        trigger : 'manual',
-                                        template : '<div class="tooltip create-tag-form"><div id="tag-form"></div><div class="tooltip-inner"></div></div>'
-                                    });
-                                    scope.ta = ta;
-                                    
-                                    ta.on('shown.bs.tooltip', function() {
-
-                                        React.render(<ReactTagEditor editMode={false} tag={{}}/>, document.getElementById('tag-form'));
-                                    });
-                                }
-                            });
-                            
-
 			});
 
 

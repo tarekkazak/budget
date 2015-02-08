@@ -9,7 +9,13 @@
         <div style="border-bottom: 1px dashed #808080; margin: 5px 0px"></div>
         <div class="row well" ng-show="selectedTags.length > 0">
                     <div class="col-md-12 btn-group">
-                        <button class="btn btn-primary" style="margin-bottom:6px" ng-click="editTag(tag)" ng-repeat="tag in selectedTags">
+                        <button class="btn btn-primary" style="margin-bottom:6px" 
+                            tag-editor
+                            edit-mode="true"
+                            edit-tag="tag"
+                            ng-repeat="tag in selectedTags"
+                            title="edit tag"
+                            data-toggle="tooltip">
                             {{tag.label}}
                                     <i class="glyphicon glyphicon-remove" ng-click="removeTag(tag)"></i>
                             
@@ -19,13 +25,14 @@
         <div class="row payment-control-col-padding" >
             <div class="col-md-3" >
                 <input  name="tagsTA" type="text" ng-model="selectedTag"
+                        id="tagsTA"
+                        data-toggle="tooltip"
+                        title="create tag"
+                        tag-editor
+                        tags="tags"
+                        edit-mode="false"
                        placeholder="select tag" class="form-control"
-		       tag-editor
-                       tags="tags"
                        typeahead-on-select="addToSelectedTags()" 
-		       data-toggle="tooltip"
-                       title="Create"
-		       tag-editor-create-complete="tagCreated"
                        typeahead="tag as tag.label for tag in tags | filter:{label:$viewValue}" />
                        
             </div>
