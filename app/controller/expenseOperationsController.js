@@ -4,7 +4,7 @@ angular.module('budgetApp.controller')
           'budgetAppModel', 'tagModel', 'paymentsModel',
         function ($scope, $modal, $timeout, $window, budgetAppModel, tagModel, paymentsModel) {
             var modalInstance;
-
+            
             tagModel.ready.subscribe(function() {
                 tagModel.getStream().subscribe(function(tags) {
                     $scope.tags = tags;
@@ -32,6 +32,7 @@ angular.module('budgetApp.controller')
                 $scope.selectedWishlistItem = item;
             };
 
+
             $scope.selectUpcomingExpense = function (item) {
                 $scope.selectedUpcomingExpense = item;
             };
@@ -42,7 +43,6 @@ angular.module('budgetApp.controller')
                 $scope.selectedTag = newTag;
                 $scope.addToSelectedTags();
             };
-
 
 
             $scope.openCal = function($event) {

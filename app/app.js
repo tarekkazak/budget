@@ -1,3 +1,4 @@
+window.React = require('react');
 angular.module('budgetApp.model', []);
 angular.module('budgetApp.controller', []);
 angular.module('budgetApp.service', []);
@@ -11,8 +12,5 @@ var budgetApp = angular.module('budgetApp', [
     'budgetApp.directive',
     'budgetApp.controller'
 ]);
-
-
-
 
 

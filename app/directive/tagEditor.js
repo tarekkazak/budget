@@ -1,9 +1,9 @@
     angular.module('budgetApp.directive')
     	.controller('tagEditorController', ['$scope', '$window', '$element', 'budgetAppModel', function($scope, $window, $element,budgetAppModel) {
-		$scope.editMode = false;
 
 		$scope.tag = {
-		    id : utils.getGUID()
+		    id : utils.getGUID(),
+                    label : ''
 		};
 
                 $($window).on('click', function(ev) {
@@ -17,48 +17,41 @@
                 });
 
 		$scope.createNewTag = function() {
-		    console.log("create new tag " + $scope.tag.label);
-                    budgetAppModel.addTag($scope.tag);
 		    if($scope.tagCreateCallBack) {
                         $scope.tagCreateCallBack()($scope.tag);
                     }
 		};
 
 	}])
-        .directive('tagEditor', ['$compile', 'templateService', function ($compile, templateService) {
+        .directive('tagEditor', ['reactTagEditor', function (ReactTagEditor) {
             return {
                 restrict : 'EA',
 		controller : 'tagEditorController',
-                require : 'ngModel',
+                require : '?ngModel',
 		scope : {
 		    editTag : '=',
+		    editMode : '=',
 		    tagCreateCallBack : '&tagEditorCreateComplete',
                     tags : '='
 		},
                 link : function(scope, iElem, iAttrs, controller) {
-			templateService.get('partials/tag-editor.html').then(function(data) {
-	    		    return  data.data;
-			}).then(function(template) { 
-                            var compiled = $compile(template)(scope);
 			    var el = $(iElem);
 		            $(el).tooltip({
                                 placement:'right',
-                                template: compiled,
 		        	container : 'body',
-				trigger : 'manual' //!_.isUndefined(iAttrs.tagEditorTrigger) ? "manual"  : "click"
+				trigger : 'manual', //!_.isUndefined(iAttrs.tagEditorTrigger) ? "manual"  : "click"
+                                template : '<div class="tooltip create-tag-form"><div id="tag-form"></div><div class="tooltip-inner"></div></div>'
 			    });
+                            
+                            $(el).on('shown.bs.tooltip', function() {
+                                console.log('showing toolip');
+                                React.render(<ReactTagEditor editMode={scope.editMode} tag={scope.tag}/>, 
+                                    document.getElementById('tag-form'));
+                            });
 
-			    if(!_.isUndefined(iAttrs.editTag)) {
-				scope.$watch('editTag', function(value) {
-                                    if(value) {
-			                scope.tag = value;
-                                        scope.tagEditorTrigger = true;
-				        scope.title= 'editing: ' + scope.tag.label;
-                                    }
-				});
-			    } else {
-				scope.title = 'create';
-			    }
+                            if(scope.editTag) {
+                                scope.tag = scope.editTag;
+                            }
 
 			    scope.$watch('tagEditorTrigger', function(value) {
 				console.log('tag trigger ' + value);
@@ -69,13 +62,17 @@
 				}
 			    });		
 			    
-			});
-                    
-                        controller.$parsers.push(function(value) {
+                            if(controller) {
+                                controller.$parsers.push(function(value) {
 		            		scope.tagEditorTrigger = ( !utils.isNullOrUndefined(value) && 
                                             !_.isEmpty(value) ) && 
                                             !_.find(scope.tags, {label:value}) ? true : false;
-                        });
+                                });
+                            } else {
+                                $(el).on('click', function() {
+                                    $(el).tooltip('toggle');
+                                });
+                            }
 
                 }
             };
