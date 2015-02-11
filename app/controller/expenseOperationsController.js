@@ -70,10 +70,6 @@ angular.module('budgetApp.controller')
                 utils.deleteItemFromList(tag, $scope.selectedTags);
             };
 
-            $scope.editTag = function(tag) {
-                $scope.editTag = true;
-                $scope.selectedTag = tag;
-            };
 
             $scope.deleteItem = utils.deleteItemFromList;
 

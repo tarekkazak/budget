@@ -5,7 +5,7 @@
                     budgetAppModel.updatePayment($scope.rowData.entity.id, {property : "tags", value : tags});
                 };
 
-                $($window).on('click', function(ev) {
+                function onWindowClick(ev) {
                     if($element[0] !== ev.target) {
                         if($('.tags-display').length > 0 && $.contains($('.tags-display').get()[0], ev.target)) {
                             return;
@@ -16,19 +16,8 @@
                        $scope.show = false;
                        $scope.$digest();
                     }
-                });
+                }
 
-                $scope.$watch('selectedTag', function(val) {
-                    var tag;
-                    if(val) {
-                       tag =_($scope.tags).where({label : val }).first();
-                       if(tag) {
-                           $scope.ta.tooltip('hide'); 
-                       } else {
-                            $scope.ta.tooltip('show');
-                       }
-                    }
-                });
 
                 $scope.addTag = function() {
                     $scope.source.push($scope.selectedTag.label);
@@ -40,9 +29,16 @@
                     $scope.show = !$scope.show;
                 });
 
+                $element.on('shown.bs.tooltip', function() {
+                    $(window).on('click', onWindowClick);
+                });
+
+                $element.on('hidden.bs.tooltip', function() {
+                    $(window).off('click', onWindowClick);
+                });
 
 	}])
-        .directive('gridTagsDisplay', ['$compile', 'templateService', 'reactTagEditor',  function ($compile, templateService, ReactTagEditor) {
+        .directive('gridTagsDisplay', ['$compile', 'templateService',  function ($compile, templateService) {
             return {
                 restrict : 'EA',
 		controller : 'gridTagsDisplayController',
@@ -58,7 +54,7 @@
 			}).then(function(template) { 
                             var compiled = $compile(template)(scope);
 			    var el = $(iElem);
-                            var ta;
+
 		            $(el).tooltip({
                                 placement:'right',
                                 template: compiled,

@@ -6,7 +6,7 @@
                     label : ''
 		};
 
-                $($window).on('click', function(ev) {
+                function onWindowClick(ev) {
                     if($element[0] !== ev.target) {
                         if($('.create-tag-form').length > 0 && $.contains($('.create-tag-form').get()[0], ev.target)) {
                             return;
@@ -14,6 +14,14 @@
                         $scope.tagEditorTrigger = false;
                         $scope.$digest();
                     }
+                }
+
+                $element.on('shown.bs.tooltip', function() {
+                    $(window).on('click', onWindowClick);
+                });
+
+                $element.on('hidden.bs.tooltip', function() {
+                    $(window).off('click', onWindowClick);
                 });
 
 		$scope.createNewTag = function() {
