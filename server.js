@@ -157,9 +157,11 @@ app.route('/reports/:year/:month/payments/:id')
 
 app.route('/tags/:id')
     .patch(function(req, res) {
-        var tag, propChange = req.body[0];
-        tag = _(data.content.tags).where({ 'id' : number(req.params.id) }).first();
-        tag[propChange.path] = propChange.value;
+        var tag, propChanges = req.body;
+        tag = _(data.content.tags).where({ 'id' : req.params.id }).first();
+        _(propChanges).forEach(function(propChange) {
+            tag[propChange.path] = propChange.value;
+        });
         console.log(tag);
         io.emit('tagsUpdated', data.content.tags);
         writeData();

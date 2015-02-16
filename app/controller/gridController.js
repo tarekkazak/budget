@@ -12,6 +12,8 @@ angular.module('budgetApp.controller')
         paymentsModel.ready.subscribe(function() {
             paymentsModel.getStream().subscribe(function(payments) {
                 $scope.payments = payments;
+                $scope.$digest();
+
             });
         });
         

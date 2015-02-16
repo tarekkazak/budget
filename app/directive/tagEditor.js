@@ -1,10 +1,7 @@
     angular.module('budgetApp.directive')
     	.controller('tagEditorController', ['$scope', '$window', '$element', 'budgetAppModel', function($scope, $window, $element,budgetAppModel) {
 
-		$scope.tag = {
-		    id : utils.getGUID(),
-                    label : ''
-		};
+		$scope.tag = { };
 
                 function onWindowClick(ev) {
                     if($element[0] !== ev.target) {
@@ -43,6 +40,7 @@
                     tags : '='
 		},
                 link : function(scope, iElem, iAttrs, controller) {
+                    console.log('tag editor tags', scope.tags);
 			    var el = $(iElem);
 		            $(el).tooltip({
                                 placement:'right',
@@ -52,14 +50,23 @@
 			    });
                             
                             $(el).on('shown.bs.tooltip', function() {
-                                console.log('showing toolip');
+                                console.log('showing toolip', scope.tag);
                                 React.render(<ReactTagEditor editMode={scope.editMode} tag={scope.tag}/>, 
                                     document.getElementById('tag-form'));
                             });
 
-                            if(scope.editTag) {
-                                scope.tag = scope.editTag;
-                            }
+                            scope.$watch('editTag', function(val) {
+                                if(val) {
+                                    console.log('edit tag', val);
+                                    var tag = val;
+                                    if(!_.contains(scope.tags, tag)) {
+                                        tag =_.find(scope.tags, {label:val});
+                                    }
+                                    
+                                    console.log('edit tag', val);
+                                    scope.tag = tag;
+                                }
+                            });
 
 			    scope.$watch('tagEditorTrigger', function(value) {
 				console.log('tag trigger ' + value);

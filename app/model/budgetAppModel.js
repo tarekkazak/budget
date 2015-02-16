@@ -12,10 +12,15 @@ angular.module('budgetApp.model')
             dao.addTag(tag);
         };
 
-        me.updateTag = function(id, change) {
-            dao.updateTag(id, [{
-                "op" : "replace", "path" : change.property, "value" : change.value
-            }]);
+        me.updateTag = function(id, tag) {
+            var patches = [];
+            _(tag).forIn(function(value, key) {
+                patches.push({
+                    "op" : "replace", "path" : key, "value" :value
+                });
+            }).value();
+            console.log('model.updateTag', id, patches);
+            dao.updateTag(id, patches);
         };
 
         me.addPayment = function(payment) {
