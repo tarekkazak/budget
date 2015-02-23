@@ -21,10 +21,7 @@ angular.module('budgetApp.controller')
             });
             
             $scope._ = _;
-	    $scope.selectedTagIsValid = null;
-            $scope.showFeedback = false;
             $scope.selectedTags = [];
-            $scope.transactionType = 'debit';
             $scope.newPaymentDate = new Date();
 
 

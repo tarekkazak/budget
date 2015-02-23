@@ -40,7 +40,6 @@
                     tags : '='
 		},
                 link : function(scope, iElem, iAttrs, controller) {
-                    console.log('tag editor tags', scope.tags);
 			    var el = $(iElem);
 		            $(el).tooltip({
                                 placement:'right',
@@ -50,26 +49,23 @@
 			    });
                             
                             $(el).on('shown.bs.tooltip', function() {
-                                console.log('showing toolip', scope.tag);
                                 React.render(<ReactTagEditor editMode={scope.editMode} tag={scope.tag}/>, 
                                     document.getElementById('tag-form'));
                             });
 
                             scope.$watch('editTag', function(val) {
                                 if(val) {
-                                    console.log('edit tag', val);
                                     var tag = val;
                                     if(!_.contains(scope.tags, tag)) {
                                         tag =_.find(scope.tags, {label:val});
                                     }
                                     
-                                    console.log('edit tag', val);
+                                    //console.log('edit tag', val, tag);
                                     scope.tag = tag;
                                 }
                             });
 
 			    scope.$watch('tagEditorTrigger', function(value) {
-				console.log('tag trigger ' + value);
 				if(value)  {
 				    $(el).tooltip('show');
 				} else {

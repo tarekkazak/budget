@@ -5,7 +5,6 @@ angular.module('budgetApp.directive')
             console.log(this.props);
          },
         componentWillUpdate : function(nextProps, nextState) {
-            console.log(this.props);
         },
         createNewTag : function () {
             var tag = this.props.tag, refs = this.refs;
@@ -13,7 +12,6 @@ angular.module('budgetApp.directive')
             tag.amt = refs.amtInput.getDOMNode().value.trim();
             tag.label = refs.labelInput.getDOMNode().value.trim();
             tag.isRecurring = refs.isRecurringInput.getDOMNode().checked;
-            console.log('new tag', tag);
             budgetAppModel.addTag(tag);
         },
         updateTag : function() {

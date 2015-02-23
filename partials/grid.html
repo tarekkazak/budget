@@ -1,7 +1,14 @@
 <div  ng-controller="gridController">
     <div>
     	<ul>
-    		<button class="btn btn-primary" ng-repeat="tag in recurringTags">
+            <button class="btn btn-primary" 
+                tag-editor
+                edit-mode="true"
+                edit-tag="tag"
+                data-toggle="tooltip"
+                title="edit tag"
+                tags="tags"
+                ng-repeat="tag in recurringTags track by $index">
     		{{tag.label}} : 
     		{{tag.amt}}
     		<span class="badge">{{tag.remainder}}</span>
