@@ -7,9 +7,9 @@ angular.module('budgetApp.directive')
             render : function() {
                 var e;
                 if( this.isCredit() ) {
-                    e =  <span className="label label-success">+{this.props.payment.amt}</span> 
+                    e =  <div className="label label-success grid-payment-amount">+{this.props.payment.amt}</div> 
                 } else {
-                    e = <span className="label label-danger">-{this.props.payment.amt}</span> 
+                    e = <div className="label label-danger grid-payment-amount">-{this.props.payment.amt}</div> 
                 }
 
                 return(

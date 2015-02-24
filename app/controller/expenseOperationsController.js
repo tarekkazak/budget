@@ -48,10 +48,12 @@ angular.module('budgetApp.controller')
             };
 
             $scope.addPayment = function() {
+                var tags = _($scope.selectedTags).pluck('label').value();
+                tags.push($scope.transactionType);
                 budgetAppModel.addPayment({
                     id : utils.getGUID(),
                     amt : $scope.amount,
-                    tags : _($scope.selectedTags).pluck('label').value().push($scope.transactionType),
+                    tags : tags,
                     date : $scope.newPaymentDate
                 });
             };

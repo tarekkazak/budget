@@ -46,21 +46,12 @@ angular.module('budgetApp.controller')
             updateRecurringTags();
         }, true);
 
-        $scope.creditOrDebit = function(row) {
-            var amt = row.getProperty('amt'),
-                tags = row.getProperty('tags');
-            if(_.container(tags, 'credit')) {
-                return '<span>+ ' + amt + '</span>';
-            } else {
-                return '<span>- ' + amt + '</span>';
-            }
-        };
-
         $scope.gridOptions = {
             data: 'payments',
             enableCellSelection: true,
             enableRowSelection: false,
             showFilter: true,
+           // virtualizationThreshold : 1000,
             showFooter : true,
             columnDefs : [
                 {'field' : 'amt', 'displayName' : 'Amount', 'enableCellEdit':true,
@@ -69,7 +60,7 @@ angular.module('budgetApp.controller')
                 {'field' : 'date', 'displayName' : 'Date', 
                     'cellTemplate' : '<div>{{row.getProperty(col.field).substr(0, 10)}}</div>'},
                 {'field' : 'tags' , 'displayName' : 'Tags', 
-                    'cellTemplate' : '<i data-toggle="tooltip" tags="tags" title="edit" grid-tags-display row-data="row" class="glyphicon glyphicon-edit" ></i>'}
+                    'cellTemplate' : '<i data-toggle="tooltip" tags="tags" title="edit" grid-tags-display row-data="row.entity" class="glyphicon glyphicon-edit" ></i>'}
             ]
         };
 

@@ -47,29 +47,35 @@
                     tags:'='
 		},
                 link : function(scope, iElem, iAttrs, controller) {
-                    scope.source = scope.rowData.getProperty('tags');
                     scope.title = 'Tags';
-			templateService.get('partials/grid-tags-display.html').then(function(data) {
-	    		    return data.data;
-			}).then(function(template) { 
-                            var compiled = $compile(template)(scope);
-			    var el = $(iElem);
 
-		            $(el).tooltip({
-                                placement:'right',
-                                template: compiled,
-		        	container : 'body',
-				trigger : 'manual'
-			    });
-	    		
-                            scope.$watch('show', function(value) {
-			        if(value)  {
-				    $(el).tooltip('show');
-			        } else {
-			            $(el).tooltip('hide');
-			        }
-			    });		
+		    templateService.get('partials/grid-tags-display.html').then(function(data) {
+	    		return data.data;
+		    }).then(function(template) { 
+                        var compiled = $compile(template)(scope);
+			var el = $(iElem);
+
+		        $(el).tooltip({
+                            placement:'right',
+                            template: compiled,
+		            container : 'body',
+			    trigger : 'manual'
 			});
+	    		
+                        scope.$watch('show', function(value) {
+			    if(value)  {
+			        $(el).tooltip('show');
+			    } else {
+			        $(el).tooltip('hide');
+			    }
+		        });		
+		    });
+
+                    scope.$watch('rowData', function(val) {
+                        if(val) {
+                            scope.source = val.tags;
+                        }
+                    });
 
 
                 }
