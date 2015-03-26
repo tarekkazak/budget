@@ -35,6 +35,10 @@ angular.module('budgetApp.model')
             }]);
         };
 
+        me.addExpense = function(expense) {
+            dao.addExpense(expense);
+        };
+
         me.getReport = function(year, month) {
             dao.getReport(year, month).then(function(res) {
                 

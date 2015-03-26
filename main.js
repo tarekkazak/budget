@@ -15,16 +15,18 @@ require('bstooltip');
 //React components
 //app
 require('utils');
+require('IO_EVENTS');
 require('./app/app');
 require('./app/model/budgetAppModel');
-require('./app/model/paymentsModel');
-require('./app/model/tagModel');
+require('./app/model/dataModel');
 require('./app/model/dao/reportDao');
 require('./app/service/dataService');
 require('./app/service/templateService');
 require('./app/directive/tagEditor');
 require('./app/directive/react/TagEditor.jsx');
 require('./app/directive/react/paymentAmount.jsx');
+require('./app/directive/react/expenseList.jsx');
+require('./app/directive/react/expenseListItem.jsx');
 require('./app/directive/gridTagsDisplay');
 require('./app/directive/creditOrDebit');
 require('./app/controller/reportSearchController');

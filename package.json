@@ -45,12 +45,14 @@
     "rxjs": "./node_modules/rx/dist/rx.all.js",
     "socketio": "./node_modules/socket.io-client/socket.io.js",
     "utils": "./app/utils/utils.js",
+    "IO_EVENTS": "./app/common/event.js",
     "reactjs" : "./node_modules/react/dist/react.js"
   },
   "browserify-shim": {
     "jquery": "$",
     "lodash": "_",
     "utils": "utils",
+    "IO_EVENTS": "IO_EVENTS",
     "reactjs" : "React",
     "rxjs": "Rx",
     "socketio": "io",

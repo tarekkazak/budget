@@ -11,6 +11,7 @@ var promise;
 var defer;
 var currentReport;
 var utils = require('./app/utils/utils');
+var IO_EVENTS = require('./app/common/event');
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
@@ -70,12 +71,12 @@ function checkNoMissingTagsInMainList(payments) {
 }
 
 io.on('connection', function(socket) {
-    socket.emit('hello', {h:'a'});
+    socket.emit(IO_EVENTS.CONNECTION_ESTABLISHED, true);
 });
 
 function loadData() {
-    defer = q.defer();
-    promise = defer.promise;
+    var  defer = q.defer();
+    var promise = defer.promise;
     if(!data) {
         fs.readFile('./data/content.json', 'utf-8', function(err, res) {
             data = JSON.parse(res);
@@ -84,6 +85,7 @@ function loadData() {
     } else {
         defer.resolve(data);
     }
+    return promise;
 } 
 
 function writeData() {
@@ -94,33 +96,36 @@ function writeData() {
     });
 }
 
+app.get('/', function(req, res) {
+    loadData().then(function(result) {
+
+        io.emit(IO_EVENTS.TAGS_UPDATED, data.content.tags);
+        io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses || []);
+    });
+});
+
 app.route('/reports/:year/:month')
  .get(function(req, res, next) {
-        loadData();
         var year = req.params.year,
         month = req.params.month;
-        promise.then(function(result) {
-            currentReport = _(result.content.history).findWhere({"year" : Number(year), "month" : Number(month)});
-            if(data.content.expenses || currentReport.expenses) {
-                console.log('legacy');
-                delete data.content.expenses;
-                currentReport.payments = processLegacyReport(currentReport.expenses);
-                delete currentReport.expenses;
-            }
-            data.content.tags = checkNoMissingTagsInMainList(currentReport.payments);
+            
+        currentReport = _(data.content.history).findWhere({"year" : Number(year), "month" : Number(month)});
+        data.content.tags = checkNoMissingTagsInMainList(currentReport.payments);
+        if(currentReport.expenses) {
+            console.log('legacy');
+            currentReport.payments = processLegacyReport(currentReport.expenses);
+            delete currentReport.expenses;
+        }
+        io.emit(IO_EVENTS.PAYMENTS_UPDATED, currentReport.payments);
+        io.emit(IO_EVENTS.TAGS_UPDATED, data.content.tags);
+        res.json(currentReport);
 
-            console.log('report ready');
-            io.emit('tagsUpdated', data.content.tags);
-            io.emit('paymentsUpdated', currentReport.payments);
-            res.json(currentReport);
-
-            res.end();
-        });
+        res.end();
     })
    .patch(function(req, res) {
         var propChange = req.body[0];
         currentReport[propChange.path] = propChange.value;
-        io.emit('reportUpdated', propChange);
+        io.emit(IO_EVENTS.REPORT_UPDATED, propChange);
         writeData();
    })
     .post(function(req, res) {
@@ -132,7 +137,7 @@ app.route('/reports/:year/:month')
 app.route('/reports/:year/:month/payments/:id')
     .put(function(req, res) {
         currentReport.payments.push(req.body);
-        io.emit('paymentsUpdated', currentReport.payments);
+        io.emit(IO_EVENTS.PAYMENTS_UPDATED, currentReport.payments);
         writeData();
     })
     .patch(function(req, res) {
@@ -140,7 +145,7 @@ app.route('/reports/:year/:month/payments/:id')
         payment = _(currentReport.payments).where({ 'id' : req.params.id }).first();
         if(payment) {
             payment[propChange.path] = propChange.value;
-            io.emit('paymentsUpdated', currentReport.payments);
+            io.emit(IO_EVENTS.PAYMENTS_UPDATED, currentReport.payments);
             console.log(payment);
             writeData();
         }
@@ -149,7 +154,7 @@ app.route('/reports/:year/:month/payments/:id')
         _.remove(currentReport.payments, function(item) {
             return item.id === req.params.id;
         });
-        io.emit('paymentsUpdated', currentReport.payments);
+        io.emit(IO_EVENTS.PAYMENTS_UPDATED, currentReport.payments);
         writeData();
     });
 
@@ -163,22 +168,45 @@ app.route('/tags/:id')
             tag[propChange.path] = propChange.value;
         });
         console.log(tag);
-        io.emit('tagsUpdated', data.content.tags);
+        io.emit(IO_EVENTS.TAGS_UPDATED, data.content.tags);
         writeData();
     })
     .put(function(req, res) {
         data.content.tags.push(req.body);
-        io.emit('tagsUpdated', data.content.tags);
+        io.emit(IO_EVENTS.TAGS_UPDATED, data.content.tags);
         writeData();
     })    
     .delete(function(req, res) {
         _.remove(data.content.tags, function(item) {
             return item.id === req.params.id;
         });
-        io.emit('tagsUpdated', currentReport.payments);
+        io.emit(IO_EVENTS.TAGS_UPDATED, data.content.tags);
         writeData();
     });
 
+app.route('/expenses/:id')
+    .patch(function(req, res) {
+        var expense, propChanges = req.body;
+        expense = _(data.content.expenses).where({ 'id' : req.params.id }).first();
+        _(propChanges).forEach(function(propChange) {
+            expense[propChange.path] = propChange.value;
+        });
+        console.log(expense);
+        io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses);
+        writeData();
+    })
+    .put(function(req, res) {
+        data.content.expenses.push(req.body);
+        io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses);
+        writeData();
+    })    
+    .delete(function(req, res) {
+        _.remove(data.content.expenses, function(item) {
+            return item.id === req.params.id;
+        });
+        io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses);
+        writeData();
+    });
 io.listen(3300);
 app.listen(4400, function() {
     loadData();

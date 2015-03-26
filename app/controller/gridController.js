@@ -1,7 +1,9 @@
 angular.module('budgetApp.controller')
-    .controller('gridController', ['$scope', 'budgetAppModel', 'tagModel', 'paymentsModel', '$compile', function ($scope, budgetAppModel, tagModel, paymentsModel, $compile) {
+    .controller('gridController', ['$scope', 'budgetAppModel', 'dataModel', '$compile', function ($scope, budgetAppModel, DataModel, $compile) {
 
-        var allTags;
+        var allTags,
+                tagModel = new DataModel(IO_EVENTS.TAGS_UPDATED),
+                paymentsModel = new DataModel(IO_EVENTS.PAYMENTS_UPDATED);
 
         tagModel.ready.subscribe(function() {
             tagModel.getStream().subscribe(function(tags) {

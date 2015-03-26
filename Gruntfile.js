@@ -3,7 +3,7 @@ module.exports = function(grunt) {
         watch : {
             js : {
                 files : ['app/**/*.js', 'main.js', 'package.json'],
-                tasks : ['jshint:js']
+                tasks : ['jshint:js', 'browserify:dev']
             }
         },
         jshint : {
@@ -33,11 +33,9 @@ module.exports = function(grunt) {
             }
         },
         concurrent : {
-            target :{
-                tasks : ['watch:js', 'nodemon:dev'],
-                options : {
-                    logConcurrentOuput : true
-                }
+            tasks : ['watch:js', 'nodemon:dev'],
+            options : {
+                logConcurrentOuput : true
             }
 
         }
@@ -54,5 +52,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.registerTask('dist', ['compass:dist', 'browserify:dist', 'copy:dist', 'cssmin:dist', 'uglify:dist']);
-    grunt.registerTask('default', ['concurrent:target']);
+    grunt.registerTask('default', ['concurrent']);
 };

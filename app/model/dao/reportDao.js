@@ -73,6 +73,18 @@ angular.module('budgetApp.model')
                     return DataService.delete('/tags/' + id);
                 },
 
+                addExpense : function(expense) {
+                    return DataService.put('/expenses/' + expense.id , expense);
+                },
+
+                updateExpense : function(id, change) {
+                    return DataService.patch('/expenses/' + id , change);
+                },
+
+                deleteExpense : function(id) {
+                    return DataService.delete('/expenses/' + id);
+                },
+
                 addPayment : function(year, month, payment) {
                     return DataService.put('/reports/' + year + '/' + month + '/payments/' + payment.id , payment);
                 },
@@ -82,7 +94,7 @@ angular.module('budgetApp.model')
                 },
 
                 deletePayment : function(year, month, id) {
-                    return DataService.delelte('/reports/' + year + '/' + month + '/payments/' + id);
+                    return DataService.delete('/reports/' + year + '/' + month + '/payments/' + id);
                 },
 
                 dataStream : subject

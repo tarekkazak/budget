@@ -1,5 +1,4 @@
 <div ng-controller="expenseOperationsController" class="col-sm-6 col-md-6">
-    <form name="form" class="control-group" ng-hide="templateMode">
 
         <div class="row">
             <label class="col-md-4" for="">total funds: {{totalFunds}}</label>
@@ -89,8 +88,11 @@
                 </li>
             </ul>
         </div>
-        <button class="btn btn-default" ng-click="addPayment()" type="submit">Apply</button>
-    </form>
-
+        <button class="btn btn-default" ng-click="addPayment()" type="submit">add</button>
+        <div class="row">
+            <div id="expenses-list" class="col-md-12">
+            
+            </div>
+        </div>
 
 </div>

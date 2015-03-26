@@ -1,13 +1,24 @@
 angular.module('budgetApp.controller')
     .controller ('expenseOperationsController',
     ['$scope', '$modal', '$timeout', '$window',
-          'budgetAppModel', 'tagModel', 'paymentsModel',
-        function ($scope, $modal, $timeout, $window, budgetAppModel, tagModel, paymentsModel) {
-            var modalInstance;
+          'budgetAppModel', 'dataModel', 'expenseList',
+        function ($scope, $modal, $timeout, $window, budgetAppModel, DataModel, 
+            expenseList) {
+            
+            var modalInstance,
+                tagModel = new DataModel(IO_EVENTS.TAGS_UPDATED),
+                expenseModel = new DataModel(IO_EVENTS.EXPENSES_UPDATED),
+                paymentsModel = new DataModel(IO_EVENTS.PAYMENTS_UPDATED);
             
             tagModel.ready.subscribe(function() {
                 tagModel.getStream().subscribe(function(tags) {
                     $scope.tags = tags;
+                });
+            });
+
+            expenseModel.ready.subscribe(function() {
+                expenseModel.getStream().subscribe(function(expenses) {
+                    React.render(<ExpenseList expenses="{expenses}" />, document.getElementById("expenses-list"));
                 });
             });
 
