@@ -1,0 +1,22 @@
+.expense-form-item {
+    width:50%;
+}
+
+.list-group-item {
+    .cancel {
+        position : absolute;
+        right:9px;
+        bottom:9px;
+    }
+    .close {
+        position : absolute;
+        right:9px;
+        top:9px;
+    }
+
+    .glyphicon {
+        position : absolute;
+        right:25px;
+        top:15px;
+    }
+}

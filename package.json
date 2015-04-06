@@ -29,7 +29,8 @@
     "socket.io": "~1.2.1",
     "socket.io-client": "~1.2.1",
     "body-parser": "~1.10.0",
-    "reactify": "~0.17.1"
+    "reactify": "~0.17.1",
+    "bootstrap-sass": "~3.3.4"
   },
   "repository": {
     "type": "git",
@@ -46,14 +47,16 @@
     "socketio": "./node_modules/socket.io-client/socket.io.js",
     "utils": "./app/utils/utils.js",
     "IO_EVENTS": "./app/common/event.js",
-    "reactjs" : "./node_modules/react/dist/react.js"
+    "reactjs": "./node_modules/react/dist/react.js",
+    "selectize" : "./node_modules/selectize/dist/js/standalone/selectize.js"
   },
   "browserify-shim": {
     "jquery": "$",
     "lodash": "_",
     "utils": "utils",
     "IO_EVENTS": "IO_EVENTS",
-    "reactjs" : "React",
+    "reactjs": "React",
+    "selectize": "selectize",
     "rxjs": "Rx",
     "socketio": "io",
     "bstooltip": {

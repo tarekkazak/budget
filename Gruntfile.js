@@ -28,14 +28,28 @@ module.exports = function(grunt) {
             dev : {
                 script : 'server.js',
                 options : {
-                    ignore : ['app/**', 'node_modules/**', 'package.json', 'partials/**', 'bundle.js']
+                    ignore : ['app/**', 'node_modules/**', 'package.json', 'partials/**', 'bundle.js', 'main.js', 'Gruntfile.js']
+                }
+            }
+        },
+        compass : {
+            dev : {
+                options : {
+                    basePath : './resources',
+                    sassDir : 'sass',
+                    cssDir : 'css',
+                    fontsDir : 'fonts',
+                    watch : true
                 }
             }
         },
         concurrent : {
-            tasks : ['watch:js', 'nodemon:dev'],
-            options : {
-                logConcurrentOuput : true
+            dev : {
+                tasks : ['watch:js', 'nodemon:dev', 'compass:dev'],
+                options : {
+                    logConcurrentOutput : true,
+                    limit:3
+                }
             }
 
         }
