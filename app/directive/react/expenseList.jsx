@@ -10,6 +10,9 @@ angular.module('budgetApp.directive')
                 budgetAppModel.deleteExpense(this.props.expense);
             },
             cancelEdit : function() {
+                if(this.$select) {
+                    this.$select.destroy();
+                }
                 this.setState({editMode : false});
             },
             editExpense : function() {
@@ -21,12 +24,15 @@ angular.module('budgetApp.directive')
                 expense.amt = refs.expenseAmt.getDOMNode().value.trim();
                 console.log('save expense', expense);
                 budgetAppModel.updateExpense(expense.id, expense);
+                if(this.$select) {
+                    this.$select.destroy();
+                }
                 this.setState({editMode : false});
             },
-            componentDidMount : function() {
+            componentDidUpdate : function() {
                 var expense = this.state.expense;
-                if(!this.state.editMode) {
-                    $('#' + this.state.expense.id).selectize({
+                if(this.state.editMode) {
+                    this.$select = $('#' + this.state.expense.id).selectize({
                         options : this.props.tags,
                         valueField : 'id',
                         labelField : 'label',
@@ -37,20 +43,20 @@ angular.module('budgetApp.directive')
                                     label : input,
                                     id : utils.getGUID()
                                 };
+                                expense.tag = tag.id;
                                 budgetAppModel.addTag(tag);
                                 return tag;
                             },
                         onItemAdd : function(value) {
                             expense.tag = value;
-                            budgetAppModel.updateExpense(expense.id, expense);
                         },
                         items : [expense.tag]
                         
-                    });
+                    })[0].selectize;
                 }
             },
             render : function() {
-                var expenseView;
+                var expenseView, currentTag = _.where(this.props.tags, {'id' : this.state.expense.tag})[0].label;
                 if(this.state.editMode) {
                     expenseView = <a  className="list-group-item" href="#">
                         <h4 className="list-group-item-heading">
@@ -59,15 +65,17 @@ angular.module('budgetApp.directive')
                     <p className="list-group-item-text">
                        <input className="form-control expense-form-item" ref="expenseAmt" value={this.state.expense.amt} placeholder="amount" />
                    </p>
+                   <input className="expense-form-item" id={this.state.expense.id} type="text" />
                     <span className="glyphicon glyphicon-floppy-save" onClick={this.saveExpense}></span>
                    <button className="cancel btn btn-default" onClick={this.cancelEdit}>Cancel</button>
                    <button className="close" onClick={this.deleteExpense}>x</button>
                    </a>
                 } else {
                     expenseView = <a  className="list-group-item" href="#">
-                        <h4 className="list-group-item-heading">{this.state.expense.label}</h4>
+                        <h4 className="list-group-item-heading">{this.state.expense.label}
+                            <label className="label label-primary">{currentTag}</label>
+                       </h4>
                         <p className="list-group-item-text">{this.state.expense.amt} </p>
-                        <input id={this.state.expense.id} type="text" />
                         <span className="glyphicon glyphicon-edit" onClick={this.editExpense}></span>
                         <button className="close" onClick={this.deleteExpense}>x</button>
                         
