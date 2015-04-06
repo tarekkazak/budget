@@ -13,16 +13,15 @@ angular.module('budgetApp.model')
         };
 
         me.updateTag = function(id, tag) {
-            var patches = [];
-            _(tag).forIn(function(value, key) {
-                patches.push({
-                    "op" : "replace", "path" : key, "value" :value
-                });
-            }).value();
+            var patches = createPatchRequestPayload(tag);
             console.log('model.updateTag', id, patches);
             dao.updateTag(id, patches);
         };
 
+        me.deleteTag = function(tag) {
+            dao.deleteTag(tag.id);
+        };
+        
         me.addPayment = function(payment) {
             console.log(payment);
             dao.addPayment(me.loadedExpenseReport.year, me.loadedExpenseReport.month, payment);
@@ -35,9 +34,33 @@ angular.module('budgetApp.model')
             }]);
         };
 
+        me.deletePayment = function(payment) {
+            dao.deletePayment(payment.id);
+        };
+
         me.addExpense = function(expense) {
             dao.addExpense(expense);
         };
+
+        me.updateExpense = function(id, expense) {
+            var patches = createPatchRequestPayload(expense);
+            console.log('model.updateExpense', id, patches);
+            dao.updateExpense(id, patches);
+        };
+
+        me.deleteExpense = function(expense) {
+            dao.deleteExpense(expense.id);
+        };
+
+        function createPatchRequestPayload(model) {
+            var patches = [];
+            _(model).forIn(function(value, key) {
+                patches.push({
+                    "op" : "replace", "path" : key, "value" :value
+                });
+            }).value();
+            return patches;
+        }
 
         me.getReport = function(year, month) {
             dao.getReport(year, month).then(function(res) {

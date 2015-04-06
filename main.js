@@ -11,6 +11,7 @@ require('ngGrid');
 require('angularUIBootstrap');
 require('angular-spinner');
 require('bstooltip');
+require('selectize');
 
 //React components
 //app
@@ -26,7 +27,6 @@ require('./app/directive/tagEditor');
 require('./app/directive/react/TagEditor.jsx');
 require('./app/directive/react/paymentAmount.jsx');
 require('./app/directive/react/expenseList.jsx');
-require('./app/directive/react/expenseListItem.jsx');
 require('./app/directive/gridTagsDisplay');
 require('./app/directive/creditOrDebit');
 require('./app/controller/reportSearchController');

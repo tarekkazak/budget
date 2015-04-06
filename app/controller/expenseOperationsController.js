@@ -3,22 +3,24 @@ angular.module('budgetApp.controller')
     ['$scope', '$modal', '$timeout', '$window',
           'budgetAppModel', 'dataModel', 'expenseList',
         function ($scope, $modal, $timeout, $window, budgetAppModel, DataModel, 
-            expenseList) {
+            ExpenseList) {
             
             var modalInstance,
                 tagModel = new DataModel(IO_EVENTS.TAGS_UPDATED),
                 expenseModel = new DataModel(IO_EVENTS.EXPENSES_UPDATED),
-                paymentsModel = new DataModel(IO_EVENTS.PAYMENTS_UPDATED);
-            
+                paymentsModel = new DataModel(IO_EVENTS.PAYMENTS_UPDATED),
+                expenseList = React.render(<ExpenseList  />, document.getElementById("expenses-list"));
+
             tagModel.ready.subscribe(function() {
                 tagModel.getStream().subscribe(function(tags) {
                     $scope.tags = tags;
+                    React.render(<ExpenseList  tags={$scope.tags}/>, document.getElementById("expenses-list"));
                 });
             });
 
             expenseModel.ready.subscribe(function() {
                 expenseModel.getStream().subscribe(function(expenses) {
-                    React.render(<ExpenseList expenses="{expenses}" />, document.getElementById("expenses-list"));
+                    expenseList.setState({data : expenses});
                 });
             });
 
@@ -30,6 +32,7 @@ angular.module('budgetApp.controller')
                     $scope.currentBalance = Number($scope.totalFunds - $scope.totalPaid).toFixed(2);
                 });
             });
+            
             
             $scope._ = _;
             $scope.selectedTags = [];

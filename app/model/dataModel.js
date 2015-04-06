@@ -13,5 +13,5 @@ angular.module('budgetApp.model')
                 },
                 ready : dao.dataStream.ready
             };
-        }
+        };
     }]);

@@ -72,6 +72,11 @@ function checkNoMissingTagsInMainList(payments) {
 
 io.on('connection', function(socket) {
     socket.emit(IO_EVENTS.CONNECTION_ESTABLISHED, true);
+    loadData().then(function(result) {
+
+        io.emit(IO_EVENTS.TAGS_UPDATED, data.content.tags);
+        io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses || []);
+    });
 });
 
 function loadData() {
@@ -96,13 +101,6 @@ function writeData() {
     });
 }
 
-app.get('/', function(req, res) {
-    loadData().then(function(result) {
-
-        io.emit(IO_EVENTS.TAGS_UPDATED, data.content.tags);
-        io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses || []);
-    });
-});
 
 app.route('/reports/:year/:month')
  .get(function(req, res, next) {
@@ -118,6 +116,7 @@ app.route('/reports/:year/:month')
         }
         io.emit(IO_EVENTS.PAYMENTS_UPDATED, currentReport.payments);
         io.emit(IO_EVENTS.TAGS_UPDATED, data.content.tags);
+        console.log('report loaded');
         res.json(currentReport);
 
         res.end();
@@ -196,6 +195,9 @@ app.route('/expenses/:id')
         writeData();
     })
     .put(function(req, res) {
+        if(!data.content.expenses) {
+            data.content.expenses = [];
+        }
         data.content.expenses.push(req.body);
         io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses);
         writeData();
