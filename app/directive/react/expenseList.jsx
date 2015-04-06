@@ -43,7 +43,8 @@ angular.module('budgetApp.directive')
                         onItemAdd : function(value) {
                             expense.tag = value;
                             budgetAppModel.updateExpense(expense.id, expense);
-                        }
+                        },
+                        items : [expense.tag]
                         
                     });
                 }
