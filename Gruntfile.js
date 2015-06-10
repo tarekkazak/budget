@@ -2,8 +2,12 @@ module.exports = function(grunt) {
     grunt.initConfig( {
         watch : {
             js : {
-                files : ['app/**/*.js', 'main.js', 'package.json'],
-                tasks : ['jshint:js', 'browserify:dev']
+                files : ['app/**/*.js', 'server/**/*.js' , '!testsEs5/**/*.js', 'main.js', 'package.json'],
+                tasks : [ 'jshint:js', 'browserify:dev' ]
+            },
+            tests : {
+                files : ['app/**/*.js', 'server/**/*.js' ,'tests/**/*.js', '!testsEs5/**/*.js' ],
+                tasks : ['babel:tests', 'exec:dev' ]
             }
         },
         jshint : {
@@ -28,7 +32,8 @@ module.exports = function(grunt) {
             dev : {
                 script : 'server.js',
                 options : {
-                    ignore : ['app/**', 'node_modules/**', 'package.json', 'partials/**', 'bundle.js', 'main.js', 'Gruntfile.js']
+                    ignore : ['app/**', 'server/**', 'tests/**', 'testsEs5/**' , 'node_modules/**', 'package.json', 'partials/**', 'bundle.js', 'main.js', 'Gruntfile.js'],
+                    nodeArgs : ['--harmony']
                 }
             }
         },
@@ -40,6 +45,36 @@ module.exports = function(grunt) {
                     cssDir : 'css',
                     fontsDir : 'fonts',
                     watch : true
+                }
+            }
+        },
+        babel : {
+            tests: {
+                files : [
+                    {
+                        'expand' : true,
+                        'src' : ['./**/*.js'],
+                        'cwd': './tests',
+                        'dest' : 'testsEs5/'
+                    },
+                    {
+                        'expand' : true,
+                        'src' : ['./server/**/*.js'],
+                        'dest' : 'testsEs5/'
+                    },
+                    {
+                        'expand' : true,
+                        'src' : ['./app/utils/*.js'],
+                        'dest' : 'testsEs5/'
+                    }
+                ]
+            }
+        },
+        exec : {
+            dev: {
+                cmd : 'jasmine',
+                options : {
+                    force:true
                 }
             }
         },
@@ -65,6 +100,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-exec');
     grunt.registerTask('dist', ['compass:dist', 'browserify:dist', 'copy:dist', 'cssmin:dist', 'uglify:dist']);
     grunt.registerTask('default', ['concurrent']);
 };

@@ -63,31 +63,7 @@
         <div style="border-bottom: 1px dashed #808080; margin: 5px 0px"></div>
 
 
-        <div class="btn-group" >
-            <button class="btn btn-primary dropdown-toggle" >
-                {{selectedWishlistItem.label || "Select a wishlist item"}}<span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li ng-repeat="item in wishlist">
-                    <a ng-click="selectWishlistItem(item)">
-                        <span>{{item.label}}  </span><span>  {{item.amt}}</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
 
-        <div class="btn-group" >
-            <button class="btn btn-primary dropdown-toggle" >
-                {{selectedUpcomingExpense.label || "Select a upcoming item"}}<span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li ng-repeat="item in upcoming">
-                    <a ng-click="selectUpcomingExpense(item)">
-                        <span>{{item.label}}  </span><span>  {{item.amt}}</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
         <button class="btn btn-default" ng-click="addPayment()" type="submit">add</button>
         <div class="row">
             <div id="expenses-list" class="col-md-12">

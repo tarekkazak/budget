@@ -1,4 +1,3 @@
-var q = require('q'); 
 var fs = require('fs');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -7,11 +6,14 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var data;
 var _ = require('lodash');
-var promise;
-var defer;
 var currentReport;
 var utils = require('./app/utils/utils');
+var budgetApp = require('./server/budgetApp.js');
+var paymentUtils = require('./app/utils/paymentUtils');
 var IO_EVENTS = require('./app/common/event');
+
+//routes
+var expenseRoutes = require('./server/routes/expenses')(budgetApp, paymentUtils);
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
@@ -70,27 +72,30 @@ function checkNoMissingTagsInMainList(payments) {
 
 }
 
-io.on('connection', function(socket) {
+io.on('connection', (socket) => {
     socket.emit(IO_EVENTS.CONNECTION_ESTABLISHED, true);
     loadData().then(function(result) {
 
         io.emit(IO_EVENTS.TAGS_UPDATED, data.content.tags);
-        io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses || []);
+        io.emit(IO_EVENTS.EXPENSES_UPDATED, _.map(data.content.expenses, function (item){
+            var newItem = _.copy(item);
+            newItem.totalPaid = paymentUtils.getTotalPaid(array, item.id)
+        }) || []);
     });
 });
 
 function loadData() {
-    var  defer = q.defer();
-    var promise = defer.promise;
-    if(!data) {
-        fs.readFile('./data/content.json', 'utf-8', function(err, res) {
-            data = JSON.parse(res);
-            defer.resolve(data);
-        });
-    } else {
-        defer.resolve(data);
-    }
-    return promise;
+    var promise = new Promise( (resolve, reject) => {
+
+        if(!data) {
+            fs.readFile('./data/content.json', 'utf-8', function(err, res) {
+                data = JSON.parse(res);
+                resolve(data);
+            });
+        } else {
+            resolve(data);
+        }
+    } );
 } 
 
 function writeData() {
@@ -183,32 +188,11 @@ app.route('/tags/:id')
         writeData();
     });
 
-app.route('/expenses/:id')
-    .patch(function(req, res) {
-        var expense, propChanges = req.body;
-        expense = _(data.content.expenses).where({ 'id' : req.params.id }).first();
-        _(propChanges).forEach(function(propChange) {
-            expense[propChange.path] = propChange.value;
-        });
-        console.log(expense);
-        io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses);
-        writeData();
-    })
-    .put(function(req, res) {
-        if(!data.content.expenses) {
-            data.content.expenses = [];
-        }
-        data.content.expenses.push(req.body);
-        io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses);
-        writeData();
-    })    
-    .delete(function(req, res) {
-        _.remove(data.content.expenses, function(item) {
-            return item.id === req.params.id;
-        });
-        io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses);
-        writeData();
-    });
+app.route(expenseRoutes.expensesById.route)
+    .patch(expenseRoutes.expensesById.patch)
+    .put(expenseRoutes.expensesById.put)
+    .delete(expenseRoutes.expensesById.delete);
+
 io.listen(3300);
 app.listen(4400, function() {
     loadData();
