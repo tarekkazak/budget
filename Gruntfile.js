@@ -78,6 +78,33 @@ module.exports = function(grunt) {
                 }
             }
         },
+        karma : {
+            tests : {
+                basePath : './',
+                files : [
+                    {
+                        src : [ 
+                            'node_modules/angular-mocks/angular-mocks.js',
+                            'app/payments/**/*.js',
+                            'tests/app/payments/*.js' 
+                            ]
+                     }
+                ],
+                logLevel : 'DEBUG',
+                reporters :['spec', 'coverage'],
+                browsers : ['PhantomJS'],
+                singleRun : true,
+                autoWatch : false,
+                preprocessors : {
+                    'app/payments/**/*.js' : 'coverage'
+                },
+                frameworks : ['jasmine'],
+                coverageReporter : {
+                    type : 'html',
+                    dir : 'coverage/'
+                }
+            }
+        },
         concurrent : {
             dev : {
                 tasks : ['watch:js', 'nodemon:dev', 'compass:dev'],
@@ -102,6 +129,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-exec');
+    grunt.loadNpmTasks('grunt-karma');
     grunt.registerTask('dist', ['compass:dist', 'browserify:dist', 'copy:dist', 'cssmin:dist', 'uglify:dist']);
     grunt.registerTask('default', ['concurrent']);
 };

@@ -1,9 +1,10 @@
-module.exports = function(budgetApp, paymentUtils, _)  {
+module.exports = function(budgetApp, paymentUtils, _, io, IO_EVENTS, jsonSerializer)  {
      var me = this;
 
      me.updateExpenseWithPaidAmount = (fromDate, toDate) => {
          var updatedExpenses = _.map(budgetApp.getExpenses(), (item) => {
              item.paid = paymentUtils.getTotalPaid(budgetApp.getPayments(), item.tag, fromDate, toDate);
+             return item;
          });
 
          return updatedExpenses;
@@ -24,28 +25,23 @@ module.exports = function(budgetApp, paymentUtils, _)  {
          route : '/expenses/:id',
          patch : (req, res) => {
              var expense, propChanges = req.body;
-             expense = _(data.content.expenses).where({ 'id' : req.params.id }).first();
+             expense = _(budgetApp.getExpenses()).where({ 'id' : req.params.id }).first();
              _(propChanges).forEach(function(propChange) {
                  expense[propChange.path] = propChange.value;
              });
-             console.log(expense);
-             io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses);
-             writeData();
+             //TODO: determine if IO update should remain separate operation from serialize
+             io.emit(IO_EVENTS.EXPENSES_UPDATED, budgetApp.getExpenses());
+             jsonSerializer.write();
          },
          put : (req, res) => {
-             if(!data.content.expenses) {
-                 data.content.expenses = [];
-             }
-             data.content.expenses.push(req.body);
-             io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses);
-             writeData();
+             bugdetApp.addExpense(req.body);
+             io.emit(IO_EVENTS.EXPENSES_UPDATED, budgetApp.getExpenses());
+             jsonSerializer.write();
          },
          delete : (req, res) => {
-             _.remove(data.content.expenses, function(item) {
-                 return item.id === req.params.id;
-             });
-             io.emit(IO_EVENTS.EXPENSES_UPDATED, data.content.expenses);
-             writeData();
+             budgetApp.removeExpense(req.params.id);
+             io.emit(IO_EVENTS.EXPENSES_UPDATED, budgetApp.getExpenses());
+             jsonSerializer.write();
          }
      } 
 };

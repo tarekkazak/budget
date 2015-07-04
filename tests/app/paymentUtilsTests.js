@@ -29,7 +29,7 @@ describe('expense model tests', () => {
             }
         ];
     });
-    it('should falculate total payment amount for given tag and date range ', ()=> {
+    it('should calculate total payment amount for given tag and date range ', ()=> {
         var total = paymentUtils.getTotalPaid(payments, 2, new Date( '01-01-2015' ), new Date( '06-25-2015' ));
         expect(total).toEqual(1000);
     });
